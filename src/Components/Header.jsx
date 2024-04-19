@@ -1,8 +1,10 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import { FaSearch, FaBars } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 export default function Header() {
+  const { currentUser } = useSelector((state) => state.user);
   const [showMenu, setShowMenu] = useState(false);
 
   const toggleMenu = () => {
@@ -33,8 +35,16 @@ export default function Header() {
             <Link to={"/about"}>
               <li className="hover:underline">About</li>
             </Link>
-            <Link to={"/sign-in"}>
-              <li className="hover:underline">Sign In</li>
+            <Link to={"/profile"}>
+              {currentUser ? (
+                <img
+                  src={currentUser.avatar}
+                  className="rounded-full h-7 w-7 object-cover"
+                  alt="profile"
+                />
+              ) : (
+                <li className="hover:underline">Sign In</li>
+              )}
             </Link>
           </ul>
         </div>
@@ -51,8 +61,16 @@ export default function Header() {
               <Link to={"/about"}>
                 <li className="mb-1">About</li>
               </Link>
-              <Link to={"/sign-in"}>
-                <li>Sign In</li>
+              <Link to={"/profile"}>
+                {currentUser ? (
+                  <img
+                    src={currentUser.avatar}
+                    className="rounded-full h-7 w-7 object-cover"
+                    alt="profile"
+                  />
+                ) : (
+                  <li className="hover:underline">Sign In</li>
+                )}
               </Link>
             </ul>
           )}

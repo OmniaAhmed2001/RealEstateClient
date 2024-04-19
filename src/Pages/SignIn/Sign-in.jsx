@@ -36,8 +36,7 @@ export default function SignIn() {
       });
 
       const data = await res.json();
-      console.log(Cookies.get('access_token'))
-      console.log(data);
+      
       if (data.success === false) {
         dispatch(signInFailure(data.message));
         return;
@@ -56,19 +55,18 @@ export default function SignIn() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        width: "min-content",
       }}
     >
       <h1 className="text-3xl text-center font-semibold my-7">Sign In</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-4"
+        className="flex flex-col gap-4 items-center"
         style={{ minWidth: "400px" }}
       >
         <input
           type="email"
           placeholder="email"
-          className="border p-3 rounded-lg"
+          className="border p-3 rounded-lg w-full"
           id="email"
           required
           onChange={handleChange}
@@ -76,18 +74,18 @@ export default function SignIn() {
         <input
           type="password"
           placeholder="password"
-          className="border p-3 rounded-lg"
+          className="border p-3 rounded-lg w-full"
           id="password"
           required
           onChange={handleChange}
         />
         <button
           disabled={loading}
-          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80 w-full"
         >
           {loading ? "Loading..." : "Sign In"}
         </button>
-        <OAuth/>
+        <OAuth />
       </form>
       <div className="flex gap-2 mt-5">
         <p>Don&apos;t have an account?</p>
