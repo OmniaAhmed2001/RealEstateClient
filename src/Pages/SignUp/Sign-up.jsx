@@ -24,7 +24,7 @@ export default function SignUp() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       if (data.success === false) {
         setLoading(false);
         setError(data.message);
@@ -39,14 +39,27 @@ export default function SignUp() {
     }
   };
   return (
-    <div className="p-3 max-w-lg mx-auto mt-10">
+    <div
+      className="p-3 max-w-lg mx-auto mt-10"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "min-content",
+      }}
+    >
       <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4"
+        style={{ minWidth: "400px" }}
+      >
         <input
           type="text"
           placeholder="username"
           className="border p-3 rounded-lg"
           id="username"
+          required
           onChange={handleChange}
         />
         <input
@@ -54,6 +67,7 @@ export default function SignUp() {
           placeholder="email"
           className="border p-3 rounded-lg"
           id="email"
+          required
           onChange={handleChange}
         />
         <input
@@ -61,6 +75,7 @@ export default function SignUp() {
           placeholder="password"
           className="border p-3 rounded-lg"
           id="password"
+          required
           onChange={handleChange}
         />
         <button
