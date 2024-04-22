@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getDownloadURL,
   getStorage,
@@ -8,6 +8,11 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../../firebase";
+import {
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess,
+} from "../../redux/user/userSlice";
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -16,6 +21,8 @@ export default function Profile() {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
+  console.log("hello", currentUser);
 
   useEffect(() => {
     if (file) {
@@ -23,9 +30,51 @@ export default function Profile() {
     }
   }, [file]);
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      for (let key in formData) {
+        if (formData[key].length === 0) {
+          // Create a copy of formData object
+          const updatedFormData = { ...formData };
+          // Remove the key and its corresponding value from the copied object
+          delete updatedFormData[key];
+          // Update the state with the new object
+          setFormData(updatedFormData);
+        }
+      }
+      dispatch(updateUserStart());
+      //send request containing the form Data includes the new avatar uploaded if any
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        throw new Error("Response was not ok ", res.status);
+      }
+      console.log("workkkkkkkkkkkk");
+      const data = await res.json();
+      dispatch(updateUserSuccess(data));
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+    }
+  };
+
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
-    const fileName = new Date().getTime() + file.name;
+    const dotIndex = file.name.lastIndexOf(".");
+    const newFileName = currentUser._id + file.name.slice(dotIndex);
+
+    // console.log("HIIIIII", newFileName);
+    const fileName = newFileName;
+    // console.log(file)
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -45,6 +94,7 @@ export default function Profile() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          //add the avatar with new photo to the form Data
           setFormData({ ...formData, avatar: downloadURL });
         });
       }
@@ -54,7 +104,7 @@ export default function Profile() {
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7"></h1>
-      <form className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type="file"
@@ -84,19 +134,37 @@ export default function Profile() {
           id="username"
           placeholder="username"
           className="border p-3 rounded-lg"
+          defaultValue={currentUser.username}
+          onChange={handleChange}
         />
         <input
           type="email"
           id="email"
           placeholder="email"
           className="border p-3 rounded-lg"
+          defaultValue={currentUser.email}
+          onChange={handleChange}
         />
-        <input
-          type="text"
-          id="password"
-          placeholder="password"
-          className="border p-3 rounded-lg"
-        />
+        <div className="flex flex-col">
+          {formData.password?.length >= 6 ? (
+            <label className="text-green-600 font-bold self-end text-sm mb-1">
+              ✔ STRONG PASS
+            </label>
+          ) : formData.password?.length > 0 ? (
+            <label className="text-red-600 font-bold self-end text-sm mb-1">
+              ❌ WEAK PASS
+            </label>
+          ) : (
+            ""
+          )}
+          <input
+            type="password"
+            id="password"
+            placeholder="password"
+            className="border p-3 rounded-lg "
+            onChange={handleChange}
+          />
+        </div>
         <button className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-90 disabled:opacity-70">
           update
         </button>
