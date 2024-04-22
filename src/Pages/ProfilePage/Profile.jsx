@@ -12,6 +12,9 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
+  signOutUserFailure,
+  signOutUserStart,
+  signOutUserSuccess,
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,
@@ -108,16 +111,29 @@ export default function Profile() {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-        method: "DELETE"
-      })
+        method: "DELETE",
+      });
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.message, res.status);
       }
       dispatch(deleteUserSuccess());
-      
     } catch (error) {
       dispatch(deleteUserFailure(error.message));
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch("api/auth/sign-out");
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message, res.status);
+      }
+      dispatch(signOutUserSuccess())
+    } catch (error) {
+      dispatch(signOutUserFailure(error.message));
     }
   };
 
@@ -135,7 +151,7 @@ export default function Profile() {
         <img
           src={formData.avatar || currentUser.avatar}
           alt="profile"
-          className="rounded-full w-24 object-cover cursor-pointer self-center"
+          className="rounded-full h-24 w-24 object-cover  cursor-pointer self-center"
           onClick={() => fileRef.current.click()}
         />
         <p className="self-center">
@@ -199,7 +215,9 @@ export default function Profile() {
         >
           Delete Account
         </span>
-        <span className="text-red-700 cursor-pointer">Sign Out</span>
+        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">
+          Sign Out
+        </span>
       </div>
       <p className="text-red-700 mt-5 p-0">
         {error ? (
