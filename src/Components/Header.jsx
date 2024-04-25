@@ -56,7 +56,7 @@ export default function Header() {
                 />
               </li>
             </Link>
-            <Link to={"/profile"}>
+            <Link to={"/sign-in"}>
               {currentUser ? (
                 <img
                   src={currentUser.avatar}
@@ -82,7 +82,7 @@ export default function Header() {
               <Link to={"/about"}>
                 <li className="mb-1">About</li>
               </Link>
-              <Link to={"/profile"}>
+              <Link to={"/sign-in"}>
                 {currentUser ? (
                   <img
                     src={currentUser.avatar}
