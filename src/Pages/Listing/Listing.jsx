@@ -4,8 +4,8 @@ import { Link, Outlet } from "react-router-dom";
 export default function Listing() {
   return (
     <section>
-      <div className="flex flex-row">
-        <div className="basis-1/6 bg-slate-400 flex flex-col justify-center gap-10 items-center">
+      <div className="flex flex-row  justify-center">
+        {/* <div className="basis-1/6 bg-slate-400 flex flex-col justify-center gap-10 items-center">
           <div>
             <Link to={""}>
               <button
@@ -27,8 +27,8 @@ export default function Listing() {
               </button>
             </Link>
           </div>
-        </div>
-        <div className="basis-5/6">
+        </div> */}
+        <div className="">
           <Outlet></Outlet>
         </div>
       </div>
