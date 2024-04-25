@@ -35,7 +35,7 @@ export default function Header() {
         </form>
         <div className="sm:flex hidden">
           <ul className="flex gap-5 text-slate-700">
-            <Link to={"/"}>
+            <Link to={"/listing"}>
               <li>
                 <FontAwesomeIcon
                   icon={faHouseChimneyMedical}
@@ -56,7 +56,7 @@ export default function Header() {
                 />
               </li>
             </Link>
-            <Link to={"/sign-in"}>
+            <Link to={"/profile"}>
               {currentUser ? (
                 <img
                   src={currentUser.avatar}
@@ -76,13 +76,28 @@ export default function Header() {
           />
           {showMenu && (
             <ul className="absolute bg-white top-full right-1 mt-3 p-2 rounded shadow-md w-20">
-              <Link to={"/"}>
-                <li className="mb-1">Home</li>
+              <Link to={"/listing"}>
+                <li>
+                  <FontAwesomeIcon
+                    icon={faHouseChimneyMedical}
+                    style={{ color: "orange" }}
+                  />
+                </li>
+              </Link>
+              <Link to={"/favorites"}>
+                <li>
+                  <FontAwesomeIcon icon={faHeart} style={{ color: "orange" }} />
+                </li>
               </Link>
               <Link to={"/about"}>
-                <li className="mb-1">About</li>
+                <li>
+                  <FontAwesomeIcon
+                    icon={faCircleExclamation}
+                    style={{ color: "orange" }}
+                  />
+                </li>
               </Link>
-              <Link to={"/sign-in"}>
+              <Link to={"/profile"}>
                 {currentUser ? (
                   <img
                     src={currentUser.avatar}

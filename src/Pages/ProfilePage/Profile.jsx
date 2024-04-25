@@ -219,7 +219,7 @@ export default function Profile() {
           Sign Out
         </span>
       </div>
-      <p className="text-red-700 mt-5 p-0">
+      <div className="text-red-700 mt-5 p-0">
         {error ? (
           error
         ) : (
@@ -227,7 +227,7 @@ export default function Profile() {
             {updateSuccess ? "User is updated successfully!" : ""}
           </p>
         )}
-      </p>
+      </div>
     </div>
   );
 }
