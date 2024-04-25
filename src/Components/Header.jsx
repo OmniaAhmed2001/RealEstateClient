@@ -1,5 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHouseChimneyMedical,
+  faHeart,
+  faCircleExclamation,
+} from "@fortawesome/free-solid-svg-icons";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -30,10 +36,25 @@ export default function Header() {
         <div className="sm:flex hidden">
           <ul className="flex gap-5 text-slate-700">
             <Link to={"/"}>
-              <li className="hover:underline">Home</li>
+              <li>
+                <FontAwesomeIcon
+                  icon={faHouseChimneyMedical}
+                  style={{ color: "orange" }}
+                />
+              </li>
+            </Link>
+            <Link to={"/favorites"}>
+              <li>
+                <FontAwesomeIcon icon={faHeart} style={{ color: "orange" }} />
+              </li>
             </Link>
             <Link to={"/about"}>
-              <li className="hover:underline">About</li>
+              <li>
+                <FontAwesomeIcon
+                  icon={faCircleExclamation}
+                  style={{ color: "orange" }}
+                />
+              </li>
             </Link>
             <Link to={"/profile"}>
               {currentUser ? (
