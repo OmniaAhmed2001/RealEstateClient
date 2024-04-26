@@ -8,6 +8,9 @@ import SignUp from "./Pages/SignUp/Sign-up";
 import Profile from "./Pages/ProfilePage/Profile";
 import About from "./Pages/AboutPage/About";
 import Header from "./Components/Header";
+import PrivateRoute from "./Components/PrivateRoute";
+import Footer from "./Components/Footer";
+import Favorites from "./Pages/FavoritePage/Favorites";
 // import PrivateRoute from "./Components/PrivateRoute";
 import CreateListing from "./Pages/Create-Listing/Create-Listing";
 import Listing from "./Pages/Listing/Listing";
@@ -23,15 +26,17 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-out" element={<SignOut />} />
         <Route path="/sign-up" element={<SignUp />} />
-        {/* <Route element={<PrivateRoute/>}> */}
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/listing" element={<Listing />}>
-          <Route path="" element={<CreateListing />} />
-          <Route path="allLists" element={<AllLists />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/listing" element={<Listing />}>
+            <Route path="" element={<CreateListing />} />
+            <Route path="allLists" element={<AllLists />} />
+          </Route>
         </Route>
-        {/* </Route> */}
         <Route path="/about" element={<About />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
