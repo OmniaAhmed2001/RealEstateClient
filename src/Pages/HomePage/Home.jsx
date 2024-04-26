@@ -63,13 +63,13 @@ export default function Home() {
     <>
       <div className="flex flex-col justify-center items-center p-4 md:flex-row">
         <div className="text-black text-center md:text-left md:w-1/2 md:pr-4 lg:pr-20 lg:pl-20">
-          <h3 className="flex items-center text-lg opacity-90 md:text-md lg:text-2xl mb-4" style={{ justifyContent: windowWidth < 768 ? 'center' : 'flex-start' }}>
+          <h3 className="flex items-center text-lg md:text-md lg:text-xl mb-4" style={{ justifyContent: windowWidth < 768 ? 'center' : 'flex-start' }}>
             {MyIcon}
-            <span className="ml-2">Real Estate Agency</span>
+            <span className="ml-2 opacity-70">Real Estate Agency</span>
           </h3>
 
           <h3 className="font-bold text-3xl md:text-4xl lg:text-5xl mb-2 md:mb-7">
-            Find your next <span className="text-hovers">perfect</span> place
+            Find your next <span className="text-ffcb74">perfect</span> place
             with ease
           </h3>
           <div className="text-black opacity-70 text-sm md:text-lg mb-">
@@ -78,8 +78,8 @@ export default function Home() {
           </div>
           <div>
             <Link to="/AllLists">
-              <button className="flex items-center text-base px-4 py-2 rounded-lg bg-buttons text-white font-bold hover:bg-hovers mt-7" style={{ justifyContent: windowWidth < 768 ? 'center' : 'flex-start' }}>
-                Start Now {ArrowIcon}
+              <button className="flex items-center text-base px-4 py-2 rounded-lg bg-ffb534 text-white font-bold hover:bg-ffcb74 mt-7" style={{ justifyContent: windowWidth < 768 ? 'center' : 'flex-start' }}>
+                 Start Now  {ArrowIcon}
               </button>
             </Link>
           </div>
@@ -94,8 +94,8 @@ export default function Home() {
       </div>
     {/*Services Section */}
       <div className="flex flex-col justify-center items-center mt-16">
-        <div className="rounded-xl p-2 bg-backgr flex flex-col justify-center items-center h-9 mb-4">
-          <h2 className="text-center text-xl font-bold mb-4 mt-4 text-buttons">
+        <div className="rounded-xl p-2 bg-fdf5e8 flex flex-col justify-center items-center h-9 mb-4">
+          <h2 className="text-center text-xl font-bold mb-4 mt-4 text-ffb534">
             Our Services
           </h2>
         </div>
@@ -106,7 +106,7 @@ export default function Home() {
         >
           {/* Card 1 */}
           <div
-            className="flex flex-col justify-center items-center p-3 bg-backgr bg-opacity-40 rounded-md shadow-md hover:shadow-lg-hover"
+            className="flex flex-col justify-center items-center p-3 bg-fdf5e8 bg-opacity-40 rounded-md shadow-md hover:shadow-lg-hover"
             style={{ width: "290px", height: "340px" }}
           >
             <img
@@ -121,14 +121,14 @@ export default function Home() {
               match you with a house you will want to call home.
             </p>
             <Link>
-              <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-buttons font-bold">
+              <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Know More {GoIcon}
               </button>
             </Link>
           </div>
           {/* Card 2 */}
           <div
-            className="flex flex-col justify-center items-center p-3 bg-backgr bg-opacity-40 rounded-md shadow-md hover:shadow-lg-hover"
+            className="flex flex-col justify-center items-center p-3 bg-fdf5e8 bg-opacity-40 rounded-md shadow-md hover:shadow-lg-hover"
             style={{ width: "290px", height: "340px" }}
           >
             <img
@@ -143,14 +143,14 @@ export default function Home() {
               match you with a house you will want to call home.
             </p>
             <Link>
-              <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-buttons font-bold">
+              <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Find A Home {GoIcon}
               </button>
             </Link>
           </div>
           {/* Card 3 */}
           <div
-            className="flex flex-col justify-center items-center p-3 bg-backgr bg-opacity-40 rounded-md shadow-md hover:shadow-lg-hover"
+            className="flex flex-col justify-center items-center p-3 bg-fdf5e8 bg-opacity-40 rounded-md shadow-md hover:shadow-lg-hover"
             style={{ width: "290px", height: "340px" }}
           >
             <img
@@ -165,7 +165,7 @@ export default function Home() {
               match you with a house you will want to call home.
             </p>
             <Link>
-              <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-buttons font-bold">
+              <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Add Your Property {GoIcon}
               </button>
             </Link>
@@ -177,7 +177,7 @@ export default function Home() {
         <h3 className="text-center text-3xl font-bold mt-7 mb-10">
           Unlock the door to your dream home
           <br />
-          Welcome to <span className="text-hovers">luxury</span> living!
+          Welcome to <span className="text-ffcb74">luxury</span> living!
         </h3>
         <div className="w-full mb-16">
           <iframe
