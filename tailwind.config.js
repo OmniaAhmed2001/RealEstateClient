@@ -14,6 +14,13 @@ export default {
       },
       padding: {
         custom: "0.125rem",
+        buttons: '#FFB534',
+        hovers: '#FFCB74',
+        backgr: '#FDF5E8',
+      },
+      opacity: {
+        '40': '0.4',
+        '20': '0.2',
       },
     },
   },
