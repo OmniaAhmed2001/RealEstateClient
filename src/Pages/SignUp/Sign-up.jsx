@@ -16,7 +16,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/auth/sign-up", {
+      const res = await fetch("https://egyestateserver.onrender.com/auth/sign-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
