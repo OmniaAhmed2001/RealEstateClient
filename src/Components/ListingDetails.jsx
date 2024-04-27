@@ -10,7 +10,7 @@ const ListingDetails = () => {
     const fetchListing = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/listing/get/${params.listingId}`);
+        const res = await fetch(`https://egyestateserver.onrender.com/listing/get/${params.listingId}`);
         const data = await res.json();
         if (data.success === false) {
           setError(true);
