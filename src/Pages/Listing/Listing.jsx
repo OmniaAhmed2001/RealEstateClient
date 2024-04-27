@@ -2,9 +2,12 @@
 
 import { Link, Outlet } from "react-router-dom";
 export default function Listing() {
+  // const [switchListing, setSwitchListing] = useState(true);
+  console.log("render")
   return (
     <section>
       <div className="flex flex-row  justify-center">
+
         {/* <div className="basis-1/6 bg-slate-400 flex flex-col justify-center gap-10 items-center">
           <div>
             <Link to={""}>
@@ -29,6 +32,7 @@ export default function Listing() {
           </div>
         </div> */}
         <div className="">
+{/* {switchListing ? {(<CreateListing />) }} */}
           <Outlet></Outlet>
         </div>
       </div>

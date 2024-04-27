@@ -15,6 +15,9 @@ import Favorites from "./Pages/FavoritePage/Favorites";
 import CreateListing from "./Pages/Create-Listing/Create-Listing";
 import Listing from "./Pages/Listing/Listing";
 import AllLists from "./Pages/AllLists/AllLists";
+import ListingDetails from "./Components/ListingDetails";
+
+
 
 export default function App() {
   return (
@@ -30,6 +33,7 @@ export default function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/listing" element={<Listing />}>
+            <Route path=":listingId" element={<ListingDetails />}/>
             <Route path="" element={<CreateListing />} />
             <Route path="allLists" element={<AllLists />} />
           </Route>
