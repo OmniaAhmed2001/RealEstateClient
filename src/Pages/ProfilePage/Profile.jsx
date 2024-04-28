@@ -63,6 +63,7 @@ export default function Profile() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
+          credentials: "include",
         }
       );
       const data = await res.json();
@@ -117,6 +118,7 @@ export default function Profile() {
         `${import.meta.env.VITE_SERVER_URL}/user/delete/${currentUser._id}`,
         {
           method: "DELETE",
+          credentials: "include",
         }
       );
       const data = await res.json();

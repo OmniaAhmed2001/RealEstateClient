@@ -129,13 +129,17 @@ export default function CreateListing() {
       }
       setError(false);
       setLoading(true);
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/listing/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...formData, userRef: currentUser._id }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/listing/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ ...formData, userRef: currentUser._id }),
+        }
+      );
       const data = await res.json();
       setLoading(false);
       // setCreatingListingLoading(false);
