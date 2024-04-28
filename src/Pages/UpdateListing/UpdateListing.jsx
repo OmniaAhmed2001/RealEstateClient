@@ -135,6 +135,7 @@ export default function Update_Listing() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({ ...formData, userRef: currentUser._id }),
       });
       console.log(res);
@@ -156,7 +157,9 @@ export default function Update_Listing() {
   useEffect(() => {
     const fetchListing = async () => {
       const listingId = params.id;
-      const res = await fetch(`/listing/get/${listingId}`);
+      const res = await fetch(`/listing/get/${listingId}`, {
+        credentials: "include",
+      });
       console.log(res);
       const data = await res.json();
       console.log(data);
