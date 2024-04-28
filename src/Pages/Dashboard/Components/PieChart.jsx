@@ -21,7 +21,7 @@ export default function BasicPie() {
           startAngle: -90,
           endAngle: 180,
           cx: 150,
-          cy: 100,
+          cy: 95,
         },
       ]}
       width={400}
