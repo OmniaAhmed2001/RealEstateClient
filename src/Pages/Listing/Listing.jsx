@@ -5,6 +5,7 @@ import "./Listing.css";
 export default function Listing() {
   return (
     <section>
+      {console.log("render")}
       <div
         className="flex justify-around p-3 font-bold text-[#F1843E] text-lg w-[35%] mx-auto bg-[#FEFBF6] mt-5 shadow-lg"
         style={{
