@@ -3,6 +3,8 @@
 import { NavLink, Outlet } from "react-router-dom";
 import "./Listing.css";
 export default function Listing() {
+  // const [switchListing, setSwitchListing] = useState(true);
+  console.log("render")
   return (
     <section>
       {console.log("render")}
@@ -24,6 +26,7 @@ export default function Listing() {
         </div>
       </div>
       <div className="flex flex-row  justify-center">
+
         {/* <div className="basis-1/6 bg-slate-400 flex flex-col justify-center gap-10 items-center">
           <div>
             <Link to={""}>
@@ -48,6 +51,7 @@ export default function Listing() {
           </div>
         </div> */}
         <div className="">
+{/* {switchListing ? {(<CreateListing />) }} */}
           <Outlet></Outlet>
         </div>
       </div>

@@ -129,8 +129,10 @@ export default function CreateListing() {
       }
       setError(false);
       setLoading(true);
+
       // setCreatingListingLoading(true);
       const res = await fetch("/listing/create", {
+
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -370,7 +372,7 @@ export default function CreateListing() {
               ></input>
               <button
                 type="button"
-                className="uppercase border h-12 px-2 text-white font-bold disabled:opacity-80 rounded hover:shadow-md p-1 bg-[#F1843E]"
+                className="uppercase border h-12 px-2 text-white font-bold disabled:opacity-80 rounded hover:shadow-md p-1 bg-buttons"
                 onClick={handleImageSubmit}
                 disabled={uploading}
               >
@@ -415,7 +417,7 @@ export default function CreateListing() {
           <div className="text-center">
             <button
               disabled={loading || uploading}
-              className="uppercase bg-[#F1843E] text-white py-3 px-2 rounded-3xl font-bold text-lg lg:w-[50%] sm:w-[60%]"
+              className="uppercase bg-buttons text-white py-3 px-2 rounded-3xl font-bold text-lg lg:w-[50%] sm:w-[60%]"
             >
               {loading ? "Creating ..." : "Create Listing"}
             </button>
