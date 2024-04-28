@@ -20,7 +20,7 @@ const dataset = [
   {
     realState: 180,
     month: "Giza",
-    color: "pink",
+    color: "magenta",
   },
   {
     realState: 280,

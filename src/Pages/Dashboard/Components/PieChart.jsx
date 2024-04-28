@@ -9,11 +9,12 @@ export default function BasicPie() {
         series={[
           {
             data: [
-              { id: 0, value: 10, label: "Studio" },
-              { id: 1, value: 20, label: "Cottage" },
-              { id: 2, value: 20, label: "Villa" },
-              { id: 1, value: 15, label: "Penthouse" },
-              { id: 2, value: 20, label: "Apartment" },
+              { id: 0, value: 10, label: "Studio", color: "#FDF5E8" },
+              { id: 1, value: 20, label: "Cottage", color: "#FFCB74" },
+              { id: 2, value: 20, label: "Villa", color: "#FFC45D" },
+              { id: 1, value: 15, label: "Penthouse", color: "#FFB534" },
+              { id: 2, value: 20, label: "Apartment", color: "#FF9A62" },
+              
             ],
             innerRadius: 30,
             outerRadius: 100,
