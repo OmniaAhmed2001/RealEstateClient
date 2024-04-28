@@ -1,6 +1,6 @@
 // import React from "react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getDownloadURL,
   getStorage,
@@ -9,10 +9,11 @@ import {
 } from "firebase/storage";
 import { app } from "../../firebase";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import "./Create-Listing.css";
+import { useNavigate, useParams } from "react-router-dom";
+import "./UpdateListing.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function CreateListing() {
+export default function Update_Listing() {
   const { currentUser } = useSelector((state) => {
     return state.user;
   });
@@ -36,7 +37,7 @@ export default function CreateListing() {
   const [imageUploadError, setImageUploadError] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  console.log(formData);
+  const params = useParams();
   const handleImageSubmit = () => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
@@ -118,7 +119,6 @@ export default function CreateListing() {
     }
   };
   const handleSubmitForm = async (e) => {
-    // setCreatingListingLoading(true);
     e.preventDefault();
     try {
       if (formData.imageUrls.length < 1) {
@@ -130,31 +130,50 @@ export default function CreateListing() {
       setError(false);
       setLoading(true);
 
-      // setCreatingListingLoading(true);
-      const res = await fetch("/listing/create", {
-
+      const res = await fetch(`/listing/update/${params.id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ ...formData, userRef: currentUser._id }),
       });
+      console.log(res);
+
       const data = await res.json();
+      console.log(20);
+
+      console.log(data);
       setLoading(false);
-      // setCreatingListingLoading(false);
       if (data.success === false) {
-        setError(data.message);
+        setError("data.message");
       }
-      navigate(`/listings/${data._id}`);
+      navigate(`/listings/allLists`);
     } catch (error) {
       setLoading(false);
       setError(error.message);
     }
   };
+  useEffect(() => {
+    const fetchListing = async () => {
+      const listingId = params.id;
+      const res = await fetch(`/listing/get/${listingId}`);
+      console.log(res);
+      const data = await res.json();
+      console.log(data);
+      if (data.success === false) {
+        console.log(data.message);
+        console.log(123156);
+        return;
+      }
+      setFormData(data);
+      console.log(120);
+    };
+    fetchListing();
+  }, []);
   return (
     <div className="p-3 lg:max-w-4xl md:max-w-4xl sm:w-full mx-auto">
       <h2 className="text-4xl	text-center font-semibold my-7">
-        Add your Property with <span className="text-[#ffcb74]">Egy</span>
+        Update your Property with <span className="text-[#ffcb74]">Egy</span>
         <span className="text-[#ffb534]">Estate</span>
       </h2>
       <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-10">
@@ -372,7 +391,7 @@ export default function CreateListing() {
               ></input>
               <button
                 type="button"
-                className="uppercase border h-12 px-2 text-white font-bold disabled:opacity-80 rounded hover:shadow-md p-1 bg-buttons"
+                className="uppercase border h-12 px-2 text-white font-bold disabled:opacity-80 rounded hover:shadow-md p-1 bg-[#F1843E]"
                 onClick={handleImageSubmit}
                 disabled={uploading}
               >
@@ -383,7 +402,8 @@ export default function CreateListing() {
           <p className="text-red-700 text-sm">
             {imageUploadError && imageUploadError}
           </p>
-          {formData &&
+          {formData.imageUrls &&
+            formData.imageUrls.length >= 1 &&
             formData.imageUrls.map((url) => {
               return (
                 <div key={url} className="flex justify-between p-3 ">
@@ -417,9 +437,12 @@ export default function CreateListing() {
           <div className="text-center">
             <button
               disabled={loading || uploading}
-              className="uppercase bg-buttons text-white py-3 px-2 rounded-3xl font-bold text-lg lg:w-[50%] sm:w-[60%]"
+              className="uppercase bg-[#F1843E] text-white py-3 px-2 rounded-3xl font-bold text-lg lg:w-[50%] sm:w-[60%]"
             >
-              {loading ? "Creating ..." : "Create Listing"}
+              {loading
+                ? "Updateing..." +
+                  <FontAwesomeIcon icon="fa-solid fa-spinner" spin />
+                : "Update Listing"}
             </button>
           </div>
 

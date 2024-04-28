@@ -1,11 +1,30 @@
 // import React from "react";
 
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
+import "./Listing.css";
 export default function Listing() {
   // const [switchListing, setSwitchListing] = useState(true);
   console.log("render")
   return (
     <section>
+      {console.log("render")}
+      <div
+        className="flex justify-around p-3 font-bold text-[#F1843E] text-lg w-[35%] mx-auto bg-[#FEFBF6] mt-5 shadow-lg"
+        style={{
+          borderRadius: "25px", // Example gradient colors
+        }}
+      >
+        <div>
+          <NavLink to={""}>
+            <span>Create List</span>
+          </NavLink>
+        </div>
+        <div>
+          <NavLink to={"allLists"}>
+            <span>Show All Lists</span>
+          </NavLink>
+        </div>
+      </div>
       <div className="flex flex-row  justify-center">
 
         {/* <div className="basis-1/6 bg-slate-400 flex flex-col justify-center gap-10 items-center">
