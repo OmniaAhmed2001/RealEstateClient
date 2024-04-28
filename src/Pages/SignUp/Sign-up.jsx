@@ -42,7 +42,7 @@ export default function SignUp() {
     <div className="lg:max-w-5xl sm:max-w-lg mt-28 mb-28 mx-auto bg-fdf5e8 flex flex-col lg:flex-row items-center rounded-2xl">
       <div className="lg:w-1/2">
         <img
-          src="../../../public/assets/realestatepicture 3.png"
+          src="/assets/realestatepicture 3.png"
           className="max-w-full h-auto lg:max-h-full hidden lg:block"
           // style={{ width: "35em", height: "28em" }}
         />

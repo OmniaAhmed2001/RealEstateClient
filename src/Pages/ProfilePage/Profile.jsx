@@ -126,7 +126,9 @@ export default function Profile() {
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
-      const res = await fetch("api/auth/sign-out");
+      const res = await fetch(
+        "https://egyestateserver.onrender.com/auth/sign-out"
+      );
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.message, res.status);

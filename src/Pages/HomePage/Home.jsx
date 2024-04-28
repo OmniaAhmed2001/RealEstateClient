@@ -2,7 +2,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
-import { useSelector } from "react-redux";
 
 const ArrowIcon = (
   <svg
@@ -86,7 +85,7 @@ export default function Home() {
         </div>
         <div className="mt-4 md:mt-0 md:w-1/2 md:pl-4 lg:pl-8">
           <img
-            src="src\Assets\HomePage Pic.png"
+            src="/assets\HomePage Pic.png"
             alt="House"
             className="h-auto w-full"
           />
@@ -110,7 +109,7 @@ export default function Home() {
             style={{ width: "290px", height: "340px" }}
           >
             <img
-              src="src\Assets\Offer Logo.png"
+              src="/assets/Offer Logo.png"
               alt="offer"
               className="h-auto"
               style={{ width: "5rem" }}
@@ -132,7 +131,7 @@ export default function Home() {
             style={{ width: "290px", height: "340px" }}
           >
             <img
-              src="src\Assets\Rent Logo.png"
+              src="/assets\Rent Logo.png"
               alt="rent"
               className="h-auto"
               style={{ width: "5rem" }}
@@ -154,7 +153,7 @@ export default function Home() {
             style={{ width: "290px", height: "340px" }}
           >
             <img
-              src="src\Assets\Sell Logo.png"
+              src="/assets\Sell Logo.png"
               alt="sell"
               className="h-auto"
               style={{ width: "5rem" }}

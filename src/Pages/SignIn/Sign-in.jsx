@@ -23,6 +23,7 @@ export default function SignIn() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log({formData})
     try {
       dispatch(signInStart());
       const res = await fetch(
@@ -33,7 +34,6 @@ export default function SignIn() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
-          credentials: "include",
         }
       );
 
@@ -55,7 +55,7 @@ export default function SignIn() {
     <div className="lg:max-w-5xl sm:max-w-lg mt-28 mb-28 mx-auto bg-fdf5e8 flex flex-col lg:flex-row items-center rounded-2xl">
       <div className="lg:w-1/2">
         <img
-          src="../../../public/assets/realestatepicture 2.png"
+          src="/assets/realestatepicture 2.png"
           className="max-w-full h-auto lg:max-h-full hidden lg:block"
         />
       </div>
