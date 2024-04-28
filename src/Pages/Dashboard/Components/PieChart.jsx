@@ -14,7 +14,6 @@ export default function BasicPie() {
               { id: 2, value: 20, label: "Villa", color: "#FFC45D" },
               { id: 1, value: 15, label: "Penthouse", color: "#FFB534" },
               { id: 2, value: 20, label: "Apartment", color: "#FF9A62" },
-              
             ],
             innerRadius: 30,
             outerRadius: 100,

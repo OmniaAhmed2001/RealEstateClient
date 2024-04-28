@@ -64,7 +64,7 @@ export default function TickPlacementBars() {
   const [tickLabelPlacement, setTickLabelPlacement] = React.useState("middle");
 
   return (
-    <div className="lg:w-1/2 sm:w-full border rounded-2xl border-ffcb74 p-4">
+    <div className="lg:w-1/2 sm:w-full border rounded-2xl border-ffcb74 p-4 sm:hidden md:block">
       <TickParamsSelector
         tickPlacement={tickPlacement}
         tickLabelPlacement={tickLabelPlacement}
