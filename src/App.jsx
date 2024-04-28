@@ -15,7 +15,12 @@ import Favorites from "./Pages/FavoritePage/Favorites";
 import CreateListing from "./Pages/Create-Listing/Create-Listing";
 import Listing from "./Pages/Listing/Listing";
 import AllLists from "./Pages/AllLists/AllLists";
+
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import Update_Listing from "./Pages/UpdateListing/UpdateListing";
+
 import ListingDetails from "./Components/ListingDetails";
+
 
 
 
@@ -37,7 +42,12 @@ export default function App() {
             <Route path="" element={<CreateListing />} />
             <Route path="allLists" element={<AllLists />} />
           </Route>
+          <Route
+            path="/update-listing/:id"
+            element={<Update_Listing></Update_Listing>}
+          ></Route>
         </Route>
+
         <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
