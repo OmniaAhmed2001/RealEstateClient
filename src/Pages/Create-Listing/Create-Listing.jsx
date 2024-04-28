@@ -126,7 +126,7 @@ export default function CreateListing() {
         return setError("Discount Price Should be Less than Regular Price");
       setError(false);
       setLoading(true);
-      const res = await fetch("https://egyestateserver.onrender.com/listing/create", {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/listing/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
