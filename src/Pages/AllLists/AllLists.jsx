@@ -15,7 +15,9 @@ export default function AllLists() {
         setShowListingError(false);
 
         const res = await fetch(
-          `https://egyestateserver.onrender.com/user/listings/${currentUser._id}`
+          `${import.meta.env.VITE_SERVER_URL}/user/listings/${currentUser._id}`, {
+            credentials: "include"
+          }
         );
 
         const data = await res.json();
@@ -36,10 +38,10 @@ export default function AllLists() {
     try {
 
       const res = await fetch(
-        `https://egyestateserver.onrender.com/listing/delete/${listingId}`,
+        `${import.meta.env.VITE_SERVER_URL}/listing/delete/${listingId}`,
         {
           method: "DELETE",
-           credentials: "include",
+          credentials: "include",
         }
       );
 

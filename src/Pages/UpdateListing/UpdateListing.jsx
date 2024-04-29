@@ -133,12 +133,13 @@ export default function Update_Listing() {
       setLoading(true);
 
       const res = await fetch(
-        `https://egyestateserver.onrender.com/listing/update/${params.id}`,
+        `${import.meta.env.VITE_SERVER_URL}/listing/update/${params.id}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify({ ...formData, userRef: currentUser._id }),
         }
       );
@@ -163,9 +164,12 @@ export default function Update_Listing() {
     const fetchListing = async () => {
       const listingId = params.id;
 
-      const res = await fetch( `https://egyestateserver.onrender.com/listing/get/${listingId}`, {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/listing/get/${listingId}`,
+        {
+          credentials: "include",
+        }
+      );
 
       console.log(res);
       const data = await res.json();
