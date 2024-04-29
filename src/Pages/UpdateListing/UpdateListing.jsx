@@ -162,6 +162,7 @@ export default function Update_Listing() {
   };
   useEffect(() => {
     const fetchListing = async () => {
+      console.log("update", params)
       const listingId = params.id;
 
       const res = await fetch(
