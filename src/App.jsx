@@ -14,8 +14,10 @@ import Favorites from "./Pages/FavoritePage/Favorites";
 import CreateListing from "./Pages/Create-Listing/Create-Listing";
 import UserListing from "./Pages/User-Listing/UserListing";
 import AllLists from "./Pages/AllLists/AllLists";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import Update_Listing from "./Pages/UpdateListing/UpdateListing";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import ListingDetails from "./Components/ListingDetails";
 
 export default function App() {
   return (
@@ -27,6 +29,7 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-out" element={<SignOut />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route element={<PrivateRoute />}>
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profile" element={<Profile />} />
@@ -38,6 +41,7 @@ export default function App() {
             path="/update-listing"
             element={<Update_Listing></Update_Listing>}
           ></Route>
+          <Route path="listing/:listingId" element={<ListingDetails />} />
         </Route>
 
         <Route path="/about" element={<About />} />
