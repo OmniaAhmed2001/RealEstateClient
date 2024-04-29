@@ -16,13 +16,17 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("https://egyestateserver.onrender.com/auth/sign-up", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/auth/sign-up`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       // console.log(data);
       if (data.success === false) {

@@ -142,6 +142,7 @@ export default function Update_Listing() {
           body: JSON.stringify({ ...formData, userRef: currentUser._id }),
         }
       );
+
       console.log(res);
 
       const data = await res.json();
@@ -161,9 +162,11 @@ export default function Update_Listing() {
   useEffect(() => {
     const fetchListing = async () => {
       const listingId = params.id;
-      const res = await fetch(
-        `https://egyestateserver.onrender.com/listing/get/${listingId}`
-      );
+
+      const res = await fetch( `https://egyestateserver.onrender.com/listing/get/${listingId}`, {
+        credentials: "include",
+      });
+
       console.log(res);
       const data = await res.json();
       console.log(data);
