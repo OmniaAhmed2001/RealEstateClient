@@ -155,7 +155,7 @@ export default function CreateListing() {
     }
   };
   return (
-    <div className="p-3 lg:max-w-4xl md:max-w-4xl sm:w-full mx-auto">
+    <div className="p-3 lg:max-w-5xl md:max-w-4xl sm:w-full mx-auto">
       <h2 className="text-4xl	text-center font-semibold my-7">
         Add your Property with <span className="text-[#ffcb74]">Egy</span>
         <span className="text-[#ffb534]">Estate</span>
@@ -205,7 +205,7 @@ export default function CreateListing() {
           </h1>
         </div>
       </div>
-      <div className="bg-[#FEFBF6] p-5 px-10 my-12 shadow-lg">
+      <div className="bg-[#FFFAF2] p-5 px-10 my-12 shadow-lg">
         <h2 className="text-4xl font-semibold mb-10 mt-5">Fill The Form</h2>
         <form onSubmit={handleSubmitForm} className=" mt-4 flex flex-col gap-6">
           <div className="gap-4  flex flex-col flex-1">
@@ -221,7 +221,7 @@ export default function CreateListing() {
                 onChange={handleChange}
                 id="name"
               ></input>
-              <div className="lg:w-[35%] md:w-[35%] sm:w-100 lg:mt-0 md:mt-0 sm:mt-4">
+              <div className="lg:w-[42%] md:w-[35%] sm:w-100 lg:mt-0 md:mt-0 sm:mt-4">
                 <select
                   id="listingType"
                   onChange={handleChange}
@@ -243,15 +243,14 @@ export default function CreateListing() {
 
             <input
               type="text"
-              className="border p-3 rounded-lg lg:w-[50%] md:w-[50%] sm:w-100"
+              className="border p-5 my-4 rounded-lg lg:w-[100%] md:w-[100%] sm:w-100"
               placeholder="Address"
               required
               value={formData.address}
               onChange={handleChange}
               id="address"
             ></input>
-            <h2 className="text-2xl font-semibold mt-5">Other Features</h2>
-            <div className="flex flex-wrap gap-6">
+            <div className="flex  items-center w-[85%] justify-between">
               <div className="flex gap-2">
                 <input
                   onChange={handleChange}
@@ -260,7 +259,7 @@ export default function CreateListing() {
                   type="checkbox"
                   className="w-4"
                 ></input>
-                <span>Furnished</span>
+                <span>Furniture</span>
               </div>
               <div className="flex gap-2">
                 <input
@@ -282,8 +281,6 @@ export default function CreateListing() {
                 ></input>
                 <span>Offer</span>
               </div>
-            </div>
-            <div className="flex flex-wrap gap-6">
               <div className="flex gap-2 items-center">
                 <input
                   type="number"
@@ -310,40 +307,42 @@ export default function CreateListing() {
                 ></input>
                 <p>Baths</p>
               </div>
-              <div className="flex gap-2 items-center">
+            </div>
+            <div className="flex flex-wrap gap-20 items-center my-5 w-[85%] justify-between">
+              <div className="flex gap-4 items-center">
                 <input
                   type="number"
                   min="50"
                   max="10000"
                   id="regularPrice"
                   required
-                  className="w-16 p-3 border border-gray-300 rounded-lg h-10"
+                  className="w-40 p-3 border border-gray-300 rounded-lg h-10"
                   onChange={handleChange}
                   value={formData.regularPrice}
                 ></input>
-                <div className="flex flex-col items-center">
+                <div className="flex items-center">
                   <p>Regular Price</p>
                   <span className="text-xs">( $ / Month)</span>
                 </div>
               </div>
-              {formData.offer && (
-                <div className="flex gap-2 items-center">
-                  <input
-                    type="number"
-                    min="0"
-                    max="10000"
-                    id="discountPrice"
-                    required
-                    className="w-16 p-3 border border-gray-300 rounded-lg h-10"
-                    onChange={handleChange}
-                    value={formData.discountPrice}
-                  ></input>
-                  <div className="flex flex-col items-center">
-                    <p>Discounted Price</p>
-                    <span className="text-xs">( $ / Month)</span>
-                  </div>
+
+              <div className="flex gap-2 items-center">
+                <input
+                  type="number"
+                  min="0"
+                  max="10000"
+                  id="discountPrice"
+                  disabled={!formData.offer}
+                  required
+                  className="w-40 p-3 border border-gray-300 rounded-lg h-10"
+                  onChange={handleChange}
+                  value={formData.discountPrice}
+                ></input>
+                <div className="flex  items-center">
+                  <p>Discounted Price</p>
+                  <span className="text-xs">( $ / Month)</span>
                 </div>
-              )}
+              </div>
             </div>
           </div>
           <div className="flex flex-col gap-4">
@@ -357,9 +356,9 @@ export default function CreateListing() {
               </p>
             </div>
 
-            <div className="flex gap-10 ">
+            <div className="flex gap-10 items-center">
               <input
-                className="p-3 border border-gray-400 w-50 rounded w-full"
+                className="p-3 border border-gray-400 w-50 rounded "
                 type="file"
                 multiple
                 accept="image/*"
@@ -369,7 +368,7 @@ export default function CreateListing() {
               ></input>
               <button
                 type="button"
-                className="uppercase border h-12 px-2 text-white font-bold disabled:opacity-80 rounded hover:shadow-md p-1 bg-[#F1843E]"
+                className="h-9 flex items-center justify-center w-36 text-white font-bold disabled:opacity-80 rounded-lg hover:shadow-md  bg-[#F1843E]"
                 onClick={handleImageSubmit}
                 disabled={uploading}
               >
@@ -381,10 +380,10 @@ export default function CreateListing() {
                       spin
                       style={{ fontSize: "25px" }}
                     />
-                    <p>uploading...</p>
+                    <p>Uploading...</p>
                   </div>
                 ) : (
-                  "upload"
+                  "Upload"
                 )}
               </button>
             </div>
@@ -426,7 +425,7 @@ export default function CreateListing() {
           <div className="text-center">
             <button
               disabled={loading || uploading}
-              className="uppercase bg-[#F1843E] text-white py-3 px-2 rounded-3xl font-bold text-lg lg:w-[50%] sm:w-[60%]"
+              className="uppercase bg-[#F1843E] text-white py-3 px-2 rounded-2xl font-bold text-lg lg:w-[45%] sm:w-[60%]"
             >
               {loading ? (
                 <div className="flex items-center gap-1">
@@ -436,10 +435,10 @@ export default function CreateListing() {
                     spin
                     style={{ fontSize: "25px" }}
                   />
-                  <p>creating...</p>
+                  <p>Adding...</p>
                 </div>
               ) : (
-                "Create Listing"
+                "Add Property"
               )}
             </button>
           </div>
