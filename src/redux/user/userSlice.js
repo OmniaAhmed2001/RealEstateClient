@@ -19,7 +19,7 @@ const userSlice = createSlice({
       console.log("hii",action.payload);
       state.currentUser = action.payload;
       state.error = null;
-      // state.token = action.payload.access_token
+      state.token = action.payload.access_token
     },
     signInFailure: (state, action) => {
       state.loading = false;
@@ -44,6 +44,7 @@ const userSlice = createSlice({
       state.currentUser = null;
       state.loading = false;
       state.error = null;
+      state.token = null;
     },
     deleteUserFailure: (state, action) => {
       state.error = action.payload;
@@ -56,6 +57,7 @@ const userSlice = createSlice({
       state.currentUser = null;
       state.loading = false;
       state.error = null;
+      state.token = null;
     },
     signOutUserFailure: (state, action) => {
       state.error = action.payload;

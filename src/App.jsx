@@ -36,16 +36,16 @@ export default function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/listing" element={<Listing />}>
-            <Route path=":listingId" element={<ListingDetails />} />
+          {/* <Route path="/listing" element={<Listing />}>
             <Route path="" element={<CreateListing />} />
             <Route path="allLists" element={<AllLists />} />
-          </Route>
+          </Route> */}
           <Route
             path="/update-listing/:id"
             element={<Update_Listing></Update_Listing>}
           ></Route>
         </Route>
+        <Route path="/listing/:listingId" element={<ListingDetails />} />
 
         <Route path="/about" element={<About />} />
       </Routes>
