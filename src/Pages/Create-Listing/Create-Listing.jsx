@@ -11,12 +11,14 @@ import { app } from "../../firebase";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Create-Listing.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function CreateListing() {
-  const { currentUser } = useSelector((state) => {
-    return state.user;
-  });
-  const navigate = useNavigate();
+  const [uploading, setUploading] = useState(false);
+  const [imageUploadError, setImageUploadError] = useState(false);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
@@ -32,11 +34,10 @@ export default function CreateListing() {
     discountPrice: 0,
     parking: false,
   });
-  const [uploading, setUploading] = useState(false);
-  const [imageUploadError, setImageUploadError] = useState(false);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  console.log(formData);
+  const { currentUser } = useSelector((state) => {
+    return state.user;
+  });
+  const navigate = useNavigate();
   const handleImageSubmit = () => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
@@ -78,7 +79,6 @@ export default function CreateListing() {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(progress);
         },
         (error) => {
           reject(error);
@@ -100,7 +100,6 @@ export default function CreateListing() {
     });
   };
   const handleChange = (e) => {
-    console.log(e);
     if (e.target.id === "sale" || e.target.id === "rent") {
       setFormData({ ...formData, type: e.target.id });
     } else if (
@@ -115,10 +114,11 @@ export default function CreateListing() {
       e.target.type === "textarea"
     ) {
       setFormData({ ...formData, [e.target.id]: e.target.value });
+    } else if (e.target.id === "listingType") {
+      setFormData({ ...formData, type: e.target.id });
     }
   };
   const handleSubmitForm = async (e) => {
-    // setCreatingListingLoading(true);
     e.preventDefault();
     try {
       if (formData.imageUrls.length < 1) {
@@ -129,6 +129,7 @@ export default function CreateListing() {
       }
       setError(false);
       setLoading(true);
+
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}/listing/create`,
         {
@@ -136,13 +137,14 @@ export default function CreateListing() {
           headers: {
             "Content-Type": "application/json",
           },
+
           credentials: "include",
           body: JSON.stringify({ ...formData, userRef: currentUser._id }),
         }
       );
       const data = await res.json();
+
       setLoading(false);
-      // setCreatingListingLoading(false);
       if (data.success === false) {
         setError(data.message);
       }
@@ -203,14 +205,14 @@ export default function CreateListing() {
           </h1>
         </div>
       </div>
-      <div className="bg-[#FEFBF6] p-3 my-12 shadow-lg">
+      <div className="bg-[#FEFBF6] p-5 px-10 my-12 shadow-lg">
         <h2 className="text-4xl font-semibold mb-10 mt-5">Fill The Form</h2>
         <form onSubmit={handleSubmitForm} className=" mt-4 flex flex-col gap-6">
           <div className="gap-4  flex flex-col flex-1">
-            <div className="flex justify-between">
+            <div className="flex lg:flex-row md:flex-row sm:flex-col justify-between">
               <input
                 type="text"
-                className="border p-3 rounded-lg w-[47%]"
+                className="border p-3 rounded-lg lg:w-[50%] md:w-[50%] sm:w-100"
                 placeholder="Name"
                 maxLength="62"
                 minLength="10"
@@ -219,41 +221,35 @@ export default function CreateListing() {
                 onChange={handleChange}
                 id="name"
               ></input>
-              <input
-                type="text"
-                className="border p-3 rounded-lg w-[47%]"
-                placeholder="Address"
-                required
-                value={formData.address}
-                onChange={handleChange}
-                id="address"
-              ></input>
-            </div>
-            <div>
-              <h2 className="text-2xl font-semibold mb-4 mt-5">Listing Type</h2>
-              <div className="flex gap-6">
-                <div className="flex gap-2">
-                  <input
-                    onChange={handleChange}
-                    checked={formData.type === "sale"}
-                    id="sale"
-                    type="checkbox"
-                    className="w-4"
-                  ></input>
-                  <span>Sell</span>
-                </div>
-                <div className="flex gap-2">
-                  <input
-                    onChange={handleChange}
-                    checked={formData.type === "rent"}
-                    id="rent"
-                    type="checkbox"
-                    className="w-4"
-                  ></input>
-                  <span>Rent</span>
-                </div>
+              <div className="lg:w-[35%] md:w-[35%] sm:w-100 lg:mt-0 md:mt-0 sm:mt-4">
+                <select
+                  id="listingType"
+                  onChange={handleChange}
+                  className="w-full p-3 border border-slate-200 hover:border-slate-400 rounded-lg"
+                >
+                  <option
+                    disabled
+                    selected
+                    value=""
+                    className="opacity-10 texy-red"
+                  >
+                    Listing Type
+                  </option>
+                  <option value="Sell">Sell</option>
+                  <option value="Rent">Rent</option>
+                </select>
               </div>
             </div>
+
+            <input
+              type="text"
+              className="border p-3 rounded-lg lg:w-[50%] md:w-[50%] sm:w-100"
+              placeholder="Address"
+              required
+              value={formData.address}
+              onChange={handleChange}
+              id="address"
+            ></input>
             <h2 className="text-2xl font-semibold mt-5">Other Features</h2>
             <div className="flex flex-wrap gap-6">
               <div className="flex gap-2">
@@ -373,11 +369,23 @@ export default function CreateListing() {
               ></input>
               <button
                 type="button"
-                className="uppercase border h-12 px-2 text-white font-bold disabled:opacity-80 rounded hover:shadow-md p-1 bg-buttons"
+                className="uppercase border h-12 px-2 text-white font-bold disabled:opacity-80 rounded hover:shadow-md p-1 bg-[#F1843E]"
                 onClick={handleImageSubmit}
                 disabled={uploading}
               >
-                {uploading ? "uploading..." : "upload"}
+                {uploading ? (
+                  <div className="flex items-center gap-1">
+                    <FontAwesomeIcon
+                      className="text-lg font-semibold"
+                      icon={faSpinner}
+                      spin
+                      style={{ fontSize: "25px" }}
+                    />
+                    <p>uploading...</p>
+                  </div>
+                ) : (
+                  "upload"
+                )}
               </button>
             </div>
           </div>
@@ -418,9 +426,21 @@ export default function CreateListing() {
           <div className="text-center">
             <button
               disabled={loading || uploading}
-              className="uppercase bg-buttons text-white py-3 px-2 rounded-3xl font-bold text-lg lg:w-[50%] sm:w-[60%]"
+              className="uppercase bg-[#F1843E] text-white py-3 px-2 rounded-3xl font-bold text-lg lg:w-[50%] sm:w-[60%]"
             >
-              {loading ? "Creating ..." : "Create Listing"}
+              {loading ? (
+                <div className="flex items-center gap-1">
+                  <FontAwesomeIcon
+                    className="text-lg font-semibold"
+                    icon={faSpinner}
+                    spin
+                    style={{ fontSize: "25px" }}
+                  />
+                  <p>creating...</p>
+                </div>
+              ) : (
+                "Create Listing"
+              )}
             </button>
           </div>
 

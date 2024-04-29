@@ -35,7 +35,7 @@ export default function Header() {
         </form>
         <div className="sm:flex hidden">
           <ul className="flex gap-5 text-64748b">
-            <Link to={"/listing"}>
+            <Link to={"/user-listing"}>
               <li>
                 <FontAwesomeIcon
                   icon={faHouseChimneyMedical}

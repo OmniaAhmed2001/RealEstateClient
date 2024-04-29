@@ -116,6 +116,8 @@ export default function Update_Listing() {
       e.target.type === "textarea"
     ) {
       setFormData({ ...formData, [e.target.id]: e.target.value });
+    } else if (e.target.id === "listingType") {
+      setFormData({ ...formData, type: e.target.id });
     }
   };
   const handleSubmitForm = async (e) => {
@@ -130,14 +132,17 @@ export default function Update_Listing() {
       setError(false);
       setLoading(true);
 
-      const res = await fetch(`/listing/update/${params.id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ ...formData, userRef: currentUser._id }),
-      });
+      const res = await fetch(
+        `https://egyestateserver.onrender.com/listing/update/${params.id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...formData, userRef: currentUser._id }),
+        }
+      );
+
       console.log(res);
 
       const data = await res.json();
@@ -157,9 +162,11 @@ export default function Update_Listing() {
   useEffect(() => {
     const fetchListing = async () => {
       const listingId = params.id;
-      const res = await fetch(`/listing/get/${listingId}`, {
+
+      const res = await fetch( `https://egyestateserver.onrender.com/listing/get/${listingId}`, {
         credentials: "include",
       });
+
       console.log(res);
       const data = await res.json();
       console.log(data);
@@ -228,10 +235,10 @@ export default function Update_Listing() {
         <h2 className="text-4xl font-semibold mb-10 mt-5">Fill The Form</h2>
         <form onSubmit={handleSubmitForm} className=" mt-4 flex flex-col gap-6">
           <div className="gap-4  flex flex-col flex-1">
-            <div className="flex justify-between">
+            <div className="flex lg:flex-row md:flex-row sm:flex-col justify-between">
               <input
                 type="text"
-                className="border p-3 rounded-lg w-[47%]"
+                className="border p-3 rounded-lg lg:w-[50%] md:w-[50%] sm:w-100"
                 placeholder="Name"
                 maxLength="62"
                 minLength="10"
@@ -240,16 +247,35 @@ export default function Update_Listing() {
                 onChange={handleChange}
                 id="name"
               ></input>
-              <input
-                type="text"
-                className="border p-3 rounded-lg w-[47%]"
-                placeholder="Address"
-                required
-                value={formData.address}
-                onChange={handleChange}
-                id="address"
-              ></input>
+              <div className="lg:w-[35%] md:w-[35%] sm:w-100 lg:mt-0 md:mt-0 sm:mt-4">
+                <select
+                  id="listingType"
+                  onChange={handleChange}
+                  className="w-full p-3 border border-slate-200 hover:border-slate-400 rounded-lg"
+                >
+                  <option
+                    disabled
+                    selected
+                    value=""
+                    className="opacity-10 texy-red"
+                  >
+                    Listing Type
+                  </option>
+                  <option value="Sell">Sell</option>
+                  <option value="Rent">Rent</option>
+                </select>
+              </div>
             </div>
+
+            <input
+              type="text"
+              className="border p-3 rounded-lg lg:w-[50%] md:w-[50%] sm:w-100"
+              placeholder="Address"
+              required
+              value={formData.address}
+              onChange={handleChange}
+              id="address"
+            ></input>
             <div>
               <h2 className="text-2xl font-semibold mb-4 mt-5">Listing Type</h2>
               <div className="flex gap-6">
