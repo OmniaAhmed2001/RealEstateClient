@@ -1,3 +1,10 @@
 ::placeholder{
     font-weight: 700;
 }
+/* Base styles for the number input */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+
+   opacity: 1;
+
+}
