@@ -56,13 +56,14 @@ export default function Profile() {
       dispatch(updateUserStart());
       //send request containing the form Data includes the new avatar uploaded if any
       const res = await fetch(
-        `https://egyestateserver.onrender.com/user/update/${currentUser._id}`,
+        `${import.meta.env.VITE_SERVER_URL}/user/update/${currentUser._id}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
+          credentials: "include",
         }
       );
       const data = await res.json();
@@ -114,9 +115,10 @@ export default function Profile() {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(
-        `https://egyestateserver.onrender.com/user/delete/${currentUser._id}`,
+        `${import.meta.env.VITE_SERVER_URL}/user/delete/${currentUser._id}`,
         {
           method: "DELETE",
+          credentials: "include",
         }
       );
       const data = await res.json();
@@ -132,9 +134,7 @@ export default function Profile() {
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
-      const res = await fetch(
-        "https://egyestateserver.onrender.com/auth/sign-out"
-      );
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/sign-out`);
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.message, res.status);

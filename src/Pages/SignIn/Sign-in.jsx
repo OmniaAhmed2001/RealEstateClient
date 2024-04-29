@@ -24,20 +24,24 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log({formData})
+    console.log(import.meta.env.VITE_SERVER_URL);
     try {
       dispatch(signInStart());
       const res = await fetch(
-        "https://egyestateserver.onrender.com/auth/sign-in",
+        `${import.meta.env.VITE_SERVER_URL}/auth/sign-in`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
+          credentials: "include",
         }
       );
 
+      
       const data = await res.json();
+      console.log("cookie ",document.cookie)
 
       if (data.success === false) {
         dispatch(signInFailure(data.message));

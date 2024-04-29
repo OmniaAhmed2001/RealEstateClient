@@ -15,11 +15,12 @@ const OAuth = () => {
 
       const result = await signInWithPopup(auth, provider);
 
-      const res = await fetch("https://egyestateserver.onrender.com/auth/google", {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/google`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials:'include',
         body: JSON.stringify({
           name: result.user.displayName,
           email: result.user.email,

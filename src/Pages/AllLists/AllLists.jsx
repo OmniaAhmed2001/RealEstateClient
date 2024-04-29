@@ -13,10 +13,11 @@ export default function AllLists() {
     (async () => {
       try {
         setShowListingError(false);
+
         const res = await fetch(
           `https://egyestateserver.onrender.com/user/listings/${currentUser._id}`
         );
-        console.log(currentUser._id);
+
         const data = await res.json();
         if (data.success === false) {
           setShowListingError(true);
@@ -33,12 +34,15 @@ export default function AllLists() {
   }, [currentUser._id]);
   const handleDleteListing = async (listingId) => {
     try {
+
       const res = await fetch(
         `https://egyestateserver.onrender.com/listing/delete/${listingId}`,
         {
           method: "DELETE",
+           credentials: "include",
         }
       );
+
       const data = res.json();
       if (data.success === "false") {
         console.log(data.message);
