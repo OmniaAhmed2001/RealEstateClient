@@ -11,18 +11,11 @@ import Header from "./Components/Header";
 import PrivateRoute from "./Components/PrivateRoute";
 import Footer from "./Components/Footer";
 import Favorites from "./Pages/FavoritePage/Favorites";
-// import PrivateRoute from "./Components/PrivateRoute";
 import CreateListing from "./Pages/Create-Listing/Create-Listing";
-import Listing from "./Pages/Listing/Listing";
+import UserListing from "./Pages/User-Listing/UserListing";
 import AllLists from "./Pages/AllLists/AllLists";
-
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Update_Listing from "./Pages/UpdateListing/UpdateListing";
-
-import ListingDetails from "./Components/ListingDetails";
-
-
-
 
 export default function App() {
   return (
@@ -37,13 +30,12 @@ export default function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/listing" element={<Listing />}>
-            <Route path=":listingId" element={<ListingDetails />}/>
+          <Route path="/user-listing" element={<UserListing />}>
             <Route path="" element={<CreateListing />} />
             <Route path="allLists" element={<AllLists />} />
           </Route>
           <Route
-            path="/update-listing/:id"
+            path="/update-listing"
             element={<Update_Listing></Update_Listing>}
           ></Route>
         </Route>
