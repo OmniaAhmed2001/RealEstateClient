@@ -38,11 +38,11 @@ export default function App() {
             <Route path="allLists" element={<AllLists />} />
           </Route>
           <Route
-            path="/update-listing"
-            element={<Update_Listing></Update_Listing>}
+            path="/update-listing/:id"
+            element={<Update_Listing />}
           ></Route>
-          <Route path="listing/:listingId" element={<ListingDetails />} />
         </Route>
+        <Route path="/listing/:listingId" element={<ListingDetails />} />
 
         <Route path="/about" element={<About />} />
       </Routes>
