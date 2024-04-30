@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import "./UpdateListing.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function Update_Listing() {
   const { currentUser } = useSelector((state) => {
@@ -166,7 +167,9 @@ export default function Update_Listing() {
       const listingId = params.id;
 
       const res = await fetch(
+
         `${import.meta.env.VITE_SERVER_URL}/listing/get/${listingId}`,
+
         {
           credentials: "include",
         }
@@ -186,9 +189,9 @@ export default function Update_Listing() {
     fetchListing();
   }, []);
   return (
-    <div className="p-3 lg:max-w-4xl md:max-w-4xl sm:w-full mx-auto">
+    <div className="p-3 lg:max-w-5xl md:max-w-5xl sm:w-full">
       <h2 className="text-4xl	text-center font-semibold my-7">
-        Update your Property with <span className="text-[#ffcb74]">Egy</span>
+        Add your Property with <span className="text-[#ffcb74]">Egy</span>
         <span className="text-[#ffb534]">Estate</span>
       </h2>
       <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-10">
@@ -236,14 +239,16 @@ export default function Update_Listing() {
           </h1>
         </div>
       </div>
-      <div className="bg-[#FEFBF6] p-3 my-12 shadow-lg">
-        <h2 className="text-4xl font-semibold mb-10 mt-5">Fill The Form</h2>
+      <div className="bg-[#FFFAF2] p-5 px-10 my-12 shadow-lg">
+        <h2 className="lg:text-4xl md:text-4xl text-3xl font-semibold mb-10 mt-5">
+          Fill The Form
+        </h2>
         <form onSubmit={handleSubmitForm} className=" mt-4 flex flex-col gap-6">
           <div className="gap-4  flex flex-col flex-1">
-            <div className="flex lg:flex-row md:flex-row sm:flex-col justify-between">
+            <div className="flex flex-wrap gap-5 flex-row justify-between">
               <input
                 type="text"
-                className="border p-3 rounded-lg lg:w-[50%] md:w-[50%] sm:w-100"
+                className="p-2 rounded-lg lg:w-[50%] md:w-[50%] sm:w-[90%]"
                 placeholder="Name"
                 maxLength="62"
                 minLength="10"
@@ -252,7 +257,7 @@ export default function Update_Listing() {
                 onChange={handleChange}
                 id="name"
               ></input>
-              <div className="lg:w-[35%] md:w-[35%] sm:w-100 lg:mt-0 md:mt-0 sm:mt-4">
+              <div className="lg:w-[42%] md:w-[35%] w-full lg:mt-0 md:mt-0 sm:mt-4">
                 <select
                   id="listingType"
                   onChange={handleChange}
@@ -271,44 +276,20 @@ export default function Update_Listing() {
                 </select>
               </div>
             </div>
+            {/* className="p-5 lg:my-4 md:my-4 sm:my-2 rounded-lg lg:w-full md:w-full sm:w-full" */}
 
             <input
               type="text"
-              className="border p-3 rounded-lg lg:w-[50%] md:w-[50%] sm:w-100"
+              className="py-5 px-3 lg:my-4 md:my-4 sm:my-2 rounded-lg w-full"
               placeholder="Address"
               required
               value={formData.address}
               onChange={handleChange}
               id="address"
             ></input>
-            <div>
-              <h2 className="text-2xl font-semibold mb-4 mt-5">Listing Type</h2>
-              <div className="flex gap-6">
-                <div className="flex gap-2">
-                  <input
-                    onChange={handleChange}
-                    checked={formData.type === "sale"}
-                    id="sale"
-                    type="checkbox"
-                    className="w-4"
-                  ></input>
-                  <span>Sell</span>
-                </div>
-                <div className="flex gap-2">
-                  <input
-                    onChange={handleChange}
-                    checked={formData.type === "rent"}
-                    id="rent"
-                    type="checkbox"
-                    className="w-4"
-                  ></input>
-                  <span>Rent</span>
-                </div>
-              </div>
-            </div>
-            <h2 className="text-2xl font-semibold mt-5">Other Features</h2>
-            <div className="flex flex-wrap gap-6">
-              <div className="flex gap-2">
+
+            <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-2 items-center lg:w-[90%] md:w-[90%] sm:max-w-full justify-between">
+              <div className="flex  my-1  gap-2">
                 <input
                   onChange={handleChange}
                   checked={formData.furnished}
@@ -316,9 +297,9 @@ export default function Update_Listing() {
                   type="checkbox"
                   className="w-4"
                 ></input>
-                <span>Furnished</span>
+                <span>Furniture</span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex   gap-2">
                 <input
                   onChange={handleChange}
                   checked={formData.parking}
@@ -326,9 +307,9 @@ export default function Update_Listing() {
                   type="checkbox"
                   className="w-4"
                 ></input>
-                <span>Parking Spot</span>
+                <span>Parking</span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex  gap-2">
                 <input
                   onChange={handleChange}
                   checked={formData.offer}
@@ -338,9 +319,7 @@ export default function Update_Listing() {
                 ></input>
                 <span>Offer</span>
               </div>
-            </div>
-            <div className="flex flex-wrap gap-6">
-              <div className="flex gap-2 items-center">
+              <div className="flex  gap-2 items-center">
                 <input
                   type="number"
                   min="1"
@@ -353,7 +332,7 @@ export default function Update_Listing() {
                 ></input>
                 <p>Beds</p>
               </div>
-              <div className="flex gap-2 items-center">
+              <div className="flex  justify-center gap-2 items-center">
                 <input
                   type="number"
                   min="1"
@@ -366,40 +345,42 @@ export default function Update_Listing() {
                 ></input>
                 <p>Baths</p>
               </div>
-              <div className="flex gap-2 items-center">
+            </div>
+            <div className="flex flex-wrap items-center my-5 lg:w-[90%] md:w-[90%] sm:w-full justify-between gap-3">
+              <div className="flex gap-4 items-center ">
                 <input
                   type="number"
                   min="50"
                   max="10000"
                   id="regularPrice"
                   required
-                  className="w-16 p-3 border border-gray-300 rounded-lg h-10"
+                  className="lg:w-40 md:w-30 w-[35%] p-3  rounded-lg h-10"
                   onChange={handleChange}
                   value={formData.regularPrice}
                 ></input>
-                <div className="flex flex-col items-center">
+                <div className="flex flex-wrap items-center ">
                   <p>Regular Price</p>
                   <span className="text-xs">( $ / Month)</span>
                 </div>
               </div>
-              {formData.offer && (
-                <div className="flex gap-2 items-center">
-                  <input
-                    type="number"
-                    min="0"
-                    max="10000"
-                    id="discountPrice"
-                    required
-                    className="w-16 p-3 border border-gray-300 rounded-lg h-10"
-                    onChange={handleChange}
-                    value={formData.discountPrice}
-                  ></input>
-                  <div className="flex flex-col items-center">
-                    <p>Discounted Price</p>
-                    <span className="text-xs">( $ / Month)</span>
-                  </div>
+
+              <div className="flex gap-4 items-center">
+                <input
+                  type="number"
+                  min="0"
+                  max="10000"
+                  id="discountPrice"
+                  disabled={!formData.offer}
+                  required
+                  className="lg:w-40 md:w-30 w-[35%] p-3  rounded-lg h-10"
+                  onChange={handleChange}
+                  value={formData.discountPrice}
+                ></input>
+                <div className="flex flex-wrap items-center">
+                  <p>Discounted Price</p>
+                  <span className="text-xs">( $ / Month)</span>
                 </div>
-              )}
+              </div>
             </div>
           </div>
           <div className="flex flex-col gap-4">
@@ -413,9 +394,9 @@ export default function Update_Listing() {
               </p>
             </div>
 
-            <div className="flex gap-10 ">
+            <div className="flex gap-10 flex-wrap items-center">
               <input
-                className="p-3 border border-gray-400 w-50 rounded w-full"
+                className="p-2 rounded lg:max-w-[50%] md:max-w-[50%] max-w-28"
                 type="file"
                 multiple
                 accept="image/*"
@@ -425,19 +406,30 @@ export default function Update_Listing() {
               ></input>
               <button
                 type="button"
-                className="uppercase border h-12 px-2 text-white font-bold disabled:opacity-80 rounded hover:shadow-md p-1 bg-[#F1843E]"
+                className="h-9 flex items-center justify-center w-36 text-white font-bold disabled:opacity-80 rounded-lg hover:shadow-md  bg-[#F1843E]"
                 onClick={handleImageSubmit}
                 disabled={uploading}
               >
-                {uploading ? "uploading..." : "upload"}
+                {uploading ? (
+                  <div className="flex items-center gap-1">
+                    <FontAwesomeIcon
+                      className="text-lg font-semibold"
+                      icon={faSpinner}
+                      spin
+                      style={{ fontSize: "25px" }}
+                    />
+                    <p>Uploading...</p>
+                  </div>
+                ) : (
+                  "Upload"
+                )}
               </button>
             </div>
           </div>
           <p className="text-red-700 text-sm">
             {imageUploadError && imageUploadError}
           </p>
-          {formData.imageUrls &&
-            formData.imageUrls.length >= 1 &&
+          {formData &&
             formData.imageUrls.map((url) => {
               return (
                 <div key={url} className="flex justify-between p-3 ">
@@ -471,12 +463,21 @@ export default function Update_Listing() {
           <div className="text-center">
             <button
               disabled={loading || uploading}
-              className="uppercase bg-[#F1843E] text-white py-3 px-2 rounded-3xl font-bold text-lg lg:w-[50%] sm:w-[60%]"
+              className="uppercase bg-[#F1843E] text-white py-3 px-2 rounded-2xl font-bold text-lg lg:w-[45%] sm:w-[60%]"
             >
-              {loading
-                ? "Updateing..." +
-                  <FontAwesomeIcon icon="fa-solid fa-spinner" spin />
-                : "Update Listing"}
+              {loading ? (
+                <div className="flex items-center gap-1">
+                  <FontAwesomeIcon
+                    className="text-lg font-semibold"
+                    icon={faSpinner}
+                    spin
+                    style={{ fontSize: "25px" }}
+                  />
+                  <p>Adding...</p>
+                </div>
+              ) : (
+                "Edit Property"
+              )}
             </button>
           </div>
 
