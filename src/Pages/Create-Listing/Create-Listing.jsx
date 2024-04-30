@@ -155,7 +155,7 @@ export default function CreateListing() {
     }
   };
   return (
-    <div className="p-3 lg:max-w-5xl md:max-w-4xl sm:w-full mx-auto">
+    <div className="p-3 lg:max-w-5xl md:max-w-5xl sm:w-full">
       <h2 className="text-4xl	text-center font-semibold my-7">
         Add your Property with <span className="text-[#ffcb74]">Egy</span>
         <span className="text-[#ffb534]">Estate</span>
@@ -206,13 +206,15 @@ export default function CreateListing() {
         </div>
       </div>
       <div className="bg-[#FFFAF2] p-5 px-10 my-12 shadow-lg">
-        <h2 className="text-4xl font-semibold mb-10 mt-5">Fill The Form</h2>
+        <h2 className="lg:text-4xl md:text-4xl text-3xl font-semibold mb-10 mt-5">
+          Fill The Form
+        </h2>
         <form onSubmit={handleSubmitForm} className=" mt-4 flex flex-col gap-6">
           <div className="gap-4  flex flex-col flex-1">
-            <div className="flex lg:flex-row md:flex-row sm:flex-col justify-between">
+            <div className="flex flex-wrap gap-5 flex-row justify-between">
               <input
                 type="text"
-                className="border p-3 rounded-lg lg:w-[50%] md:w-[50%] sm:w-100"
+                className="p-2 rounded-lg lg:w-[50%] md:w-[50%] sm:w-[90%]"
                 placeholder="Name"
                 maxLength="62"
                 minLength="10"
@@ -221,7 +223,7 @@ export default function CreateListing() {
                 onChange={handleChange}
                 id="name"
               ></input>
-              <div className="lg:w-[42%] md:w-[35%] sm:w-100 lg:mt-0 md:mt-0 sm:mt-4">
+              <div className="lg:w-[42%] md:w-[35%] w-full lg:mt-0 md:mt-0 sm:mt-4">
                 <select
                   id="listingType"
                   onChange={handleChange}
@@ -240,18 +242,20 @@ export default function CreateListing() {
                 </select>
               </div>
             </div>
+            {/* className="p-5 lg:my-4 md:my-4 sm:my-2 rounded-lg lg:w-full md:w-full sm:w-full" */}
 
             <input
               type="text"
-              className="border p-5 my-4 rounded-lg lg:w-[100%] md:w-[100%] sm:w-100"
+              className="py-5 px-3 lg:my-4 md:my-4 sm:my-2 rounded-lg w-full"
               placeholder="Address"
               required
               value={formData.address}
               onChange={handleChange}
               id="address"
             ></input>
-            <div className="flex  items-center w-[85%] justify-between">
-              <div className="flex gap-2">
+
+            <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-2 items-center lg:w-[90%] md:w-[90%] sm:max-w-full justify-between">
+              <div className="flex  my-1  gap-2">
                 <input
                   onChange={handleChange}
                   checked={formData.furnished}
@@ -261,7 +265,7 @@ export default function CreateListing() {
                 ></input>
                 <span>Furniture</span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex   gap-2">
                 <input
                   onChange={handleChange}
                   checked={formData.parking}
@@ -269,9 +273,9 @@ export default function CreateListing() {
                   type="checkbox"
                   className="w-4"
                 ></input>
-                <span>Parking Spot</span>
+                <span>Parking</span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex  gap-2">
                 <input
                   onChange={handleChange}
                   checked={formData.offer}
@@ -281,7 +285,7 @@ export default function CreateListing() {
                 ></input>
                 <span>Offer</span>
               </div>
-              <div className="flex gap-2 items-center">
+              <div className="flex  gap-2 items-center">
                 <input
                   type="number"
                   min="1"
@@ -294,7 +298,7 @@ export default function CreateListing() {
                 ></input>
                 <p>Beds</p>
               </div>
-              <div className="flex gap-2 items-center">
+              <div className="flex  justify-center gap-2 items-center">
                 <input
                   type="number"
                   min="1"
@@ -308,25 +312,25 @@ export default function CreateListing() {
                 <p>Baths</p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-20 items-center my-5 w-[85%] justify-between">
-              <div className="flex gap-4 items-center">
+            <div className="flex flex-wrap items-center my-5 lg:w-[90%] md:w-[90%] sm:w-full justify-between gap-3">
+              <div className="flex gap-4 items-center ">
                 <input
                   type="number"
                   min="50"
                   max="10000"
                   id="regularPrice"
                   required
-                  className="w-40 p-3 border border-gray-300 rounded-lg h-10"
+                  className="lg:w-40 md:w-30 w-[35%] p-3  rounded-lg h-10"
                   onChange={handleChange}
                   value={formData.regularPrice}
                 ></input>
-                <div className="flex items-center">
+                <div className="flex flex-wrap items-center ">
                   <p>Regular Price</p>
                   <span className="text-xs">( $ / Month)</span>
                 </div>
               </div>
 
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-4 items-center">
                 <input
                   type="number"
                   min="0"
@@ -334,11 +338,11 @@ export default function CreateListing() {
                   id="discountPrice"
                   disabled={!formData.offer}
                   required
-                  className="w-40 p-3 border border-gray-300 rounded-lg h-10"
+                  className="lg:w-40 md:w-30 w-[35%] p-3  rounded-lg h-10"
                   onChange={handleChange}
                   value={formData.discountPrice}
                 ></input>
-                <div className="flex  items-center">
+                <div className="flex flex-wrap items-center">
                   <p>Discounted Price</p>
                   <span className="text-xs">( $ / Month)</span>
                 </div>
@@ -356,9 +360,9 @@ export default function CreateListing() {
               </p>
             </div>
 
-            <div className="flex gap-10 items-center">
+            <div className="flex gap-10 flex-wrap items-center">
               <input
-                className="p-3 border border-gray-400 w-50 rounded "
+                className="p-2 rounded lg:max-w-[50%] md:max-w-[50%] max-w-28"
                 type="file"
                 multiple
                 accept="image/*"
