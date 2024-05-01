@@ -22,7 +22,9 @@ import {
 
 export default function Profile() {
   const fileRef = useRef(null);
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const { currentUser, loading, error, token } = useSelector(
+    (state) => state.user
+  );
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
@@ -60,6 +62,7 @@ export default function Profile() {
         {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
@@ -118,6 +121,10 @@ export default function Profile() {
         `${import.meta.env.VITE_SERVER_URL}/user/delete/${currentUser._id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
           credentials: "include",
         }
       );
@@ -134,7 +141,9 @@ export default function Profile() {
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/sign-out`);
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/auth/sign-out`
+      );
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.message, res.status);

@@ -34,7 +34,7 @@ export default function CreateListing() {
     discountPrice: 50,
     parking: false,
   });
-  const { currentUser } = useSelector((state) => {
+  const { currentUser, token } = useSelector((state) => {
     return state.user;
   });
   const navigate = useNavigate();
@@ -140,6 +140,7 @@ export default function CreateListing() {
         {
           method: "POST",
           headers: {
+              Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
 
@@ -153,7 +154,7 @@ export default function CreateListing() {
       if (data.success === false) {
         setError(data.message);
       }
-      navigate(`/listings/${data._id}`);
+      navigate(`/listing/${data._id}`);
     } catch (error) {
       setLoading(false);
       setError(error.message);

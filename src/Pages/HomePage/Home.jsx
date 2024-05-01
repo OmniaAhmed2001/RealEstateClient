@@ -2,6 +2,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
+import { FaChessKing } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const ArrowIcon = (
   <svg
@@ -44,8 +46,9 @@ const MyIcon = (
 );
 
 export default function Home() {
-  // const user = useSelector((state) => state.user.currentUser);
-  // console.log(user);
+  const {token} = useSelector((state) => state.user);
+  
+  
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
     const handleResize = () => {

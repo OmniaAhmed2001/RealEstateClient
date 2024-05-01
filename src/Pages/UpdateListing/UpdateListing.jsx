@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function Update_Listing() {
-  const { currentUser } = useSelector((state) => {
+  const { currentUser, token } = useSelector((state) => {
     return state.user;
   });
   const navigate = useNavigate();
@@ -134,12 +134,14 @@ export default function Update_Listing() {
       setLoading(true);
 
       const res = await fetch(
-        `https://egyestateserver.onrender.com/listing/update/${params.id}`,
+        `${import.meta.env.VITE_SERVER_URL}/listing/update/${params.id}`,
         {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify({ ...formData, userRef: currentUser._id }),
         }
       );
@@ -162,11 +164,17 @@ export default function Update_Listing() {
   };
   useEffect(() => {
     const fetchListing = async () => {
+      console.log("update", params);
       const listingId = params.id;
 
       const res = await fetch(
-        `https://egyestateserver.onrender.com/listing/get/${listingId}`,
+        `${import.meta.env.VITE_SERVER_URL}/listing/get/${listingId}`,
+
         {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
           credentials: "include",
         }
       );
