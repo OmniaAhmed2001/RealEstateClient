@@ -15,11 +15,12 @@ const userSlice = createSlice({
       state.loading = true;
     },
     signInSuccess: (state, action) => {
+      console.log(action.payload)
       state.loading = false;
       console.log("hii",action.payload);
       state.currentUser = action.payload;
       state.error = null;
-      state.token = action.payload.access_token
+      state.token = action.payload.token
     },
     signInFailure: (state, action) => {
       state.loading = false;

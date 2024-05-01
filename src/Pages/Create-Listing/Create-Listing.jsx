@@ -34,7 +34,7 @@ export default function CreateListing() {
     discountPrice: 0,
     parking: false,
   });
-  const { currentUser } = useSelector((state) => {
+  const { currentUser, token } = useSelector((state) => {
     return state.user;
   });
   const navigate = useNavigate();
@@ -115,7 +115,7 @@ export default function CreateListing() {
     ) {
       setFormData({ ...formData, [e.target.id]: e.target.value });
     } else if (e.target.id === "listingType") {
-      setFormData({ ...formData, type: e.target.id });
+      setFormData({ ...formData, type: e.target.value });
     }
   };
   const handleSubmitForm = async (e) => {
@@ -135,6 +135,7 @@ export default function CreateListing() {
         {
           method: "POST",
           headers: {
+              Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
 

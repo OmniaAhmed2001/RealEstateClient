@@ -12,7 +12,7 @@ import OAuth from "../../Components/OAuth";
 export default function SignIn() {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading, error, token } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,8 +23,6 @@ export default function SignIn() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({formData})
-    console.log(import.meta.env.VITE_SERVER_URL);
     try {
       dispatch(signInStart());
       const res = await fetch(
@@ -38,18 +36,13 @@ export default function SignIn() {
           credentials: "include",
         }
       );
-
-      
       const data = await res.json();
-      console.log("cookie ",document.cookie)
 
       if (data.success === false) {
         dispatch(signInFailure(data.message));
         return;
       }
-
       dispatch(signInSuccess(data));
-      console.log(data);
       navigate("/");
     } catch (error) {
       dispatch(signInFailure(error.message));

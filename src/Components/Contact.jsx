@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function Contact({ listing }) {
+  const { token } = useSelector((state)=>state.user);
   const [landlord, setLandlord] = useState(null);
   const [message, setMessage] = useState("");
   const onChange = (e) => {
@@ -14,6 +16,10 @@ export default function Contact({ listing }) {
         const res = await fetch(
           `${import.meta.env.VITE_SERVER_URL}/user/${listing.userRef}`,
           {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
             credentials: "include",
           }
         );
