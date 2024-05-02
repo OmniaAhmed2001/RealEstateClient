@@ -30,7 +30,7 @@ export default function About() {
             style={{ width: "290px", height: "300px" }}
           >
             <img
-              src="public\assets\partners.png"
+              src="assets/partners.png"
               alt="offer"
               className="h-auto mb-2"
               style={{ width: "5rem" }}
@@ -47,7 +47,7 @@ export default function About() {
             style={{ width: "290px", height: "300px" }}
           >
             <img
-              src="public\assets\expert.png"
+              src="assets/expert.png"
               alt="rent"
               className="h-auto mb-2"
               style={{ width: "5rem" }}
@@ -64,7 +64,7 @@ export default function About() {
             style={{ width: "290px", height: "300px" }}
           >
             <img
-              src="public\assets\mission.png"
+              src="/assets/mission.png"
               alt="sell"
               className="h-auto mb-2"
               style={{ width: "5rem" }}
