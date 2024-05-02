@@ -178,7 +178,7 @@ export default function CreateListing() {
             1
           </p>
           <h1 className="mt-3 font-semibold">
-            Add All Information related to your Property
+            Add all information related to your property
           </h1>
         </div>
         <div className="  text-center p-6 bg-[#FEFBF6] shadow-lg">
@@ -207,7 +207,7 @@ export default function CreateListing() {
             3
           </p>
           <h1 className="font-semibold mt-3">
-            The Final step is to fill your property
+            The final step is to fill your property
           </h1>
         </div>
       </div>
@@ -378,7 +378,7 @@ export default function CreateListing() {
               ></input>
               <button
                 type="button"
-                className="h-9 flex items-center justify-center w-36 text-white font-bold disabled:opacity-80 rounded-lg hover:shadow-md  bg-[#F1843E]"
+                className="h-9 flex items-center justify-center w-36 text-white font-bold disabled:opacity-80 rounded-lg hover:shadow-md  bg-ffb534"
                 onClick={handleImageSubmit}
                 disabled={uploading}
               >
@@ -435,7 +435,7 @@ export default function CreateListing() {
           <div className="text-center">
             <button
               disabled={loading || uploading}
-              className="uppercase bg-[#F1843E] text-white py-3 px-2 rounded-2xl font-bold text-lg lg:w-[45%] sm:w-[60%]"
+              className="uppercase bg-ffb534 text-white py-3 px-2 rounded-2xl font-bold text-lg lg:w-[45%] sm:w-[60%]"
             >
               {loading ? (
                 <div className="flex justify-center items-center gap-3">

@@ -76,7 +76,7 @@ function Dashboard() {
         value={`${dashboardData.mostExpensive.name}  $${dashboardData.mostExpensive.price}`}
       />
       <Card
-        icon="assets/image 9.png"
+        icon="assets/128.png"
         description="Total Real Estates"
         value={dashboardData.totalListings}
       />
