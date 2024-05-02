@@ -1,22 +1,158 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaChevronDown, FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const AllListings = () => {
+  const initalQueryData = {
+    searchTerm: "",
+    type: "all",
+    parking: false,
+    furnished: false,
+    offer: false,
+    sort: "created_at",
+    order: "desc",
+  };
+  const [sidebardata, setSidebardata] = useState(initalQueryData);
   const [isTypeOpen, setIsTypeOpen] = useState(true);
   const [isAmenitiesOpen, setIsAmenitiesOpen] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [listings, setListings] = useState([]);
+  const [showMore, setShowMore] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchTerm");
+    const typeFromUrl = urlParams.get("type");
+    const parkingFromUrl = urlParams.get("parking");
+    const furnishedFromUrl = urlParams.get("furnished");
+    const offerFromUrl = urlParams.get("offer");
+    const sortFromUrl = urlParams.get("sort");
+    const orderFromUrl = urlParams.get("order");
+
+    if (
+      searchTermFromUrl ||
+      typeFromUrl ||
+      parkingFromUrl ||
+      furnishedFromUrl ||
+      offerFromUrl ||
+      sortFromUrl ||
+      orderFromUrl
+    ) {
+      setSidebardata({
+        searchTerm: searchTermFromUrl || "",
+        type: typeFromUrl || "all",
+        parking: parkingFromUrl === "true" ? true : false,
+        furnished: furnishedFromUrl === "true" ? true : false,
+        offer: offerFromUrl === "true" ? true : false,
+        sort: sortFromUrl || "created_at",
+        order: orderFromUrl || "desc",
+      });
+    }
+
+    const fetchListings = async () => {
+      setLoading(true);
+      setShowMore(false);
+      const searchQuery = urlParams.toString();
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/listing/get?${searchQuery}`
+      );
+      const data = await res.json();
+      console.log(data);
+      if (data.length > 8) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
+      setListings(data);
+      setLoading(false);
+    };
+
+    fetchListings();
+  }, [location.search]);
+
+  const handleChange = (e) => {
+    if (
+      e.target.id === "all" ||
+      e.target.id === "rent" ||
+      e.target.id === "sale"
+    ) {
+      setSidebardata({ ...sidebardata, type: e.target.id });
+    }
+
+    if (e.target.id === "searchTerm") {
+      setSidebardata({ ...sidebardata, searchTerm: e.target.value });
+    }
+
+    if (
+      e.target.id === "parking" ||
+      e.target.id === "furnished" ||
+      e.target.id === "offer"
+    ) {
+      setSidebardata({
+        ...sidebardata,
+        [e.target.id]:
+          e.target.checked || e.target.checked === "true" ? true : false,
+      });
+    }
+
+    if (e.target.id === "sort_order") {
+      const sort = e.target.value.split("_")[0] || "created_at";
+
+      const order = e.target.value.split("_")[1] || "desc";
+
+      setSidebardata({ ...sidebardata, sort, order });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams();
+    urlParams.set("searchTerm", sidebardata.searchTerm);
+    urlParams.set("type", sidebardata.type);
+    urlParams.set("parking", sidebardata.parking);
+    urlParams.set("furnished", sidebardata.furnished);
+    urlParams.set("offer", sidebardata.offer);
+    urlParams.set("sort", sidebardata.sort);
+    urlParams.set("order", sidebardata.order);
+    const searchQuery = urlParams.toString();
+    navigate(`/listing?${searchQuery}`);
+  };
+
+  const onShowMoreClick = async () => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}/listing/get?${searchQuery}`
+    );
+    const data = await res.json();
+    if (data.length < 9) {
+      setShowMore(false);
+    }
+    setListings([...listings, ...data]);
+  };
   return (
     <div className="flex flex-col md:flex-row m-5">
       <div className="p-5 bg-filter rounded-xl mb-5 md:mb-0 md:mr-5">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="bg-searchInput flex items-center gap-2 p-2 rounded-lg">
             <FaSearch className="text-64748b" />
             <input
               type="text"
               placeholder="Search"
               className="bg-transparent focus:outline-none w-full"
+              value={sidebardata.searchTerm}
+              onChange={handleChange}
+              id="searchTerm"
             />
           </div>
-          <button type="reset" className="bg-transparent text-sky-600 my-2">
+          <button
+            className="bg-transparent text-sky-600 my-2"
+            onClick={() => setSidebardata(initalQueryData)}
+          >
             Clear all
           </button>
           <div
@@ -32,10 +168,23 @@ const AllListings = () => {
                 <input
                   type="checkbox"
                   name="rent"
+                  id="all"
+                  className="w-[14px] mt-[3px]"
+                  onChange={handleChange}
+                  checked={sidebardata.type === "all"}
+                />
+                <label htmlFor="all">All</label>
+              </div>
+              <div className="flex gap-2">
+                <input
+                  type="checkbox"
+                  name="rent"
                   id="rent"
                   className="w-[14px] mt-[3px]"
+                  onChange={handleChange}
+                  checked={sidebardata.type === "rent"}
                 />
-                <label htmlFor="rent">Rent</label>
+                <label htmlFor="rent">Rent only</label>
               </div>
               <div className="flex gap-2">
                 <input
@@ -43,8 +192,10 @@ const AllListings = () => {
                   name="sale"
                   id="sale"
                   className="w-[14px] mt-[3px]"
+                  onChange={handleChange}
+                  checked={sidebardata.type === "sale"}
                 />
-                <label htmlFor="sale">Sale</label>
+                <label htmlFor="sale">Sale only</label>
               </div>
               <div className="flex gap-2">
                 <input
@@ -52,6 +203,8 @@ const AllListings = () => {
                   name="offer"
                   id="offer"
                   className="w-[14px] mt-[3px]"
+                  onChange={handleChange}
+                  checked={sidebardata.offer}
                 />
                 <label htmlFor="offer">Offer</label>
               </div>
@@ -72,6 +225,8 @@ const AllListings = () => {
                   name="parking"
                   id="parking"
                   className="w-[14px] mt-[3px]"
+                  onChange={handleChange}
+                  checked={sidebardata.parking}
                 />
                 <label htmlFor="parking">Parking</label>
               </div>
@@ -81,6 +236,8 @@ const AllListings = () => {
                   name="furnished"
                   id="furnished"
                   className="w-[14px] mt-[3px]"
+                  onChange={handleChange}
+                  checked={sidebardata.furnished}
                 />
                 <label htmlFor="furnished">Furnished</label>
               </div>
@@ -89,14 +246,16 @@ const AllListings = () => {
           <div className="mt-3">
             <label htmlFor="sort">Sort by:</label>
             <select
-              name="sort"
-              id="sort"
+              name="sort_order"
+              id="sort_order"
+              onChange={handleChange}
+              defaultValue={"created_at_desc"}
               className="rounded-md p-2 ml-2 bg-searchInput"
             >
-              <option value="latest">Latest</option>
-              <option value="oldest">Oldest</option>
-              <option value="price-low-high">Price low to high</option>
-              <option value="price-high-low">Price high to low</option>
+              <option value="createdAt_desc">Latest</option>
+              <option value="createdAt_asc">Oldest</option>
+              <option value="regularPrice_asc">Price low to high</option>
+              <option value="regularPrice_desc">Price high to low</option>
             </select>
           </div>
           <button className="bg-ffc45d hover:opacity-60 text-white text-xl font-bold mt-3 p-2 w-full rounded-lg">
