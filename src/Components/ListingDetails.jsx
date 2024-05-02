@@ -240,9 +240,12 @@ const ListingDetails = () => {
             )}
             {contact && <Contact listing={listing} />}
             {!listing.condition && pay && (
-              <div className="flex justify-center">
-                <button onClick={createOrder}>Checkout</button>
-              </div>
+              <button
+                className="bg-green-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
+                onClick={createOrder}
+              >
+                Checkout
+              </button>
             )}
           </div>
         </div>
