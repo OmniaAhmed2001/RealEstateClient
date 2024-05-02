@@ -15,7 +15,7 @@ import CreateListing from "./Pages/Create-Listing/Create-Listing";
 import UserListing from "./Pages/User-Listing/UserListing";
 import AllLists from "./Pages/AllLists/AllLists";
 import Update_Listing from "./Pages/UpdateListing/UpdateListing";
-import Dashboard from "./Pages/Dashboard/Dashboard";
+import DashboardMain from "./Pages/Dashboard/Dashboard";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import ListingDetails from "./Components/ListingDetails";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
@@ -37,7 +37,7 @@ export default function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-out" element={<SignOut />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<DashboardMain />} />
           <Route element={<PrivateRoute />}>
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/profile" element={<Profile />} />

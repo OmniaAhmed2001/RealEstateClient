@@ -1,13 +1,13 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 // eslint-disable-next-line no-unused-vars
-import Card from "./Components/Card";
+import Dashboard from "./Components/Dashboard";
 import Charts from "./Components/Charts";
 
-export default function Dashboard() {
+export default function DashboardMain() {
   return (
     <div className="mb-10">
-      <Card />
+      <Dashboard />
       <Charts />
     </div>
   );
