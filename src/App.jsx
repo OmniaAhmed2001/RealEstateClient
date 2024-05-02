@@ -55,9 +55,8 @@ export default function App() {
             path="/update-listing/:id"
             element={<Update_Listing />}
           ></Route>
-          <Route path="/listing" element={<AllListings />}>
-            <Route path=":listingId" element={<ListingDetails />} />
-          </Route>
+          <Route path="/listing" element={<AllListings />} />
+          <Route path="/listing/:listingId" element={<ListingDetails />} />
 
           <Route path="/about" element={<About />} />
         </Routes>
