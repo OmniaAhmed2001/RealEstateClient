@@ -18,6 +18,7 @@ import Update_Listing from "./Pages/UpdateListing/UpdateListing";
 import DashboardMain from "./Pages/Dashboard/Dashboard";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import ListingDetails from "./Components/ListingDetails";
+import AllListings from "./Pages/AllListingsPage/AllListings";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const initialOptions = {
@@ -50,7 +51,14 @@ export default function App() {
               element={<Update_Listing />}
             ></Route>
           </Route>
-          <Route path="/listing/:listingId" element={<ListingDetails />} />
+          <Route
+            path="/update-listing/:id"
+            element={<Update_Listing />}
+          ></Route>
+        </Route>
+        <Route path="/listing" element={<AllListings />}>
+          <Route path=":listingId" element={<ListingDetails />} />
+        </Route>
 
           <Route path="/about" element={<About />} />
         </Routes>
