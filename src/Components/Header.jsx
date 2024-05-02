@@ -24,7 +24,7 @@ export default function Header() {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("searchTerm", searchTerm);
     const searchQuery = urlParams.toString();
-    navigate(`/listing/allLists?${searchQuery}`);
+    navigate(`/listing?${searchQuery}`);
   };
 
   useEffect(() => {

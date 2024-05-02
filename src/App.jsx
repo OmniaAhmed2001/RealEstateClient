@@ -18,6 +18,7 @@ import Update_Listing from "./Pages/UpdateListing/UpdateListing";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import ListingDetails from "./Components/ListingDetails";
+import AllListings from "./Pages/AllListingsPage/AllListings";
 
 export default function App() {
   return (
@@ -42,7 +43,9 @@ export default function App() {
             element={<Update_Listing />}
           ></Route>
         </Route>
-        <Route path="/listing/:listingId" element={<ListingDetails />} />
+        <Route path="/listing" element={<AllListings />}>
+          <Route path=":listingId" element={<ListingDetails />} />
+        </Route>
 
         <Route path="/about" element={<About />} />
       </Routes>
