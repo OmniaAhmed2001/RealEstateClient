@@ -64,7 +64,7 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="flex justify-evenly items-center flex-wrap">
+    <div className="flex justify-evenly items-center flex-col lg:flex-row">
       <Card
         icon="assets/image 12.png"
         description="Total Users"
