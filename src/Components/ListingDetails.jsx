@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { useSelector } from "react-redux";
@@ -14,16 +14,29 @@ import {
   FaShare,
 } from "react-icons/fa";
 import Contact from "./Contact";
+import { PayPalButtons } from "@paypal/react-paypal-js";
+const buttonStyles = {
+  layout: "horizontal", // horizontal or vertical
+  color: "gold", // gold, blue, silver, black, white
+  shape: "rect", // pill or rect
+  label: "pay", // checkout, credit, pay, paypal
+  height: 45, // px
+  disableMaxWidth: true,
+  tagline: false,
+};
 
 const ListingDetails = () => {
   SwiperCore.use([Navigation]);
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, token } = useSelector((state) => state.user);
   const params = useParams();
+  const navigate = useNavigate();
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
+  const [pay, setPay] = useState(true);
+
   useEffect(() => {
     const fetchListing = async () => {
       console.log(params);
@@ -42,6 +55,9 @@ const ListingDetails = () => {
         setListing(data);
         setLoading(false);
         setError(false);
+        if (data.userRef === currentUser._id) {
+          setPay(false);
+        }
       } catch (error) {
         setError(true);
         setLoading(false);
@@ -49,7 +65,49 @@ const ListingDetails = () => {
     };
     fetchListing();
   }, [params.listingId]);
-  console.log("hi", listing);
+
+  function createOrder() {
+    if (!currentUser) {
+      navigate("/sign-in");
+      return;
+    }
+    return fetch("/my-server/create-paypal-order", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      // use the "body" param to optionally pass additional order information
+      // like product ids and quantities
+      body: JSON.stringify({
+        cart: [
+          {
+            id: "YOUR_PRODUCT_ID",
+            quantity: "YOUR_PRODUCT_QUANTITY",
+          },
+        ],
+      }),
+    })
+      .then((response) => response.json())
+      .then((order) => order.id);
+  }
+  function onApprove(data) {
+    return fetch("/my-server/capture-paypal-order", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        orderID: data.orderID,
+      }),
+    })
+      .then((response) => response.json())
+      .then((orderData) => {
+        const name = orderData.payer.name.given_name;
+        alert(`Transaction completed by ${name}`);
+      });
+  }
 
   return (
     <main>
@@ -103,7 +161,14 @@ const ListingDetails = () => {
             </p>
             <div className="flex gap-4">
               <p className="bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
-                {listing.type === "rent" ? "For Rent" : "For Sale"}
+                {/* ToDo add listing.condition to the database for Sold or Rented */}
+                {listing.type === "rent"
+                  ? "For Rent"
+                  : listing.type === "rented"
+                  ? "Rented"
+                  : listing.type === "sold"
+                  ? "Sold"
+                  : "For Sale"}
               </p>
               {listing.offer && (
                 <p className="bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
@@ -146,6 +211,19 @@ const ListingDetails = () => {
               </button>
             )}
             {contact && <Contact listing={listing} />}
+            {pay && (
+              <div className="flex justify-center">
+                <PayPalButtons
+                  createOrder={createOrder}
+                  onApprove={onApprove}
+                  disabled={
+                    listing.type === "rented" || listing.type === "bought"
+                  }
+                  className="w-full text-white text-center rounded-md"
+                  style={buttonStyles}
+                />
+              </div>
+            )}
           </div>
         </div>
       )}

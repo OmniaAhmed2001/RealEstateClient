@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 export default function AllLists() {
   const navigate = useNavigate();
+
   const [showListingError, setShowListingError] = useState(false);
   const [userListings, setUserListings] = useState([]);
-  const { currentUser } = useSelector((state) => {
+  const { currentUser, token } = useSelector((state) => {
     return state.user;
   });
   useEffect(() => {
@@ -15,8 +16,13 @@ export default function AllLists() {
         setShowListingError(false);
 
         const res = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}/user/listings/${currentUser._id}`, {
-            credentials: "include"
+          `${import.meta.env.VITE_SERVER_URL}/user/listings/${currentUser._id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
           }
         );
 
@@ -36,11 +42,14 @@ export default function AllLists() {
   }, [currentUser._id]);
   const handleDleteListing = async (listingId) => {
     try {
-
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}/listing/delete/${listingId}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
           credentials: "include",
         }
       );
@@ -100,7 +109,7 @@ export default function AllLists() {
                   </button>
                 </div>
                 <div className="mt-3 mb-2">
-                  <button className="bg-white w-full  py-1 font-semibold text-[#f1843e] border border-[#f1843e] shadow-md hover:opacity-90 rounded-md">
+                  <button className="bg-white w-full  py-1 font-semibold text-[#f1843e] border border-[#f1843e] shadow-md hover:opacity-90 rounded-md" onClick={()=>navigate(`/listing/${listing._id}`)}>
                     Show All Details
                   </button>
                 </div>

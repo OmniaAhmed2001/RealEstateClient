@@ -22,7 +22,9 @@ import {
 
 export default function Profile() {
   const fileRef = useRef(null);
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const { currentUser, loading, error, token } = useSelector(
+    (state) => state.user
+  );
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
@@ -60,6 +62,7 @@ export default function Profile() {
         {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
@@ -118,6 +121,10 @@ export default function Profile() {
         `${import.meta.env.VITE_SERVER_URL}/user/delete/${currentUser._id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
           credentials: "include",
         }
       );
@@ -134,7 +141,9 @@ export default function Profile() {
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/sign-out`);
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/auth/sign-out`
+      );
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.message, res.status);
@@ -211,7 +220,7 @@ export default function Profile() {
         </div>
         <button
           disabled={loading}
-          className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-90 disabled:opacity-70"
+          className="bg-ffb534 text-white rounded-lg p-3 uppercase hover:opacity-90 disabled:opacity-70"
         >
           {loading ? "Loading..." : "Update"}
         </button>
@@ -219,11 +228,11 @@ export default function Profile() {
       <div className="flex justify-between mt-5">
         <span
           onClick={handleDeleteUser}
-          className="text-red-700 cursor-pointer"
+          className="text-ffb534 cursor-pointer"
         >
           Delete Account
         </span>
-        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">
+        <span onClick={handleSignOut} className="text-ffb534 cursor-pointer">
           Sign Out
         </span>
       </div>

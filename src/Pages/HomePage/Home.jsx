@@ -2,6 +2,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
+import { FaChessKing } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const ArrowIcon = (
   <svg
@@ -44,8 +46,9 @@ const MyIcon = (
 );
 
 export default function Home() {
-  // const user = useSelector((state) => state.user.currentUser);
-  // console.log(user);
+  const {token} = useSelector((state) => state.user);
+  
+  
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
     const handleResize = () => {
@@ -93,14 +96,14 @@ export default function Home() {
       </div>
     {/*Services Section */}
       <div className="flex flex-col justify-center items-center mt-16">
-        <div className="rounded-xl p-2 bg-fdf5e8 flex flex-col justify-center items-center h-9 mb-4">
+        <div className="rounded-xl p-2 bg-fdf5e8 flex flex-col justify-center items-center h-9 mb-4 w-36">
           <h2 className="text-center text-xl font-bold mb-4 mt-4 text-ffb534">
             Our Services
           </h2>
         </div>
         <h3 className="text-center text-3xl font-bold mb-8">Our Main Focus</h3>
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mx-10"
+          className="flex justify-center items-center flex-wrap mx-10"
           style={{ gap: "120px" }}
         >
           {/* Card 1 */}

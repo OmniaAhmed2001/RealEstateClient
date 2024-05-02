@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 export default function Update_Listing() {
-  const { currentUser } = useSelector((state) => {
+  const { currentUser, token } = useSelector((state) => {
     return state.user;
   });
   const navigate = useNavigate();
@@ -138,6 +138,7 @@ export default function Update_Listing() {
         {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           credentials: "include",
@@ -163,14 +164,17 @@ export default function Update_Listing() {
   };
   useEffect(() => {
     const fetchListing = async () => {
-      console.log("update", params)
+      console.log("update", params);
       const listingId = params.id;
 
       const res = await fetch(
-
         `${import.meta.env.VITE_SERVER_URL}/listing/get/${listingId}`,
 
         {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
           credentials: "include",
         }
       );

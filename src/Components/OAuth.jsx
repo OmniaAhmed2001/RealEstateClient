@@ -1,13 +1,14 @@
 import React from "react";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { app } from "../firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const OAuth = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const {token} = useSelector((state)=> state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleGoogleClick = async () => {
     try {
       const provider = new GoogleAuthProvider();
@@ -15,20 +16,24 @@ const OAuth = () => {
 
       const result = await signInWithPopup(auth, provider);
 
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/google`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials:'include',
-        body: JSON.stringify({
-          name: result.user.displayName,
-          email: result.user.email,
-          photo: result.user.photoURL,
-        }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/auth/google`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            name: result.user.displayName,
+            email: result.user.email,
+            photo: result.user.photoURL,
+          }),
+        }
+      );
       const data = await res.json();
-      dispatch(signInSuccess(data))
+      dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
       console.log("could not sign in with google.", error);

@@ -31,10 +31,10 @@ export default function CreateListing() {
     offer: false,
     furnished: false,
     regularPrice: 50,
-    discountPrice: 0,
+    discountPrice: 50,
     parking: false,
   });
-  const { currentUser } = useSelector((state) => {
+  const { currentUser, token } = useSelector((state) => {
     return state.user;
   });
   const navigate = useNavigate();
@@ -115,7 +115,7 @@ export default function CreateListing() {
     ) {
       setFormData({ ...formData, [e.target.id]: e.target.value });
     } else if (e.target.id === "listingType") {
-      setFormData({ ...formData, type: e.target.id });
+      setFormData({ ...formData, type: e.target.value });
     }
   };
   const handleSubmitForm = async (e) => {
@@ -127,14 +127,20 @@ export default function CreateListing() {
       if (formData.regularPrice < formData.discountPrice) {
         return setError("Discount Price Should be Less than Regular Price");
       }
-      setError(false);
-      setLoading(true);
+      if (
+        formData.regularPrice >= formData.discountPrice &&
+        formData.imageUrls.length >= 1
+      ) {
+        setError(false);
+        setLoading(true);
+      }
 
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}/listing/create`,
         {
           method: "POST",
           headers: {
+              Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
 
@@ -172,7 +178,7 @@ export default function CreateListing() {
             1
           </p>
           <h1 className="mt-3 font-semibold">
-            Add All Information related to your Property
+            Add all information related to your property
           </h1>
         </div>
         <div className="  text-center p-6 bg-[#FEFBF6] shadow-lg">
@@ -201,7 +207,7 @@ export default function CreateListing() {
             3
           </p>
           <h1 className="font-semibold mt-3">
-            The Final step is to fill your property
+            The final step is to fill your property
           </h1>
         </div>
       </div>
@@ -317,7 +323,7 @@ export default function CreateListing() {
                 <input
                   type="number"
                   min="50"
-                  max="10000"
+                  max="100000"
                   id="regularPrice"
                   required
                   className="lg:w-40 md:w-30 w-[35%] p-3  rounded-lg h-10"
@@ -334,7 +340,7 @@ export default function CreateListing() {
                 <input
                   type="number"
                   min="0"
-                  max="10000"
+                  max="50000"
                   id="discountPrice"
                   disabled={!formData.offer}
                   required
@@ -372,7 +378,7 @@ export default function CreateListing() {
               ></input>
               <button
                 type="button"
-                className="h-9 flex items-center justify-center w-36 text-white font-bold disabled:opacity-80 rounded-lg hover:shadow-md  bg-[#F1843E]"
+                className="h-9 flex items-center justify-center w-36 text-white font-bold disabled:opacity-80 rounded-lg hover:shadow-md  bg-ffb534"
                 onClick={handleImageSubmit}
                 disabled={uploading}
               >
@@ -429,10 +435,10 @@ export default function CreateListing() {
           <div className="text-center">
             <button
               disabled={loading || uploading}
-              className="uppercase bg-[#F1843E] text-white py-3 px-2 rounded-2xl font-bold text-lg lg:w-[45%] sm:w-[60%]"
+              className="uppercase bg-ffb534 text-white py-3 px-2 rounded-2xl font-bold text-lg lg:w-[45%] sm:w-[60%]"
             >
               {loading ? (
-                <div className="flex items-center gap-1">
+                <div className="flex justify-center items-center gap-3">
                   <FontAwesomeIcon
                     className="text-lg font-semibold"
                     icon={faSpinner}
