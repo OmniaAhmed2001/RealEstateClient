@@ -136,8 +136,11 @@ const AllListings = () => {
   };
   return (
     <div className="flex flex-col md:flex-row m-5">
-      <div className="p-5 bg-filter rounded-xl mb-5 md:mb-0 md:mr-5">
-        <form onSubmit={handleSubmit}>
+      <div className="md:min-h-[500px]">
+        <form
+          onSubmit={handleSubmit}
+          className="p-5 bg-filter rounded-xl mb-5 md:mb-0 md:mr-5"
+        >
           <div className="bg-searchInput flex items-center gap-2 p-2 rounded-lg">
             <FaSearch className="text-64748b" />
             <input
