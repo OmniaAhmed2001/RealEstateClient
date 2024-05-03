@@ -140,7 +140,7 @@ export default function CreateListing() {
         {
           method: "POST",
           headers: {
-              Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
 
@@ -243,8 +243,8 @@ export default function CreateListing() {
                   >
                     Listing Type
                   </option>
-                  <option value="Sell">Sell</option>
-                  <option value="Rent">Rent</option>
+                  <option value="sale">Sale</option>
+                  <option value="rent">Rent</option>
                 </select>
               </div>
             </div>

@@ -52,7 +52,7 @@ const ListingDetails = () => {
         setListing(data);
         setLoading(false);
         setError(false);
-        if (data.userRef === currentUser._id) {
+        if (data.userRef === currentUser?._id) {
           setPay(false);
         }
       } catch (error) {
