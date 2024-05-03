@@ -19,49 +19,37 @@ import DashboardMain from "./Pages/Dashboard/Dashboard";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import ListingDetails from "./Components/ListingDetails";
 import AllListings from "./Pages/AllListingsPage/AllListings";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-
-const initialOptions = {
-  clientId: "A2lYcpMi.5XbIzphQvMaYKPXFTf7ATbDaTcItSyau24DygRZdN89B-nP",
-  currency: "USD",
-  intent: "capture",
-};
 
 export default function App() {
   return (
-    <PayPalScriptProvider options={initialOptions}>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-out" element={<SignOut />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/dashboard" element={<DashboardMain />} />
-          <Route element={<PrivateRoute />}>
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/user-listing" element={<UserListing />}>
-              <Route path="" element={<CreateListing />} />
-              <Route path="allLists" element={<AllLists />} />
-            </Route>
-            <Route
-              path="/update-listing/:id"
-              element={<Update_Listing />}
-            ></Route>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-out" element={<SignOut />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/dashboard" element={<DashboardMain />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/user-listing" element={<UserListing />}>
+            <Route path="" element={<CreateListing />} />
+            <Route path="allLists" element={<AllLists />} />
           </Route>
           <Route
             path="/update-listing/:id"
             element={<Update_Listing />}
           ></Route>
-          <Route path="/listing" element={<AllListings />} />
-          <Route path="/listing/:listingId" element={<ListingDetails />} />
+        </Route>
+        <Route path="/update-listing/:id" element={<Update_Listing />}></Route>
+        <Route path="/listing" element={<AllListings />} />
+        <Route path="/listing/:listingId" element={<ListingDetails />} />
 
-          <Route path="/about" element={<About />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </PayPalScriptProvider>
+        <Route path="/about" element={<About />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
