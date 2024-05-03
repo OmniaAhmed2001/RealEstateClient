@@ -15,6 +15,7 @@ export default {
         ff9a62: "#FF9A62",
         filter: "#E5E5E5",
         searchInput: "#f5f5f5",
+        card: "#fff2dc",
       },
       padding: {
         custom: "0.125rem",
