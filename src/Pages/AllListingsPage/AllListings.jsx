@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { FaChevronDown, FaSearch } from "react-icons/fa";
+import { FaChevronUp, FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import ListingItem from "../../Components/ListingItem";
 
 const AllListings = () => {
   const initalQueryData = {
@@ -136,10 +137,10 @@ const AllListings = () => {
   };
   return (
     <div className="flex flex-col md:flex-row m-5">
-      <div className="md:min-h-[500px]">
+      <div className="md:min-h-[500px] w-[300px] md:mr-5">
         <form
           onSubmit={handleSubmit}
-          className="p-5 bg-filter rounded-xl mb-5 md:mb-0 md:mr-5"
+          className="p-5 bg-filter rounded-xl mb-5 md:mb-0"
         >
           <div className="bg-searchInput flex items-center gap-2 p-2 rounded-lg">
             <FaSearch className="text-64748b" />
@@ -163,89 +164,108 @@ const AllListings = () => {
             onClick={() => setIsTypeOpen(!isTypeOpen)}
           >
             <h5 className="font-bold">Type</h5>
-            <FaChevronDown />
+            <FaChevronUp
+              className={`transition-transform duration-200 ease-out ${
+                !isTypeOpen && "rotate-180"
+              }`}
+            />
           </div>
-          {isTypeOpen && (
-            <div className="ml-3">
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="rent"
-                  id="all"
-                  className="w-[14px] mt-[3px]"
-                  onChange={handleChange}
-                  checked={sidebardata.type === "all"}
-                />
-                <label htmlFor="all">All</label>
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="rent"
-                  id="rent"
-                  className="w-[14px] mt-[3px]"
-                  onChange={handleChange}
-                  checked={sidebardata.type === "rent"}
-                />
-                <label htmlFor="rent">Rent only</label>
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="sale"
-                  id="sale"
-                  className="w-[14px] mt-[3px]"
-                  onChange={handleChange}
-                  checked={sidebardata.type === "sale"}
-                />
-                <label htmlFor="sale">Sale only</label>
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="offer"
-                  id="offer"
-                  className="w-[14px] mt-[3px]"
-                  onChange={handleChange}
-                  checked={sidebardata.offer}
-                />
-                <label htmlFor="offer">Offer</label>
-              </div>
+          <div
+            className="ml-3 transition-all duration-200 ease-out"
+            style={{
+              maxHeight: isTypeOpen ? "1000px" : "0",
+              opacity: isTypeOpen ? "1" : "0",
+              overflow: "hidden",
+            }}
+          >
+            <div className="flex gap-2">
+              <input
+                type="checkbox"
+                name="all"
+                id="all"
+                className="w-[14px] mt-[3px]"
+                onChange={handleChange}
+                checked={sidebardata.type === "all"}
+              />
+              <label htmlFor="all">All</label>
             </div>
-          )}
+            <div className="flex gap-2">
+              <input
+                type="checkbox"
+                name="rent"
+                id="rent"
+                className="w-[14px] mt-[3px]"
+                onChange={handleChange}
+                checked={sidebardata.type === "rent"}
+              />
+              <label htmlFor="rent">Rent only</label>
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="checkbox"
+                name="sale"
+                id="sale"
+                className="w-[14px] mt-[3px]"
+                onChange={handleChange}
+                checked={sidebardata.type === "sale"}
+              />
+              <label htmlFor="sale">Sale only</label>
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="checkbox"
+                name="offer"
+                id="offer"
+                className="w-[14px] mt-[3px]"
+                onChange={handleChange}
+                checked={sidebardata.offer}
+              />
+              <label htmlFor="offer">Offer</label>
+            </div>
+          </div>
+
           <div
             className="flex items-center justify-between text-lg cursor-pointer"
             onClick={() => setIsAmenitiesOpen(!isAmenitiesOpen)}
           >
             <h5 className="font-bold mt-2">Amenities</h5>
-            <FaChevronDown />
+            <FaChevronUp
+              className={`transition-transform duration-200 ease-out ${
+                !isAmenitiesOpen && "rotate-180"
+              }`}
+            />
           </div>
-          {isAmenitiesOpen && (
-            <div className="ml-3">
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="parking"
-                  id="parking"
-                  className="w-[14px] mt-[3px]"
-                  onChange={handleChange}
-                  checked={sidebardata.parking}
-                />
-                <label htmlFor="parking">Parking</label>
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="furnished"
-                  id="furnished"
-                  className="w-[14px] mt-[3px]"
-                  onChange={handleChange}
-                  checked={sidebardata.furnished}
-                />
-                <label htmlFor="furnished">Furnished</label>
-              </div>
+          <div
+            className="ml-3 transition-all duration-200 ease-in-out"
+            style={{
+              maxHeight: isAmenitiesOpen ? "1000px" : "0",
+              opacity: isAmenitiesOpen ? "1" : "0",
+              overflow: "hidden",
+            }}
+          >
+            <div className="flex gap-2">
+              <input
+                type="checkbox"
+                name="parking"
+                id="parking"
+                className="w-[14px] mt-[3px]"
+                onChange={handleChange}
+                checked={sidebardata.parking}
+              />
+              <label htmlFor="parking">Parking</label>
             </div>
-          )}
+            <div className="flex gap-2">
+              <input
+                type="checkbox"
+                name="furnished"
+                id="furnished"
+                className="w-[14px] mt-[3px]"
+                onChange={handleChange}
+                checked={sidebardata.furnished}
+              />
+              <label htmlFor="furnished">Furnished</label>
+            </div>
+          </div>
           <div className="mt-3">
             <label htmlFor="sort">Sort by:</label>
             <select
@@ -266,8 +286,33 @@ const AllListings = () => {
           </button>
         </form>
       </div>
-      <div>
+      <div className="flex-1">
         <h1 className="text-3xl font-bold">Listings</h1>
+        <div className="py-7 flex flex-wrap gap-4">
+          {!loading && listings.length === 0 && (
+            <p className="text-xl text-slate-700">No listing found!</p>
+          )}
+          {loading && (
+            <p className="text-xl text-slate-700 text-center w-full">
+              Loading...
+            </p>
+          )}
+
+          {!loading &&
+            listings &&
+            listings.map((listing) => (
+              <ListingItem key={listing._id} listing={listing} />
+            ))}
+
+          {showMore && (
+            <button
+              onClick={onShowMoreClick}
+              className="text-ffc45d hover:underline p-7 text-center w-full"
+            >
+              Show more
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
