@@ -66,12 +66,12 @@ function Dashboard() {
   return (
     <div className="flex justify-evenly items-center flex-col lg:flex-row">
       <Card
-        icon="assets/image 12.png"
+        icon="assets/users.png"
         description="Total Users"
         value={dashboardData.totalUsers}
       />
       <Card
-        icon="assets/image 9.png"
+        icon="assets/realestate.png"
         description="Most Expensive Real Estate"
         value={`${dashboardData.mostExpensive.name}  $${dashboardData.mostExpensive.price}`}
       />

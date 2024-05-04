@@ -110,8 +110,8 @@ export default function Header() {
             onClick={toggleMenu}
           />
           {showMenu && (
-            <ul className="absolute flex flex-col gap-2 items-center bg-white top-full right-1 mt-3 p-2 rounded shadow-md w-20">
-              <Link to={"/listing"}>
+            <ul className="absolute flex flex-col gap-2 items-center bg-white top-full right-1 mt-3 p-2 rounded shadow-md w-20 z-10">
+              <Link to={"/user-listing"}>
                 <li>
                   <FontAwesomeIcon
                     icon={faHouseChimneyMedical}

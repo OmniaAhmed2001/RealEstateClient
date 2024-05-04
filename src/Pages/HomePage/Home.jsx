@@ -84,7 +84,7 @@ export default function Home() {
             Our expert support is always available.
           </div>
           <div>
-            <Link to="/AllLists">
+            <Link to="/listing">
               <button
                 className="flex items-center text-base px-4 py-2 rounded-lg bg-ffb534 text-white font-bold hover:bg-ffcb74 mt-7"
                 style={{
@@ -154,7 +154,7 @@ export default function Home() {
               Over 1 million+ homes for sale available on the website, we can
               match you with a house you will want to call home.
             </p>
-            <Link to="/listing">
+            <Link to="/listing?searchTerm=&type=rent&parking=false&furnished=false&offer=false&sort=created_at&order=desc">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Find A Home {GoIcon}
               </button>
