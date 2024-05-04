@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { FaChessKing } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
@@ -38,7 +38,7 @@ const MyIcon = (
     viewBox="0 0 24 24"
     width="24"
     height="24"
-    className="h6 w-6" 
+    className="h6 w-6"
     fill="#FFB534"
   >
     <path d="M22.849,7.68l-.869-.68h.021V2h-2v3.451L13.849,.637c-1.088-.852-2.609-.852-3.697,0L1.151,7.68c-.731,.572-1.151,1.434-1.151,2.363v13.957H8V15c0-1.105,.895-2,2-2h4c1.105,0,2,.895,2,2v9h8V10.043c0-.929-.42-1.791-1.151-2.363Z" />
@@ -46,26 +46,30 @@ const MyIcon = (
 );
 
 export default function Home() {
-  const {token} = useSelector((state) => state.user);
-  
-  
+  const { token } = useSelector((state) => state.user);
+
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
   return (
     <>
       <div className="flex flex-col justify-center items-center p-4 md:flex-row">
         <div className="text-black text-center md:text-left md:w-1/2 md:pr-4 lg:pr-20 lg:pl-20">
-          <h3 className="flex items-center text-lg md:text-md lg:text-xl mb-4" style={{ justifyContent: windowWidth < 768 ? 'center' : 'flex-start' }}>
+          <h3
+            className="flex items-center text-lg md:text-md lg:text-xl mb-4"
+            style={{
+              justifyContent: windowWidth < 768 ? "center" : "flex-start",
+            }}
+          >
             {MyIcon}
             <span className="ml-2 opacity-70">Real Estate Agency</span>
           </h3>
@@ -75,13 +79,19 @@ export default function Home() {
             with ease
           </h3>
           <div className="text-black opacity-70 text-sm md:text-lg mb-">
-            EgyEstate will help you find your home fast, easy, and comfortable.<br/>
+            EgyEstate will help you find your home fast, easy, and comfortable.
+            <br />
             Our expert support is always available.
           </div>
           <div>
             <Link to="/AllLists">
-              <button className="flex items-center text-base px-4 py-2 rounded-lg bg-ffb534 text-white font-bold hover:bg-ffcb74 mt-7" style={{ justifyContent: windowWidth < 768 ? 'center' : 'flex-start' }}>
-                 Start Now  {ArrowIcon}
+              <button
+                className="flex items-center text-base px-4 py-2 rounded-lg bg-ffb534 text-white font-bold hover:bg-ffcb74 mt-7"
+                style={{
+                  justifyContent: windowWidth < 768 ? "center" : "flex-start",
+                }}
+              >
+                Start Now {ArrowIcon}
               </button>
             </Link>
           </div>
@@ -94,7 +104,7 @@ export default function Home() {
           />
         </div>
       </div>
-    {/*Services Section */}
+      {/*Services Section */}
       <div className="flex flex-col justify-center items-center mt-16">
         <div className="rounded-xl p-2 bg-fdf5e8 flex flex-col justify-center items-center h-9 mb-4 w-36">
           <h2 className="text-center text-xl font-bold mb-4 mt-4 text-ffb534">
@@ -122,7 +132,7 @@ export default function Home() {
               Over 1 million+ homes for sale available on the website, we can
               match you with a house you will want to call home.
             </p>
-            <Link>
+            <Link to="/listing?searchTerm=&type=all&parking=false&furnished=false&offer=true&sort=created_at&order=desc">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Know More {GoIcon}
               </button>
@@ -144,7 +154,7 @@ export default function Home() {
               Over 1 million+ homes for sale available on the website, we can
               match you with a house you will want to call home.
             </p>
-            <Link>
+            <Link to="/listing">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Find A Home {GoIcon}
               </button>
@@ -166,7 +176,7 @@ export default function Home() {
               Over 1 million+ homes for sale available on the website, we can
               match you with a house you will want to call home.
             </p>
-            <Link>
+            <Link to="/user-listing">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Add Your Property {GoIcon}
               </button>

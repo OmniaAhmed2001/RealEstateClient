@@ -19,11 +19,13 @@ import DashboardMain from "./Pages/Dashboard/Dashboard";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import ListingDetails from "./Components/ListingDetails";
 import AllListings from "./Pages/AllListingsPage/AllListings";
+import ScrollToTop from "./Components/ScrollToTop";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Header />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
