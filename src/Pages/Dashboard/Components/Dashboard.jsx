@@ -1,9 +1,9 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import { useSelector } from "react-redux";
-
 function Dashboard() {
-  const { token } = useSelector((state) => state.user);
+  const { token, role } = useSelector((state) => state.user);
   const [dashboardData, setDashboardData] = useState({
     totalUsers: 0,
     mostExpensive: { price: 0, name: "" },
@@ -11,60 +11,70 @@ function Dashboard() {
   });
 
   useEffect(() => {
-    console.log(token);
     const fetchData = async () => {
-      const usersRes = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/user/allUsers`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
-      const listingsRes = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/listing/get/countListings`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
-      const expensiveRes = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/listing/get/maxPrice`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      if (role === "admin") {
+        try {
+          const usersRes = await fetch(
+            `${import.meta.env.VITE_SERVER_URL}/user/allUsers`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+            }
+          );
+          const listingsRes = await fetch(
+            `${import.meta.env.VITE_SERVER_URL}/listing/get/countListings`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+            }
+          );
+          const expensiveRes = await fetch(
+            `${import.meta.env.VITE_SERVER_URL}/listing/get/maxPrice`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              credentials: "include",
+            }
+          );
 
-      const usersData = await usersRes.json();
-      const listingsData = await listingsRes.json();
-      const expensiveData = await expensiveRes.json();
+          const usersData = await usersRes.json();
+          const listingsData = await listingsRes.json();
+          const expensiveData = await expensiveRes.json();
 
-      console.log(usersData, listingsData);
-
-      setDashboardData({
-        totalUsers: usersData.count,
-        mostExpensive: {
-          price: expensiveData.maxPrice,
-          name: expensiveData.name,
-        },
-        totalListings: listingsData.count,
-      });
+          setDashboardData({
+            totalUsers: usersData.count,
+            mostExpensive: {
+              price: expensiveData.maxPrice,
+              name: expensiveData.name,
+            },
+            totalListings: listingsData.count,
+          });
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
     };
 
     fetchData();
-  }, []);
+  }, [role, token]);
 
   return (
     <div className="flex justify-evenly items-center flex-col lg:flex-row">
+      {role === "admin" && (
+        <Card
+          icon="assets/dashboard.png"
+          description="Dashboard"
+          value="Admin Access Only"
+        />
+      )}
       <Card
         icon="assets/users.png"
         description="Total Users"
