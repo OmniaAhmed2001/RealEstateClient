@@ -140,7 +140,7 @@ export default function CreateListing() {
         {
           method: "POST",
           headers: {
-              Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
 
@@ -202,7 +202,7 @@ export default function CreateListing() {
               borderRadius: "50%",
               backgroundImage: "linear-gradient(to left, #F1843E, #ffe12a)", // Example gradient colors
             }}
-            className="bg-[#F1843E] w-10 mx-auto h-10 flex justify-center items-center font-bold text-white"
+            className="bg-[#d8a537] w-10 mx-auto h-10 flex justify-center items-center font-bold text-white"
           >
             3
           </p>
