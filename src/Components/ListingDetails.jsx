@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { useSelector } from "react-redux";
@@ -14,15 +14,10 @@ import {
   FaShare,
 } from "react-icons/fa";
 import Contact from "./Contact";
-import { PayPalButtons } from "@paypal/react-paypal-js";
-const buttonStyles = {
-  layout: "horizontal", // horizontal or vertical
-  color: "gold", // gold, blue, silver, black, white
-  shape: "rect", // pill or rect
-  label: "pay", // checkout, credit, pay, paypal
-  height: 45, // px
-  disableMaxWidth: true,
-  tagline: false,
+
+const removeParamsFromUrl = () => {
+  const urlWithoutParams = window.location.pathname;
+  window.history.replaceState({}, document.title, urlWithoutParams);
 };
 
 const ListingDetails = () => {
@@ -36,10 +31,12 @@ const ListingDetails = () => {
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
   const [pay, setPay] = useState(true);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const success = searchParams.get("success");
 
   useEffect(() => {
     const fetchListing = async () => {
-      console.log(params);
       try {
         setLoading(true);
         const res = await fetch(
@@ -55,7 +52,7 @@ const ListingDetails = () => {
         setListing(data);
         setLoading(false);
         setError(false);
-        if (data.userRef === currentUser._id) {
+        if (data.userRef === currentUser?._id) {
           setPay(false);
         }
       } catch (error) {
@@ -63,51 +60,82 @@ const ListingDetails = () => {
         setLoading(false);
       }
     };
-    fetchListing();
+
+    const updateListing = async () => {
+      try {
+        setLoading(true);
+        console.log("params", params.listingId);
+        const res = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}/listing/updatePayment/${
+            params.listingId
+          }`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              session_ID: success,
+              user_id: currentUser._id,
+            }),
+
+            credentials: "include",
+          }
+        );
+        if (!res.ok) {
+          throw new Error("Response was not ok!");
+        }
+        const data = await res.json();
+        setListing(data);
+        setLoading(false);
+        setError(false);
+        setPay(false);
+        removeParamsFromUrl();
+      } catch (error) {
+        console.error(error);
+        setError(true);
+        setLoading(false);
+      }
+    };
+    if (success) {
+      console.log("success", success);
+      updateListing();
+    } else {
+      fetchListing();
+    }
   }, [params.listingId]);
 
-  function createOrder() {
+  const createOrder = async () => {
     if (!currentUser) {
       navigate("/sign-in");
       return;
     }
-    return fetch("/my-server/create-paypal-order", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      // use the "body" param to optionally pass additional order information
-      // like product ids and quantities
-      body: JSON.stringify({
-        cart: [
-          {
-            id: "YOUR_PRODUCT_ID",
-            quantity: "YOUR_PRODUCT_QUANTITY",
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/listing/create-checkout-session`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
-        ],
-      }),
-    })
-      .then((response) => response.json())
-      .then((order) => order.id);
-  }
-  function onApprove(data) {
-    return fetch("/my-server/capture-paypal-order", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        orderID: data.orderID,
-      }),
-    })
-      .then((response) => response.json())
-      .then((orderData) => {
-        const name = orderData.payer.name.given_name;
-        alert(`Transaction completed by ${name}`);
-      });
-  }
+          body: JSON.stringify({ ...listing }),
+        }
+      );
+      if (!res.ok) {
+        throw new Error("Something went wrong");
+      }
+      const data = await res.json();
+      console.log(data);
+      window.location.href = data?.session;
+      // const data = await res.json();
+      console.log(res);
+    } catch (error) {
+      setError(true);
+      console.log(error);
+    }
+  };
 
   return (
     <main>
@@ -162,12 +190,12 @@ const ListingDetails = () => {
             <div className="flex gap-4">
               <p className="bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
                 {/* ToDo add listing.condition to the database for Sold or Rented */}
-                {listing.type === "rent"
-                  ? "For Rent"
-                  : listing.type === "rented"
+                {listing.condition === "rented"
                   ? "Rented"
-                  : listing.type === "sold"
+                  : listing.condition === "sold"
                   ? "Sold"
+                  : listing.type === "rent"
+                  ? "For Rent"
                   : "For Sale"}
               </p>
               {listing.offer && (
@@ -211,18 +239,13 @@ const ListingDetails = () => {
               </button>
             )}
             {contact && <Contact listing={listing} />}
-            {pay && (
-              <div className="flex justify-center">
-                <PayPalButtons
-                  createOrder={createOrder}
-                  onApprove={onApprove}
-                  disabled={
-                    listing.type === "rented" || listing.type === "bought"
-                  }
-                  className="w-full text-white text-center rounded-md"
-                  style={buttonStyles}
-                />
-              </div>
+            {!listing.condition && pay && (
+              <button
+                className="bg-green-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
+                onClick={createOrder}
+              >
+                Checkout
+              </button>
             )}
           </div>
         </div>

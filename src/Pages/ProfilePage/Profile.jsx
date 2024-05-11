@@ -155,7 +155,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="p-3 max-w-lg mx-auto flex flex-col">
+    <div className="p-3 max-w-lg mx-auto flex flex-col bg-fdf5e8 m-12 px-12 rounded-2xl">
       <h1 className="text-3xl font-semibold text-center my-7"></h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
@@ -220,7 +220,7 @@ export default function Profile() {
         </div>
         <button
           disabled={loading}
-          className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-90 disabled:opacity-70"
+          className="bg-ffb534 text-white rounded-lg p-3 uppercase hover:opacity-90 disabled:opacity-70"
         >
           {loading ? "Loading..." : "Update"}
         </button>
@@ -228,11 +228,11 @@ export default function Profile() {
       <div className="flex justify-between mt-5">
         <span
           onClick={handleDeleteUser}
-          className="text-red-700 cursor-pointer"
+          className="text-ffb534 cursor-pointer"
         >
           Delete Account
         </span>
-        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">
+        <span onClick={handleSignOut} className="text-ffb534 cursor-pointer">
           Sign Out
         </span>
       </div>

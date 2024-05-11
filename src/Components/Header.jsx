@@ -6,6 +6,7 @@ import {
   faHeart,
   faCircleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
+import { AiFillDashboard } from "react-icons/ai";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,7 +25,7 @@ export default function Header() {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("searchTerm", searchTerm);
     const searchQuery = urlParams.toString();
-    navigate(`/listing/allLists?${searchQuery}`);
+    navigate(`/listing?${searchQuery}`);
   };
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function Header() {
           </button>
         </form>
         <div className="sm:flex hidden">
-          <ul className="flex gap-5 text-64748b">
+          <ul className="flex items-center gap-5 text-64748b">
             <Link to={"/user-listing"}>
               <li>
                 <FontAwesomeIcon
@@ -78,6 +79,13 @@ export default function Header() {
                 <FontAwesomeIcon
                   icon={faCircleExclamation}
                   style={{ color: "orange" }}
+                />
+              </li>
+            </Link>
+            <Link to={"/dashboard"}>
+              <li>
+                <AiFillDashboard
+                  style={{ color: "orange", fontSize: "21px" }}
                 />
               </li>
             </Link>
@@ -102,8 +110,8 @@ export default function Header() {
             onClick={toggleMenu}
           />
           {showMenu && (
-            <ul className="absolute bg-white top-full right-1 mt-3 p-2 rounded shadow-md w-20">
-              <Link to={"/listing"}>
+            <ul className="absolute flex flex-col gap-2 items-center bg-white top-full right-1 mt-3 p-2 rounded shadow-md w-20 z-10">
+              <Link to={"/user-listing"}>
                 <li>
                   <FontAwesomeIcon
                     icon={faHouseChimneyMedical}
@@ -121,6 +129,13 @@ export default function Header() {
                   <FontAwesomeIcon
                     icon={faCircleExclamation}
                     style={{ color: "orange" }}
+                  />
+                </li>
+              </Link>
+              <Link to={"/dashboard"}>
+                <li>
+                  <AiFillDashboard
+                    style={{ color: "orange", fontSize: "20px" }}
                   />
                 </li>
               </Link>
