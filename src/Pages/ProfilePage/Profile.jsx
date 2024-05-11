@@ -43,39 +43,36 @@ export default function Profile() {
   };
 
   const handleSubmit = async (e) => {
+    const updatedFormData = {...formData};
     e.preventDefault();
     try {
       for (let key in formData) {
         if (formData[key].length === 0) {
-          // Create a copy of formData object
-          const updatedFormData = { ...formData };
           // Remove the key and its corresponding value from the copied object
           delete updatedFormData[key];
           // Update the state with the new object
           setFormData(updatedFormData);
         }
       }
-      console.log("Mazen",formData);
-
-      // dispatch(updateUserStart());
-      // //send request containing the form Data includes the new avatar uploaded if any
-      // const res = await fetch(
-      //   `${import.meta.env.VITE_SERVER_URL}/user/update/${currentUser._id}`,
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(formData),
-      //     credentials: "include",
-      //   }
-      // );
-      // const data = await res.json();
-      // if (!res.ok) {
-      //   throw new Error(data.message, res.status);
-      // }
-      // dispatch(updateUserSuccess(data));
+      dispatch(updateUserStart());
+      //send request containing the form Data includes the new avatar uploaded if any
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/user/update/${currentUser._id}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedFormData),
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message, res.status);
+      }
+      dispatch(updateUserSuccess(data));
       setUpdateSuccess(true);
     } catch (error) {
       dispatch(updateUserFailure(error.message));
