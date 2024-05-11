@@ -85,7 +85,8 @@ export default function Home() {
             Our expert support is always available.
           </div>
           <div>
-            <Link to="/AllLists">
+
+            <Link to="/listing">
               <button
                 className="flex items-center text-base px-4 py-2 rounded-lg bg-ffb534 text-white font-bold hover:bg-ffcb74 mt-7"
                 style={{
@@ -107,14 +108,14 @@ export default function Home() {
       </div>
       {/*Services Section */}
       <div className="flex flex-col justify-center items-center mt-16">
-        <div className="rounded-xl p-2 bg-fdf5e8 flex flex-col justify-center items-center h-9 mb-4">
+        <div className="rounded-xl p-2 bg-fdf5e8 flex flex-col justify-center items-center h-9 mb-4 w-36">
           <h2 className="text-center text-xl font-bold mb-4 mt-4 text-ffb534">
             Our Services
           </h2>
         </div>
         <h3 className="text-center text-3xl font-bold mb-8">Our Main Focus</h3>
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mx-10"
+          className="flex justify-center items-center flex-wrap mx-10"
           style={{ gap: "120px" }}
         >
           {/* Card 1 */}
@@ -133,7 +134,7 @@ export default function Home() {
               Over 1 million+ homes for sale available on the website, we can
               match you with a house you will want to call home.
             </p>
-            <Link>
+            <Link to="/listing?searchTerm=&type=all&parking=false&furnished=false&offer=true&sort=created_at&order=desc">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Know More {GoIcon}
               </button>
@@ -155,7 +156,7 @@ export default function Home() {
               Over 1 million+ homes for sale available on the website, we can
               match you with a house you will want to call home.
             </p>
-            <Link>
+            <Link to="/listing?searchTerm=&type=rent&parking=false&furnished=false&offer=false&sort=created_at&order=desc">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Find A Home {GoIcon}
               </button>
@@ -177,7 +178,7 @@ export default function Home() {
               Over 1 million+ homes for sale available on the website, we can
               match you with a house you will want to call home.
             </p>
-            <Link>
+            <Link to="/user-listing">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Add Your Property {GoIcon}
               </button>
