@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaChessKing } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import Review from "../../Components/Review";
 
 const ArrowIcon = (
   <svg
@@ -84,6 +85,7 @@ export default function Home() {
             Our expert support is always available.
           </div>
           <div>
+
             <Link to="/listing">
               <button
                 className="flex items-center text-base px-4 py-2 rounded-lg bg-ffb534 text-white font-bold hover:bg-ffcb74 mt-7"
@@ -201,6 +203,7 @@ export default function Home() {
           ></iframe>
         </div>
       </div>
+      <Review></Review>
     </>
   );
 }
