@@ -55,25 +55,27 @@ export default function Profile() {
           setFormData(updatedFormData);
         }
       }
-      dispatch(updateUserStart());
-      //send request containing the form Data includes the new avatar uploaded if any
-      const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/user/update/${currentUser._id}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-          credentials: "include",
-        }
-      );
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.message, res.status);
-      }
-      dispatch(updateUserSuccess(data));
+      console.log("Mazen",formData);
+
+      // dispatch(updateUserStart());
+      // //send request containing the form Data includes the new avatar uploaded if any
+      // const res = await fetch(
+      //   `${import.meta.env.VITE_SERVER_URL}/user/update/${currentUser._id}`,
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(formData),
+      //     credentials: "include",
+      //   }
+      // );
+      // const data = await res.json();
+      // if (!res.ok) {
+      //   throw new Error(data.message, res.status);
+      // }
+      // dispatch(updateUserSuccess(data));
       setUpdateSuccess(true);
     } catch (error) {
       dispatch(updateUserFailure(error.message));
@@ -226,10 +228,7 @@ export default function Profile() {
         </button>
       </form>
       <div className="flex justify-between mt-5">
-        <span
-          onClick={handleDeleteUser}
-          className="text-ffb534 cursor-pointer"
-        >
+        <span onClick={handleDeleteUser} className="text-ffb534 cursor-pointer">
           Delete Account
         </span>
         <span onClick={handleSignOut} className="text-ffb534 cursor-pointer">

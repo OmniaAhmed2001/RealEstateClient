@@ -2,73 +2,74 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+// import { current } from "@reduxjs/toolkit";
 function Dashboard() {
-  const { token, role } = useSelector((state) => state.user);
+  const { token, currentUser } = useSelector((state) => state.user);
   const [dashboardData, setDashboardData] = useState({
     totalUsers: 0,
     mostExpensive: { price: 0, name: "" },
     totalListings: 0,
   });
 
+
   useEffect(() => {
     const fetchData = async () => {
-      if (role === "admin") {
-        try {
-          const usersRes = await fetch(
-            `${import.meta.env.VITE_SERVER_URL}/user/allUsers`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-              credentials: "include",
-            }
-          );
-          const listingsRes = await fetch(
-            `${import.meta.env.VITE_SERVER_URL}/listing/get/countListings`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-              credentials: "include",
-            }
-          );
-          const expensiveRes = await fetch(
-            `${import.meta.env.VITE_SERVER_URL}/listing/get/maxPrice`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-              credentials: "include",
-            }
-          );
-
-          const usersData = await usersRes.json();
-          const listingsData = await listingsRes.json();
-          const expensiveData = await expensiveRes.json();
-
-          setDashboardData({
-            totalUsers: usersData.count,
-            mostExpensive: {
-              price: expensiveData.maxPrice,
-              name: expensiveData.name,
+      try {
+        const usersRes = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}/user/allUsers`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
             },
-            totalListings: listingsData.count,
-          });
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
+            credentials: "include",
+          }
+        );
+        const listingsRes = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}/listing/get/countListings`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+        const expensiveRes = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}/listing/get/maxPrice`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+
+        const usersData = await usersRes.json();
+        const listingsData = await listingsRes.json();
+        const expensiveData = await expensiveRes.json();
+
+        setDashboardData({
+          totalUsers: usersData.count,
+          mostExpensive: {
+            price: expensiveData.maxPrice,
+            name: expensiveData.name,
+          },
+          totalListings: listingsData.count,
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [role, token]);
+  }, [currentUser, token]);
 
   return (
     <div className="flex justify-evenly items-center flex-col lg:flex-row">
-      {role === "admin" && (
+      {currentUser.role === "admin" && (
         <Card
           icon="assets/dashboard.png"
           description="Dashboard"

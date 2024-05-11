@@ -32,8 +32,8 @@ export default function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-out" element={<SignOut />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/dashboard" element={<DashboardMain />} />
         <Route element={<PrivateRoute />}>
+        <Route path="/dashboard" element={<DashboardMain />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/user-listing" element={<UserListing />}>

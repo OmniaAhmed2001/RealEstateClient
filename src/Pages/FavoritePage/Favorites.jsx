@@ -1,8 +1,10 @@
-import React from 'react'
+
 
 const Favorites = () => {
   return (
-    <div>Favorites</div>
+    <main style={{minHeight: "100vh"}}>
+      Favorites
+    </main>
   )
 }
 

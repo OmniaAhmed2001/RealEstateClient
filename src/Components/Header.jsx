@@ -82,13 +82,15 @@ export default function Header() {
                 />
               </li>
             </Link>
-            <Link to={"/dashboard"}>
-              <li>
-                <AiFillDashboard
-                  style={{ color: "orange", fontSize: "21px" }}
-                />
-              </li>
-            </Link>
+            {currentUser?.role ==="admin" && (
+              <Link to={"/dashboard"}>
+                <li>
+                  <AiFillDashboard
+                    style={{ color: "orange", fontSize: "21px" }}
+                  />
+                </li>
+              </Link>
+            )}
             <Link to={"/profile"}>
               {currentUser ? (
                 <img
@@ -132,13 +134,15 @@ export default function Header() {
                   />
                 </li>
               </Link>
-              <Link to={"/dashboard"}>
-                <li>
-                  <AiFillDashboard
-                    style={{ color: "orange", fontSize: "20px" }}
-                  />
-                </li>
-              </Link>
+              {currentUser?.role === "admin" && (
+                <Link to={"/dashboard"}>
+                  <li>
+                    <AiFillDashboard
+                      style={{ color: "orange", fontSize: "20px" }}
+                    />
+                  </li>
+                </Link>
+              )}
               <Link to={"/profile"}>
                 {currentUser ? (
                   <img
