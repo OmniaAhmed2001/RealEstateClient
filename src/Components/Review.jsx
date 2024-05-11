@@ -1,28 +1,18 @@
 /** @format */
 
-import { faComment } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useReducer, useState } from "react";
+import {  useState } from "react";
 import { useSelector } from "react-redux";
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { FaRegCommentDots } from "react-icons/fa";
 
-// import { useState } from "react";
-// import { Rating } from "react-simple-star-rating";
-// Review.prototype({
-//     id.prototype:number;
-// })
-const reducer = (state, action) => {
-  console.log(state, action);
-  return state - action.payload;
-};
+
+
 export default function Review() {
   const [rate, setRate] = useState(0);
   const [tempRating, setTempRating] = useState(0);
   const [comment, setComment] = useState(null);
   const [reviewed, setReviewed] = useState(false);
-  const [count, dispatch] = useReducer(reducer, 0);
   const [error, setError] = useState(false);
   const { token } = useSelector((state) => {
     return state.user;
@@ -41,7 +31,6 @@ export default function Review() {
     setTempRating(0);
   };
   const handleAddReview = async () => {
-    dispatch({ payload: -1 });
     try {
       if (!rate || !comment) {
         return setError("Complete Your Review Before Submit");
