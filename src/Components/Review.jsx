@@ -1,12 +1,10 @@
 /** @format */
 
-import {  useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { FaRegCommentDots } from "react-icons/fa";
-
-
 
 export default function Review() {
   const [rate, setRate] = useState(0);
@@ -69,7 +67,7 @@ export default function Review() {
       {!reviewed ? (
         <div className="flex flex-col gap-3">
           <div className="ms-2 font-semibold flex items-center">
-            <FaRegCommentDots className=" mr-2" style={{color:"#3C6EFF"}} />
+            <FaRegCommentDots className=" mr-2" style={{ color: "#3C6EFF" }} />
             <p className="text-[#252525]"> Write Your Comment</p>
           </div>
           <textarea
@@ -82,14 +80,18 @@ export default function Review() {
             <div role="button" className="flex gap-1 p-2">
               {Array.from({ length: 5 }, (_, i) => (
                 <div key={i}>
-                  {rate > i || tempRating > i? (
-                    <FaStar onClick={()=>handleRate(i)} onMouseLeave={handleOnLeave} style={{ fill: "#ffcd3c", fontSize: "25px" }}/>
+                  {rate > i || tempRating > i ? (
+                    <FaStar
+                      onClick={() => handleRate(i)}
+                      onMouseLeave={handleOnLeave}
+                      style={{ fill: "#ffcd3c", fontSize: "25px" }}
+                    />
                   ) : (
                     <CiStar
-                    onClick={()=>handleRate(i)} 
-                    onMouseEnter={()=>handleOnHover(i)} 
-                    onMouseLeave={handleOnLeave}
-                    style={{
+                      onClick={() => handleRate(i)}
+                      onMouseEnter={() => handleOnHover(i)}
+                      onMouseLeave={handleOnLeave}
+                      style={{
                         color: "#ffcd3c",
                         fontSize: "25px",
                         strokeWidth: "1px",
@@ -125,22 +127,13 @@ export default function Review() {
             <h1 className="font-bold text-xl mb-2">Rate : </h1>
 
             <div className="flex gap-1">
-              {/* {Array.from({ length: 5 }, (_, i) => (
-                <FontAwesomeIcon
-                  icon="fa-light fa-star"
-                  key={i}
-                  style={
-                    rate >= i + 1 ? { color: "#fcc419" } : { color: "#252525" }
-                  }
-                  />
-              ))} */}
               {Array.from({ length: 5 }, (_, i) => (
                 <div key={i}>
-                  {rate > i || tempRating > i? (
-                    <FaStar  style={{ fill: "#ffcd3c", fontSize: "25px" }}/>
+                  {rate > i || tempRating > i ? (
+                    <FaStar style={{ fill: "#ffcd3c", fontSize: "25px" }} />
                   ) : (
                     <CiStar
-                    style={{
+                      style={{
                         color: "#ffcd3c",
                         fontSize: "25px",
                         strokeWidth: "1px",
