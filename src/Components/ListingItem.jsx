@@ -1,9 +1,10 @@
 import React from "react";
-import { FaBath, FaBed } from "react-icons/fa";
-import { FaLocationDot, FaRegStar } from "react-icons/fa6";
+import { FaBath, FaBed} from "react-icons/fa";
+import { CiHeart } from "react-icons/ci";
+import { FaLocationDot} from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-const ListingItem = ({ listing }) => {
+const ListingItem = ({ listing}) => {
   return (
     <div className="bg-card shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[330px] relative">
       <div
@@ -13,7 +14,7 @@ const ListingItem = ({ listing }) => {
         <p className="text-white text-sm hidden group-hover:block">
           Add to favorites
         </p>
-        <FaRegStar className="h-5 w-5 text-white" />
+        <CiHeart className="h-5 w-5 text-white" />
       </div>
       <Link to={`/listing/${listing._id}`}>
         <img
