@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaChessKing } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import Review from "../../Components/Review";
 
 const ArrowIcon = (
   <svg
@@ -203,7 +202,7 @@ export default function Home() {
           ></iframe>
         </div>
       </div>
-      <Review></Review>
+      
     </>
   );
 }

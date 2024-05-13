@@ -12,8 +12,10 @@ import {
   FaMapMarkerAlt,
   FaParking,
   FaShare,
+  FaStar,
 } from "react-icons/fa";
 import Contact from "./Contact";
+import Review from "./Review";
 
 const removeParamsFromUrl = () => {
   const urlWithoutParams = window.location.pathname;
@@ -50,6 +52,7 @@ const ListingDetails = () => {
           return;
         }
         setListing(data);
+
         setLoading(false);
         setError(false);
         if (data.userRef === currentUser?._id) {
@@ -98,13 +101,14 @@ const ListingDetails = () => {
         setLoading(false);
       }
     };
+
     if (success) {
       console.log("success", success);
       updateListing();
     } else {
       fetchListing();
     }
-  }, [params.listingId]);
+  }, []);
 
   const createOrder = async () => {
     if (!currentUser) {
@@ -247,6 +251,35 @@ const ListingDetails = () => {
                 Checkout
               </button>
             )}
+            {listing.previousBuyers.find((e) => e === currentUser?._id) && (
+              <Review reviews={listing.reviews} setListing={setListing} />
+            )}
+
+            <div>
+              <p className="text-3xl font-semibold">Reviews</p>
+
+              {listing.reviews.map((review, i) => (
+                <div key={i}>
+                  <p>{review.name}</p>
+                  <p>{review.email}</p>
+                  <div className="flex gap-2">
+                    {Array.from({ length: 5 }, (_, i) => i).map(
+                      (star, index) => (
+                        <FaStar
+                          key={index}
+                          className={
+                            index + 1 <= review.rating
+                              ? ` text-yellow-500`
+                              : `text-gray-500`
+                          }
+                        />
+                      )
+                    )}
+                  </div>
+                  <p>{review.comment}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
