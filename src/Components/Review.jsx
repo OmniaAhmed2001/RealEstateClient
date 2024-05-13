@@ -1,8 +1,6 @@
 /** @format */
 
-import { faComment } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useReducer, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
