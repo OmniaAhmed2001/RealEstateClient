@@ -33,7 +33,7 @@ export default function App() {
         <Route path="/sign-out" element={<SignOut />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route element={<PrivateRoute />}>
-        <Route path="/dashboard" element={<DashboardMain />} />
+          <Route path="/dashboard" element={<DashboardMain />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/user-listing" element={<UserListing />}>

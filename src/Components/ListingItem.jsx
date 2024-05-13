@@ -1,21 +1,46 @@
-import React from "react";
-import { FaBath, FaBed} from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaBath, FaBed, FaHeart } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
-import { FaLocationDot} from "react-icons/fa6";
+import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const ListingItem = ({ listing}) => {
+const ListingItem = ({ listing, updateFavs }) => {
+  const {currentUser} = useSelector(state=>state.user)
+  const [fav, setFav] = useState(()=>!!currentUser.favorites?.find(f=>f===listing._id) );
+
+
+  const toggleFav = () => {
+    // console.log("toggle fav");
+    updateFavs(listing._id);
+    setFav(!fav);
+  };
+
   return (
     <div className="bg-card shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[330px] relative">
-      <div
-        role="button"
-        className="absolute flex items-center gap-1 right-5 top-5 rounded-full bg-ff9a62 p-1 z-20 group"
-      >
-        <p className="text-white text-sm hidden group-hover:block">
-          Add to favorites
-        </p>
-        <CiHeart className="h-5 w-5 text-white" />
-      </div>
+      {currentUser && (
+        <div
+          role="button"
+          className="absolute flex items-center gap-1 right-5 top-5 rounded-full bg-white p-1 z-20 group"
+          onClick={toggleFav}
+        >
+          {fav ? (
+            <>
+              <p className="text-ff9a62 font-semibold text-sm hidden group-hover:block">
+                Remove from favorites
+              </p>
+              <FaHeart className="h-5 w-5 text-ff9a62" />
+            </>
+          ) : (
+            <>
+              <p className="text-ff9a62 text-sm hidden group-hover:block">
+                Add to favorites
+              </p>
+              <CiHeart className="h-5 w-5 text-ff9a62" />
+            </>
+          )}
+        </div>
+      )}
       <Link to={`/listing/${listing._id}`}>
         <img
           src={

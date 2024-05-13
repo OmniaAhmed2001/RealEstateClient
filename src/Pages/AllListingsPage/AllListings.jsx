@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaChevronUp, FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ListingItem from "../../Components/ListingItem";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess,
+} from "../../redux/user/userSlice";
 
 const AllListings = () => {
   const initalQueryData = {
@@ -13,13 +19,27 @@ const AllListings = () => {
     sort: "created_at",
     order: "desc",
   };
+  const { currentUser,error,token } = useSelector((state) => state.user);
   const [sidebardata, setSidebardata] = useState(initalQueryData);
   const [isTypeOpen, setIsTypeOpen] = useState(true);
   const [isAmenitiesOpen, setIsAmenitiesOpen] = useState(true);
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
   const [showMore, setShowMore] = useState(false);
+  const favorites = useRef(currentUser?.favorites || []);
   const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  const updateFavorites = (id) => {
+    const index = favorites.current.findIndex((f) => f === id);
+    if (index === -1) {
+      favorites.current = [...favorites.current, id];
+    } else {
+      favorites.current = favorites.current.filter((f) => f !== id);
+    }
+    console.log("update",favorites.current)
+  };
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -72,6 +92,45 @@ const AllListings = () => {
     fetchListings();
   }, [location.search]);
 
+  useEffect(() => {
+    //on unmount
+    return () => {
+      const updateFavoritesList = async () => {
+        try {
+          const res = await fetch(
+            `${import.meta.env.VITE_SERVER_URL}/user/updateFavorites/${
+              currentUser._id
+            }`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                "favArray": favorites.current,
+              }),
+
+              credentials: "include",
+            }
+          );
+          const data = await res.json();
+          if (!res.ok) {
+            throw new Error("Something went wrong");
+          }
+          dispatch(updateUserSuccess(data));
+          // console.log("favorites updated", data);
+        } catch (err) {
+          dispatch(updateUserFailure(err));
+          console.error(err);
+        }
+      };
+      // console.log("updating favorites", favorites.current);
+      dispatch(updateUserStart());
+      updateFavoritesList();
+    };
+  }, []);
+// console.log("ops",favorites.current,currentUser,token)
   const handleChange = (e) => {
     if (
       e.target.id === "all" ||
@@ -301,7 +360,11 @@ const AllListings = () => {
           {!loading &&
             listings &&
             listings.map((listing) => (
-              <ListingItem key={listing._id} listing={listing} />
+              <ListingItem
+                key={listing._id}
+                listing={listing}
+                updateFavs={updateFavorites}
+              />
             ))}
 
           {showMore && (
