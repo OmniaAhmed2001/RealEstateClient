@@ -49,7 +49,7 @@ export default function SignIn() {
     }
   };
   return (
-    <div className="lg:max-w-5xl sm:max-w-lg mt-28 mb-28 mx-auto bg-fdf5e8 flex flex-col lg:flex-row items-center rounded-2xl">
+    <div className="lg:max-w-5xl sm:max-w-lg mt-28 mb-36 mx-auto bg-fdf5e8 flex flex-col lg:flex-row items-center rounded-2xl">
       <div className="lg:w-1/2">
         <img
           src="/assets/realestatepicture 2.png"
