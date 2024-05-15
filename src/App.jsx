@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Home from "./Pages/HomePage/Home";
 import SignIn from "./Pages/SignIn/Sign-in";
 import SignOut from "./Pages/SignOut/Sign-out";
@@ -20,11 +20,15 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import ListingDetails from "./Components/ListingDetails";
 import AllListings from "./Pages/AllListingsPage/AllListings";
 import ScrollToTop from "./Components/ScrollToTop";
+import Error from "./Components/Error";
 
 export default function App() {
+  // Check if the current route matches the "Not Found" page
+
+
   return (
     <BrowserRouter>
-      <Header />
+      {<Header />}
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -45,13 +49,16 @@ export default function App() {
             element={<Update_Listing />}
           ></Route>
         </Route>
-        <Route path="/update-listing/:id" element={<Update_Listing />}></Route>
+        <Route path="/update-listing/:id" element={<Update_Listing />} />
         <Route path="/listing" element={<AllListings />} />
         <Route path="/listing/:listingId" element={<ListingDetails />} />
-
         <Route path="/about" element={<About />} />
+        
+        <Route path="/not-found" element={<Error />} />   
+        <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Routes>
-      <Footer />
+      
+      {<Footer />}
     </BrowserRouter>
   );
 }

@@ -9,12 +9,15 @@ import {
 import { AiFillDashboard } from "react-icons/ai";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const [showMenu, setShowMenu] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+
+  
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -35,6 +38,7 @@ export default function Header() {
       setSearchTerm(searchTermFromUrl);
     }
   }, [location.search]);
+  if (location.pathname === "/not-found") return
   return (
     <header className="bg-fdf5e8 shadow-md">
       <div className="flex justify-between items-center max-w-7xl mx-auto p-3">

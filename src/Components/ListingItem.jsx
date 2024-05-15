@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaBath, FaBed, FaHeart } from "react-icons/fa";
+import { AiFillHeart } from "react-icons/ai";
 import { CiHeart } from "react-icons/ci";
 import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router-dom";
@@ -29,7 +30,7 @@ const ListingItem = ({ listing, updateFavs }) => {
               <p className="text-ff9a62 font-semibold text-sm hidden group-hover:block">
                 Remove from favorites
               </p>
-              <FaHeart className="h-5 w-5 text-ff9a62" />
+              <AiFillHeart className="h-5 w-5 text-ff9a62" />
             </>
           ) : (
             <>

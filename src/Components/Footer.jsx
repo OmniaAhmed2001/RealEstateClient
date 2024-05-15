@@ -49,9 +49,12 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const location = useLocation();
+  
+  if (location.pathname === "/not-found") return
   return (
     <div className="flex flex-col justify-center items-center" style={{ width: "100%" }}>
       <div className="flex flex-col bg-fdf5e8 w-full py-8 px-4 md:flex-row md:justify-between">

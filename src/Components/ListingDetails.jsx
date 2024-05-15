@@ -256,30 +256,39 @@ const ListingDetails = () => {
             )}
 
             <div>
-              <p className="text-3xl font-semibold">Reviews</p>
-
-              {listing.reviews.map((review, i) => (
-                <div key={i}>
-                  <p>{review.name}</p>
-                  <p>{review.email}</p>
-                  <div className="flex gap-2">
-                    {Array.from({ length: 5 }, (_, i) => i).map(
-                      (star, index) => (
-                        <FaStar
-                          key={index}
-                          className={
-                            index + 1 <= review.rating
-                              ? ` text-yellow-500`
-                              : `text-gray-500`
-                          }
-                        />
-                      )
-                    )}
+              <p className="text-3xl font-semibold mb-4">Reviews</p>
+              <div className="mb-4">
+                {listing.reviews.map((review, i) => (
+                  <div key={i} className="flex items-center gap-2 mb-4">
+                    <img
+                      src={review.avatar}
+                      className="w-14 h-14 rounded-full mr-2"
+                      alt="Reviewer Avatar"
+                    />
+                    <div>
+                      <div className="flex items-center gap-1 mb-2">
+                        <p className="text-lg font-semibold">{review.name}</p>
+                        <div className="flex gap-1">
+                          {Array.from({ length: 5 }, (_, i) => i).map((star, index) => (
+                            <FaStar
+                              key={index}
+                              className={
+                                index + 1 <= review.rating
+                                  ? `text-yellow-500`
+                                  : `text-gray-300`
+                              }
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="mt-2">{review.comment}</p>
+                    </div>
                   </div>
-                  <p>{review.comment}</p>
-                </div>
-              ))}
+                ))}
+              </div>
+              {listing.reviews.length > 1 && <div className="border-t border-gray-300"></div>}
             </div>
+
           </div>
         </div>
       )}

@@ -64,6 +64,7 @@ export default function Review({ reviews, setListing }) {
             name: currentUser.username,
             comment,
             rating,
+            avatar: currentUser.avatar
           }),
         }
       );
@@ -83,23 +84,27 @@ export default function Review({ reviews, setListing }) {
   };
 
   return (
-    <div className="flex flex-col bg-slate-100 lg:w-[60 %] md:w-[75%] w-[90%] mx-auto  p-8 rounded-2xl shadow-xl my-8">
-      <h1 className="font-bold text-3xl ms-3 mb-4 hover:underline text-[#252525]">
+    <div className="flex flex-col lg:w-[60 %] md:w-[100%] w-[100%] mx-auto p-8 rounded-2xl my-8 bg-white shadow-xl">
+
+      <h1 className="font-bold text-3xl ms-3 mb-4  text-[#252525]">
          Review
       </h1>
 
       <div className="flex flex-col gap-3">
-        <div className="ms-2 font-semibold flex items-center">
-          <FaRegCommentDots className=" mr-2" style={{ color: "#3C6EFF" }} />
-          <p className="text-[#252525]"> Write Your Comment</p>
-        </div>
+      <div style={{ position: 'relative' }}>
+        <span style={{ position: 'absolute', left: '8px', top: '35%', transform: 'translateY(-50%)', color: '#25252592' }}>
+          <FaRegCommentDots />
+        </span>
         <textarea
-          className="w-full rounded-xl p-4 border border-[#FDF5E8] hover:border-[#cdb183] reviewTextArea"
-          placeholder="Comment"
-          style={{ resize: "none" }}
+          className="w-full rounded-xl p-4 border border-[#FDF5E8] hover:border-[#FFCB74] reviewTextArea"
+          placeholder="Write Your Comment..."
+          style={{ paddingLeft: '30px', resize: 'none' }}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-        ></textarea>
+        />
+      </div>
+
+        
         <div className="flex items-center gap-5 w-fit ps-2 rounded-full bg-[#FDF5E8] border-2 border-[#FFCB74]">
           <div role="button" className="flex gap-1 p-2">
             {Array.from({ length: 5 }, (_, i) => (
@@ -127,14 +132,14 @@ export default function Review({ reviews, setListing }) {
           </div>
           <span
             style={{ borderRadius: "50%", width: "42px", height: "42px" }}
-            className="bg-[#FFCB74] text-lg text-[#3C6EFF] text-center font-bold border-[#ffcd3c] border-2 flex items-center justify-center"
+            className="bg-[#FFCB74] text-lg text-white text-center font-bold border-[#ffcd3c] border-2 flex items-center justify-center"
           >
             {tempRating || rating || ""}
           </span>
         </div>
         <button
           type="button"
-          className="h-9 flex items-center justify-center w-36 text-white font-bold disabled:opacity-80 rounded-lg hover:shadow-md  bg-[#F1843E]"
+          className="h-9 mt-2 flex items-center justify-center w-36 text-white font-bold disabled:opacity-80 rounded-lg hover:shadow-md  bg-ffb534"
           onClick={handleAddReview}
         >
           {reviews?.find((r) => r.id === currentUser._id)
