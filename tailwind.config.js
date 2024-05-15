@@ -27,6 +27,7 @@ export default {
         40: "0.4",
         20: "0.2",
       },
+      
     },
   },
   plugins: [],

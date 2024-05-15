@@ -84,70 +84,73 @@ export default function Review({ reviews, setListing }) {
   };
 
   return (
-    <div className="flex flex-col lg:w-[60 %] md:w-[100%] w-[100%] mx-auto p-8 rounded-2xl my-8 bg-white shadow-xl">
-
-      <h1 className="font-bold text-3xl ms-3 mb-4  text-[#252525]">
-         Review
+    <div className="flex flex-col lg:w-[60 %] md:w-[100%] w-[100%] mx-auto p-4 rounded-2xl my-8 bg-[#FEFBF6] shadow-xl">
+  
+      <h1 className="text-2xl font-semibold ms-3 mb-4  text-[#252525]">
+         Leave a Review
       </h1>
-
-      <div className="flex flex-col gap-3">
-      <div style={{ position: 'relative' }}>
-        <span style={{ position: 'absolute', left: '8px', top: '35%', transform: 'translateY(-50%)', color: '#25252592' }}>
-          <FaRegCommentDots />
-        </span>
-        <textarea
-          className="w-full rounded-xl p-4 border border-[#FDF5E8] hover:border-[#FFCB74] reviewTextArea"
-          placeholder="Write Your Comment..."
-          style={{ paddingLeft: '30px', resize: 'none' }}
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-      </div>
-
-        
-        <div className="flex items-center gap-5 w-fit ps-2 rounded-full bg-[#FDF5E8] border-2 border-[#FFCB74]">
-          <div role="button" className="flex gap-1 p-2">
-            {Array.from({ length: 5 }, (_, i) => (
-              <div key={i}>
-                {rating > i || tempRating > i ? (
-                  <FaStar
-                    onClick={() => handlerating(i)}
-                    onMouseLeave={handleOnLeave}
-                    style={{ fill: "#ffcd3c", fontSize: "25px" }}
-                  />
-                ) : (
-                  <CiStar
-                    onClick={() => handlerating(i)}
-                    onMouseEnter={() => handleOnHover(i)}
-                    onMouseLeave={handleOnLeave}
-                    style={{
-                      color: "#ffcd3c",
-                      fontSize: "25px",
-                      strokeWidth: "1px",
-                    }}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-          <span
-            style={{ borderRadius: "50%", width: "42px", height: "42px" }}
-            className="bg-[#FFCB74] text-lg text-white text-center font-bold border-[#ffcd3c] border-2 flex items-center justify-center"
-          >
-            {tempRating || rating || ""}
-          </span>
+  
+      <div className="flex items-center justify-center gap-5 w-fit ps-2 rounded-full bg-[#FDF5E8] border-2 border-[#FFCB74]" style={{margin: '0 auto'}}> 
+        <div role="button" className="flex gap-1 p-2">
+          {Array.from({ length: 5 }, (_, i) => (
+            <div key={i}>
+              {rating > i || tempRating > i ? (
+                <FaStar
+                  onClick={() => handlerating(i)}
+                  onMouseLeave={handleOnLeave}
+                  style={{ fill: "#ffcd3c", fontSize: "25px" }}
+                />
+              ) : (
+                <CiStar
+                  onClick={() => handlerating(i)}
+                  onMouseEnter={() => handleOnHover(i)}
+                  onMouseLeave={handleOnLeave}
+                  style={{
+                    color: "#ffcd3c",
+                    fontSize: "25px",
+                    strokeWidth: "1px",
+                  }}
+                />
+              )}
+            </div>
+          ))}
         </div>
-        <button
-          type="button"
-          className="h-9 mt-2 flex items-center justify-center w-36 text-white font-bold disabled:opacity-80 rounded-lg hover:shadow-md  bg-ffb534"
-          onClick={handleAddReview}
+        <span
+          style={{ borderRadius: "50%", width: "42px", height: "42px" }}
+          className="bg-[#FFCB74] text-lg text-white text-center font-bold border-[#ffcd3c] border-2 flex items-center justify-center"
         >
-          {reviews?.find((r) => r.id === currentUser._id)
-            ? "Edit Review"
-            : "Add Review"}
-        </button>
-        <p className="text-red-500 text-sm">{error}</p>
+          {tempRating || rating || ""}
+        </span>
+      </div>
+  
+      <div className="flex flex-col mt-4">
+        <div style={{display:'flex', justifyContent:'center', alignItems:'center' }}>
+          
+          <textarea
+            className="rounded-xl p-4 border hover:border-ffcb74 reviewTextArea"
+            placeholder="Write Your Comment..."
+            style={{ paddingLeft: '20px', resize: 'none', width: '93%' }}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            
+          />
+        </div>
+  
+         <div className="flex justify-center items-center">
+            <button
+              type="button"
+              className="h-9 mt-3.5 flex items-center justify-center text-white disabled:opacity-80 rounded-lg hover:shadow-md  bg-ffb534 uppercase hover:opacity-90 p-3"
+              onClick={handleAddReview}
+              style={{width:"93%"}}
+            >
+              {reviews?.find((r) => r.id === currentUser._id)
+                ? "Edit Review"
+                : "Submit Review"}
+            </button>
+         </div>
+          <p className="text-red-500 text-sm">{error}</p>
       </div>
     </div>
   );
+  
 }
