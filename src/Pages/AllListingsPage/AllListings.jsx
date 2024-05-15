@@ -38,7 +38,6 @@ const AllListings = () => {
     } else {
       favorites.current = favorites.current.filter((f) => f !== id);
     }
-    console.log("update", favorites.current);
   };
 
   useEffect(() => {
@@ -79,7 +78,6 @@ const AllListings = () => {
         `${import.meta.env.VITE_SERVER_URL}/listing/get?${searchQuery}`
       );
       const data = await res.json();
-      console.log(data);
       if (data.length > 8) {
         setShowMore(true);
       } else {
@@ -120,19 +118,16 @@ const AllListings = () => {
             throw new Error("Something went wrong");
           }
           dispatch(updateUserSuccess(data));
-          // console.log("favorites updated", data);
         } catch (err) {
           dispatch(updateUserFailure(err.message));
           console.error(err);
         }
       };
-      // console.log("updating favorites", favorites.current);
       if (currentUser) {
         updateFavoritesList();
       }
     };
   }, []);
-  // console.log("ops",favorites.current,currentUser,token)
   const handleChange = (e) => {
     if (
       e.target.id === "all" ||

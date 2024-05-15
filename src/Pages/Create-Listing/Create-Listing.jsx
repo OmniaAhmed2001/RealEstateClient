@@ -22,22 +22,24 @@ export default function CreateListing() {
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
-    description: "",
-    name: "",
-    address: "",
-    type: "rent",
-    bathrooms: 2,
-    bedrooms: 2,
+    address: {
+      street: "",
+      city: "",
+      country: "",
+    },
     offer: false,
     furnished: false,
-    regularPrice: 50,
-    discountPrice: 50,
     parking: false,
+    discountPrice:0,
+    bedrooms:1,
+    bathrooms:1,
+    regularPrice:0
   });
   const { currentUser, token } = useSelector((state) => {
     return state.user;
   });
   const navigate = useNavigate();
+  
   const handleImageSubmit = () => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
@@ -100,33 +102,56 @@ export default function CreateListing() {
     });
   };
   const handleChange = (e) => {
-    if (e.target.id === "sale" || e.target.id === "rent") {
-      setFormData({ ...formData, type: e.target.id });
-    } else if (
-      e.target.id === "parking" ||
-      e.target.id === "furnished" ||
-      e.target.id === "offer"
-    ) {
+    console.log(e.target.id, e.target.value,formData);
+    if (e.target.id === "listingType") {
+      setFormData({ ...formData, type: e.target.value });
+    } else if (e.target.id === "property") {
+      setFormData({ ...formData, property: e.target.value });
+    } else if (e.target.id === "parking" || e.target.id === "furnished") {
       setFormData({ ...formData, [e.target.id]: e.target.checked });
+    } else if (e.target.id === "offer") {
+      e.target.checked
+        ? setFormData({ ...formData, [e.target.id]: e.target.checked })
+        : setFormData({
+            ...formData,
+            [e.target.id]: e.target.checked,
+            discountPrice: 0,
+          });
     } else if (
-      e.target.type === "number" ||
+      e.target.id === "city" ||
+      e.target.id === "country" ||
+      e.target.id === "street"
+    ) {
+      setFormData({
+        ...formData,
+        address: {
+          ...formData.address,
+          [e.target.id]: e.target.value, // Update inside address object
+        },
+      });
+    } else if (
       e.target.type === "text" ||
       e.target.type === "textarea"
     ) {
       setFormData({ ...formData, [e.target.id]: e.target.value });
-    } else if (e.target.id === "listingType") {
-      setFormData({ ...formData, type: e.target.value });
-    }
+    } else if (
+      e.target.type === "number" 
+    ) {
+      setFormData({ ...formData, [e.target.id]: +e.target.value });
+    } 
   };
   const handleSubmitForm = async (e) => {
     e.preventDefault();
+    console.log("HIIIII ", formData);
     try {
       if (formData.imageUrls.length < 1) {
         return setError("You must upload at least one image");
       }
-      if (formData.regularPrice < formData.discountPrice) {
+      if (+formData.regularPrice < +formData.discountPrice) {
         return setError("Discount Price Should be Less than Regular Price");
       }
+      if (!formData.property || !formData.type)
+        return setError("You must fill all fields");
       if (
         formData.regularPrice >= formData.discountPrice &&
         formData.imageUrls.length >= 1
@@ -175,7 +200,7 @@ export default function CreateListing() {
             }}
             className="bg-[#F1843E] w-10 mx-auto h-10 flex justify-center items-center font-bold text-white"
           >
-            1
+            1notep
           </p>
           <h1 className="mt-3 font-semibold">
             Add all information related to your property
@@ -220,7 +245,7 @@ export default function CreateListing() {
             <div className="flex flex-wrap gap-5 flex-row justify-between">
               <input
                 type="text"
-                className="p-2 rounded-lg lg:w-[50%] md:w-[50%] sm:w-[90%]"
+                className="p-2 rounded-lg lg:w-[50%] md:w-[50%] sm:w-[90%]  border border-slate-200 hover:border-slate-400"
                 placeholder="Name"
                 maxLength="62"
                 minLength="10"
@@ -235,30 +260,59 @@ export default function CreateListing() {
                   onChange={handleChange}
                   className="w-full p-3 border border-slate-200 hover:border-slate-400 rounded-lg"
                 >
-                  <option
-                    disabled
-                    selected
-                    value=""
-                    className="opacity-10 texy-red"
-                  >
+                  <option disabled selected value="" className="opacity-10 ">
                     Listing Type
                   </option>
                   <option value="sale">Sale</option>
                   <option value="rent">Rent</option>
                 </select>
               </div>
+
+              <select
+                id="property"
+                onChange={handleChange}
+                className="w-full p-3 border border-slate-200 hover:border-slate-400 rounded-lg"
+              >
+                <option disabled selected value="" className="opacity-10">
+                  Property Type
+                </option>
+                <option value="studio">Studio</option>
+                <option value="cottage">Cottage</option>
+                <option value="villa">Villa</option>
+                <option value="penthouse">Penthouse</option>
+                <option value="appartment">Apartment</option>
+              </select>
             </div>
             {/* className="p-5 lg:my-4 md:my-4 sm:my-2 rounded-lg lg:w-full md:w-full sm:w-full" */}
-
-            <input
-              type="text"
-              className="py-5 px-3 lg:my-4 md:my-4 sm:my-2 rounded-lg w-full"
-              placeholder="Address"
-              required
-              value={formData.address}
-              onChange={handleChange}
-              id="address"
-            ></input>
+            <div className="flex justify-between w-full flex-wrap">
+              <input
+                type="text"
+                className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400"
+                placeholder="street"
+                required
+                value={formData.address.street}
+                onChange={handleChange}
+                id="street"
+              ></input>
+              <input
+                type="text"
+                className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400"
+                placeholder="city"
+                required
+                value={formData.address.city}
+                onChange={handleChange}
+                id="city"
+              ></input>
+              <input
+                type="text"
+                className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400"
+                placeholder="country"
+                required
+                value={formData.address.country}
+                onChange={handleChange}
+                id="country"
+              ></input>
+            </div>
 
             <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-2 items-center lg:w-[90%] md:w-[90%] sm:max-w-full justify-between">
               <div className="flex  my-1  gap-2">
@@ -318,21 +372,22 @@ export default function CreateListing() {
                 <p>Baths</p>
               </div>
             </div>
-            <div className="flex flex-wrap items-center my-5 lg:w-[90%] md:w-[90%] sm:w-full justify-between gap-3">
-              <div className="flex gap-4 items-center ">
+            <div className="flex flex-wrap items-center my-5 w-full justify-between">
+              <div className="flex gap-4 items-center">
                 <input
                   type="number"
                   min="50"
-                  max="100000"
                   id="regularPrice"
                   required
-                  className="lg:w-40 md:w-30 w-[35%] p-3  rounded-lg h-10"
+                  className="lg:w-40 md:w-30 w-50 p-3 rounded-lg h-10 border border-slate-200 hover:border-slate-400"
                   onChange={handleChange}
                   value={formData.regularPrice}
                 ></input>
                 <div className="flex flex-wrap items-center ">
                   <p>Regular Price</p>
-                  <span className="text-xs">( $ / Month)</span>
+                  {formData.type && formData?.type === "rent" && (
+                    <span className="text-xs">( $ / Month)</span>
+                  )}
                 </div>
               </div>
 
@@ -340,17 +395,22 @@ export default function CreateListing() {
                 <input
                   type="number"
                   min="0"
-                  max="50000"
                   id="discountPrice"
                   disabled={!formData.offer}
                   required
-                  className="lg:w-40 md:w-30 w-[35%] p-3  rounded-lg h-10"
+                  className={`lg:w-40 md:w-30 w-50 p-3 rounded-lg h-10 border border-slate-200 hover:border-slate-400`}
+                  style={{ display: `${formData.offer ? "block" : "none"}` }}
                   onChange={handleChange}
                   value={formData.discountPrice}
                 ></input>
-                <div className="flex flex-wrap items-center">
+                <div
+                  className="flex flex-wrap items-center"
+                  style={{ display: `${formData.offer ? "flex" : "none"}` }}
+                >
                   <p>Discounted Price</p>
-                  <span className="text-xs">( $ / Month)</span>
+                  {formData.type === "rent" && (
+                    <span className="text-xs">( $ / Month)</span>
+                  )}
                 </div>
               </div>
             </div>

@@ -1,9 +1,15 @@
+import { useLocation } from "react-router-dom";
 import AllLists from "../AllLists/AllLists";
 import CreateListing from "../Create-Listing/Create-Listing";
 import "./UserListing.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function Listing() {
   const [switchListing, setSwitchListing] = useState(true);
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === "/user-listing/allLists") setSwitchListing(false);
+  }, [location.pathname]);
+
   console.log("render");
   return (
     <section>
