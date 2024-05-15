@@ -7,9 +7,10 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ListingItem = ({ listing, updateFavs }) => {
-  const {currentUser} = useSelector(state=>state.user)
-  const [fav, setFav] = useState(()=>!!currentUser.favorites?.find(f=>f===listing._id) );
-
+  const { currentUser } = useSelector((state) => state.user);
+  const [fav, setFav] = useState(
+    () => !!currentUser?.favorites?.find((f) => f === listing._id)
+  );
 
   const toggleFav = () => {
     // console.log("toggle fav");

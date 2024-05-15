@@ -19,7 +19,7 @@ const AllListings = () => {
     sort: "created_at",
     order: "desc",
   };
-  const { currentUser,error,token } = useSelector((state) => state.user);
+  const { currentUser, error, token } = useSelector((state) => state.user);
   const [sidebardata, setSidebardata] = useState(initalQueryData);
   const [isTypeOpen, setIsTypeOpen] = useState(true);
   const [isAmenitiesOpen, setIsAmenitiesOpen] = useState(true);
@@ -38,7 +38,7 @@ const AllListings = () => {
     } else {
       favorites.current = favorites.current.filter((f) => f !== id);
     }
-    console.log("update",favorites.current)
+    console.log("update", favorites.current);
   };
 
   useEffect(() => {
@@ -97,6 +97,7 @@ const AllListings = () => {
     return () => {
       const updateFavoritesList = async () => {
         try {
+          dispatch(updateUserStart());
           const res = await fetch(
             `${import.meta.env.VITE_SERVER_URL}/user/updateFavorites/${
               currentUser._id
@@ -108,7 +109,7 @@ const AllListings = () => {
                 Authorization: `Bearer ${token}`,
               },
               body: JSON.stringify({
-                "favArray": favorites.current,
+                favArray: favorites.current,
               }),
 
               credentials: "include",
@@ -121,16 +122,17 @@ const AllListings = () => {
           dispatch(updateUserSuccess(data));
           // console.log("favorites updated", data);
         } catch (err) {
-          dispatch(updateUserFailure(err));
+          dispatch(updateUserFailure(err.message));
           console.error(err);
         }
       };
       // console.log("updating favorites", favorites.current);
-      dispatch(updateUserStart());
-      updateFavoritesList();
+      if (currentUser) {
+        updateFavoritesList();
+      }
     };
   }, []);
-// console.log("ops",favorites.current,currentUser,token)
+  // console.log("ops",favorites.current,currentUser,token)
   const handleChange = (e) => {
     if (
       e.target.id === "all" ||
