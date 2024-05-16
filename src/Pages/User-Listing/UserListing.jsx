@@ -43,14 +43,14 @@ export default function Listing() {
           </p>
         </div>
       </div>
-      <div className="flex flex-row  justify-center">
-        <div className="">
+      <div className=" w-full flex flex-row  justify-center">
+        
           {switchListing ? (
             <CreateListing></CreateListing>
           ) : (
             <AllLists></AllLists>
           )}
-        </div>
+        
       </div>
     </section>
   );
