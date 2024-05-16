@@ -41,8 +41,8 @@ export default function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/user-listing" element={<UserListing />}>
-            <Route path="" element={<CreateListing />} />
             <Route path="allLists" element={<AllLists />} />
+            <Route  element={<CreateListing />} />
           </Route>
           <Route
             path="/update-listing/:id"

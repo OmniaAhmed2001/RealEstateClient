@@ -10,14 +10,14 @@ import { AiFillDashboard } from "react-icons/ai";
 import { FaSearch, FaBars } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const [showMenu, setShowMenu] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-
-  
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -38,7 +38,7 @@ export default function Header() {
       setSearchTerm(searchTermFromUrl);
     }
   }, [location.search]);
-  if (location.pathname === "/not-found") return
+  if (location.pathname === "/not-found") return;
   return (
     <header className="bg-fdf5e8 shadow-md">
       <div className="flex justify-between items-center max-w-7xl mx-auto p-3">
@@ -86,7 +86,7 @@ export default function Header() {
                 />
               </li>
             </Link>
-            {currentUser?.role ==="admin" && (
+            {currentUser?.role === "admin" && (
               <Link to={"/dashboard"}>
                 <li>
                   <AiFillDashboard
@@ -115,51 +115,74 @@ export default function Header() {
             className="text-slate-600 cursor-pointer"
             onClick={toggleMenu}
           />
-          {showMenu && (
-            <ul className="absolute flex flex-col gap-2 items-center bg-white top-full right-1 mt-3 p-2 rounded shadow-md w-20 z-10">
-              <Link to={"/user-listing"}>
-                <li>
-                  <FontAwesomeIcon
-                    icon={faHouseChimneyMedical}
-                    style={{ color: "orange" }}
-                  />
-                </li>
-              </Link>
-              <Link to={"/favorites"}>
-                <li>
-                  <FontAwesomeIcon icon={faHeart} style={{ color: "orange" }} />
-                </li>
-              </Link>
-              <Link to={"/about"}>
-                <li>
-                  <FontAwesomeIcon
-                    icon={faCircleExclamation}
-                    style={{ color: "orange" }}
-                  />
-                </li>
-              </Link>
-              {currentUser?.role === "admin" && (
-                <Link to={"/dashboard"}>
+          <AnimatePresence>
+            {showMenu && (
+              <motion.ul
+                initial={{
+                  y: -50,
+                  opacity: 0,
+                }}
+                animate={{
+                  y: 0,
+                  opacity: 1,
+                }}
+                exit={{
+                  y: -50,
+                  opacity: 0,
+                }}
+                transition={{
+                  duration: 0.5,
+                  ease: "backInOut",
+                }}
+                className="absolute flex flex-col gap-2 items-center bg-white top-full right-1 mt-3 p-2 rounded shadow-md w-20 z-10"
+              >
+                <Link to={"/user-listing"}>
                   <li>
-                    <AiFillDashboard
-                      style={{ color: "orange", fontSize: "20px" }}
+                    <FontAwesomeIcon
+                      icon={faHouseChimneyMedical}
+                      style={{ color: "orange" }}
                     />
                   </li>
                 </Link>
-              )}
-              <Link to={"/profile"}>
-                {currentUser ? (
-                  <img
-                    src={currentUser.avatar}
-                    className="rounded-full h-7 w-7 object-cover"
-                    alt="profile"
-                  />
-                ) : (
-                  <li className="hover:underline">Sign In</li>
+                <Link to={"/favorites"}>
+                  <li>
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      style={{ color: "orange" }}
+                    />
+                  </li>
+                </Link>
+                <Link to={"/about"}>
+                  <li>
+                    <FontAwesomeIcon
+                      icon={faCircleExclamation}
+                      style={{ color: "orange" }}
+                    />
+                  </li>
+                </Link>
+                {currentUser?.role === "admin" && (
+                  <Link to={"/dashboard"}>
+                    <li>
+                      <AiFillDashboard
+                        style={{ color: "orange", fontSize: "20px" }}
+                      />
+                    </li>
+                  </Link>
                 )}
-              </Link>
-            </ul>
-          )}
+                <Link to={"/profile"}>
+                  {currentUser ? (
+                    <img
+                      src={currentUser.avatar}
+                      className="rounded-full h-7 w-7 object-cover"
+                      alt="profile"
+                    />
+                  ) : (
+                    <li className="hover:underline">Sign In</li>
+                  )}
+                </Link>
+              </motion.ul>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </header>

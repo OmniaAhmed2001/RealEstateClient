@@ -87,7 +87,10 @@ export default function AllLists() {
                 <h1 className="my-3 font-bold text-xl">{listing.name}</h1>
                 <div className="flex gap-2 items-center ps-2">
                   <i className="fa-solid fa-location-dot text-blue-700"></i>
-                  <p>{listing.address}</p>
+                  <p>
+                    {listing.address.street}, {listing.address.city}, {listing.address.country}
+                  </p>
+                  
                 </div>
                 <div className="flex gap-2 items-center ps-2">
                   <i className="fa-solid fa-money-bill text-blue-700"></i>
@@ -109,7 +112,10 @@ export default function AllLists() {
                   </button>
                 </div>
                 <div className="mt-3 mb-2">
-                  <button className="bg-white w-full  py-1 font-semibold text-[#f1843e] border border-[#f1843e] shadow-md hover:opacity-90 rounded-md" onClick={()=>navigate(`/listing/${listing._id}`)}>
+                  <button
+                    className="bg-white w-full  py-1 font-semibold text-[#f1843e] border border-[#f1843e] shadow-md hover:opacity-90 rounded-md"
+                    onClick={() => navigate(`/listing/${listing._id}`)}
+                  >
                     Show All Details
                   </button>
                 </div>

@@ -13,7 +13,6 @@ const ListingItem = ({ listing, updateFavs }) => {
   );
 
   const toggleFav = () => {
-    // console.log("toggle fav");
     updateFavs(listing._id);
     setFav(!fav);
   };
@@ -59,7 +58,9 @@ const ListingItem = ({ listing, updateFavs }) => {
           <div className="flex items-center gap-1">
             <FaLocationDot className="h-5 w-5 text-ff9a62" />
             <p className="text-sm text-gray-600 truncate w-full">
-              {listing.address}
+              {listing.address.street}
+              {listing.address.city}
+              {listing.address.country}
             </p>
           </div>
           {/* <p className="text-sm text-gray-600 line-clamp-2">
