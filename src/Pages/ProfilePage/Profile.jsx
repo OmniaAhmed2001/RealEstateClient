@@ -182,7 +182,7 @@ export default function Profile() {
                 onClick={() => fileRef.current.click()}
               />
               <FaCamera
-                className="absolute text-ffb534 text-3xl top-24 bottom-50 left-12 cursor-pointer"
+                className="absolute text-ffb534 text-3xl top-20 left-20 cursor-pointer"
                 style={{
                   transform: "translate(-50%, -50%)",
                 }}
