@@ -52,21 +52,19 @@ const ListingItem = ({ listing, updateFavs }) => {
           className="h-[280px] sm:h-[180px] w-full object-cover hover:scale-105 transition-scale duration-300 z-0"
         />
         <div className="p-3 flex flex-col gap-2 w-full">
-          <p className="truncate text-2xl font-semibold text-slate-700">
+          <p className="truncate text-2xl font-semibold text-black">
             {listing.name}
           </p>
           <div className="flex items-center gap-1">
             <FaLocationDot className="h-5 w-5 text-ff9a62" />
             <p className="text-sm text-gray-600 truncate w-full">
-              {listing.address.street}
-              {listing.address.city}
-              {listing.address.country}
+              {listing.address.street}, {listing.address.city}, {listing.address.country}
             </p>
           </div>
           {/* <p className="text-sm text-gray-600 line-clamp-2">
             {listing.description}
           </p> */}
-          <p className="text-slate-500 font-semibold text-xl">
+          <p className="text-black font-semibold text-xl">
             $
             {listing.offer
               ? listing.discountPrice.toLocaleString("en-US")

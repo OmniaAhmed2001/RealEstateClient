@@ -154,8 +154,13 @@ export default function Profile() {
   };
 
   return (
-    <div className="p-3 max-w-lg mx-auto flex flex-col bg-fdf5e8 m-12 px-12 rounded-2xl min-h-64">
-      <h1 className="text-3xl font-semibold text-center my-7"></h1>
+    <div className="flex flex-col justify-center items-center">
+ 
+    <div className="rounded-xl p-2 bg-fdf5e8 flex flex-col justify-center items-center h-9 mb-4 mt-4 w-32">
+     <h1 className="text-center text-xl font-bold mb-4 mt-4 w-32 text-ffb534">Profile</h1>
+    </div>
+    
+    <div className="p-3 mx-auto flex flex-col bg-fdf5e8 m-8 px-12 rounded-2xl sm:max-w-[50%] lg:max-[30%] w-[90%]">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           onChange={(e) => setFile(e.target.files[0])}
@@ -242,5 +247,7 @@ export default function Profile() {
         )}
       </div>
     </div>
+    
+   </div>
   );
 }
