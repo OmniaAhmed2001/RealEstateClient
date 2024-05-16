@@ -99,7 +99,7 @@ const Favorites = () => {
         ) : (
           <div className="flex flex-col justify-center items-center mt-2">
             <div className="rounded-xl p-2 bg-fdf5e8 flex flex-col justify-center items-center h-9 mb-4 w-40">
-              <p className="text-center text-lg font-bold mb-4 mt-4 w-32 text-ffb534">Favorite Items</p>
+              <p className="text-center text-lg font-bold mb-4 mt-4 w-32 text-ffb534">Favorite Properties</p>
             </div>
             <div className="flex flex-wrap justify-center items-center gap-6 min-w-12 mb-8">
               {listings.map((item) => (
