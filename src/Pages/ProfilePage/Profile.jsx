@@ -1,6 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// import { ReactComponent as cameraSvg } from "../../../public/assets/camera-svg.svg";
+import { FaCamera } from "react-icons/fa";
 import {
   getDownloadURL,
   getStorage,
@@ -19,6 +21,8 @@ import {
   updateUserStart,
   updateUserSuccess,
 } from "../../redux/user/userSlice";
+import { Icon } from "@mui/material";
+import LoadingSpinner from "../../Components/LoadingSpinner";
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -154,182 +158,125 @@ export default function Profile() {
   };
 
   return (
-    <div className="p-6 mx-auto flex flex-col bg-fdf5e8 m-12 px-12 min-h-7 max-w-custom">
-      <h1 className="text-3xl font-semibold text-center my-7">Edit Profile</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        <input
-          onChange={(e) => setFile(e.target.files[0])}
-          type="file"
-          ref={fileRef}
-          hidden
-          accept="image/*"
-        />
-        <img
-          src={formData.avatar || currentUser.avatar}
-          alt="profile"
-          className="rounded-full h-24 w-24 object-cover  cursor-pointer"
-          onClick={() => fileRef.current.click()}
-        />
-        <p className="self-center">
-          {fileUploadError ? (
-            <span className="text-red-700"></span>
-          ) : filePerc > 0 && filePerc < 100 ? (
-            <span className="text-slate-700">{`Uploading ${filePerc}%`}</span>
-          ) : filePerc === 100 ? (
-            <span className="text-green-700">Image uploaded successfully!</span>
-          ) : (
-            ""
-          )}
-        </p>
-        <div className="flex gap-4 flex-grow">
-          <input
-            type="text"
-            id="firstName"
-            placeholder="First Name"
-            className="border p-3 rounded-lg flex-grow"
-            defaultValue={currentUser.firstName}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            id="lastName"
-            placeholder="Last Name"
-            className="border p-3 rounded-lg flex-grow"
-            defaultValue={currentUser.lastName}
-            onChange={handleChange}
-          />
-        </div>
-        <input
-          type="text"
-          id="username"
-          placeholder="username"
-          className="border p-3 rounded-lg"
-          defaultValue={currentUser.username}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          id="email"
-          placeholder="email"
-          className="border p-3 rounded-lg"
-          defaultValue={currentUser.email}
-          onChange={handleChange}
-        />
-        <div className="flex flex-col">
-          {formData.password?.length >= 6 ? (
-            <label className="text-green-600 font-bold self-end text-sm mb-1">
-              ✔ STRONG PASS
-            </label>
-          ) : formData.password?.length > 0 ? (
-            <label className="text-red-600 font-bold self-end text-sm mb-1">
-              ❌ WEAK PASS
-            </label>
-          ) : (
-            ""
-          )}
-          <input
-            type="password"
-            id="password"
-            placeholder="password"
-            className="border p-3 rounded-lg "
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex flex-col md:flex-row gap-4">
-          {/* Gender Dropdown */}
-          <select
-            id="gender"
-            className="border p-3 rounded-lg flex-grow"
-            defaultValue={currentUser.gender}
-            onChange={handleChange}
-          >
-            <option value="female">Female</option>
-            <option value="male">Male</option>
-          </select>
-          {/* Nationality Input */}
-          <input
-            type="text"
-            id="nationality"
-            placeholder="nationality"
-            className="border p-3 rounded-lg flex-grow"
-            defaultValue={currentUser.nationality}
-            onChange={handleChange}
-          />
-          {/* Birthday Dropdowns */}
-          <div className="flex gap-4 flex-grow">
-            <select
-              id="birthYear"
-              className="border p-3 rounded-lg flex-grow"
-              defaultValue={currentUser.birthYear}
-              onChange={handleChange}
-            >
-              {Array.from(
-                { length: 2024 - 1944 + 1 },
-                (_, index) => 2024 - index
-              ).map((year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
-
-            <select
-              id="birthMonth"
-              className="border p-3 rounded-lg flex-grow"
-              defaultValue={currentUser.birthMonth}
-              onChange={handleChange}
-            >
-              {Array.from({ length: 12 }, (_, index) => index + 1).map(
-                (month) => (
-                  <option key={month} value={month}>
-                    {new Date(0, month - 1).toLocaleString("default", {
-                      month: "long",
-                    })}
-                  </option>
-                )
+    <div className="p-6 mx-auto flex flex-col bg-fdf5e8 m-12 px-12 min-h-5 max-w-4xl rounded-lg">
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <h1 className="text-3xl font-semibold text-center my-7">
+            Edit Profile
+          </h1>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            <input
+              onChange={(e) => setFile(e.target.files[0])}
+              type="file"
+              ref={fileRef}
+              hidden
+              accept="image/*"
+            />
+            <div className="relative self-center">
+              <img
+                src={formData.avatar || currentUser.avatar}
+                alt="profile"
+                className="rounded-full h-24 w-24 object-cover cursor-pointer"
+                onClick={() => fileRef.current.click()}
+              />
+              <FaCamera
+                className="absolute text-ffb534 text-3xl top-24 bottom-50 left-12 cursor-pointer"
+                style={{
+                  transform: "translate(-50%, -50%)",
+                }}
+                onClick={() => fileRef.current.click()}
+              />
+            </div>
+            <p className="self-center">
+              {fileUploadError ? (
+                <span className="text-red-700"></span>
+              ) : filePerc > 0 && filePerc < 100 ? (
+                <span className="text-slate-700">{`Uploading ${filePerc}%`}</span>
+              ) : filePerc === 100 ? (
+                <span className="text-green-700">
+                  Image uploaded successfully!
+                </span>
+              ) : (
+                ""
               )}
-            </select>
-
-            <select
-              id="birthDay"
-              className="border p-3 rounded-lg flex-grow"
-              defaultValue={currentUser.birthDay}
+            </p>
+            <input
+              type="text"
+              id="username"
+              placeholder="username"
+              className="border p-3 rounded-lg"
+              defaultValue={currentUser.username}
               onChange={handleChange}
-            >
-              {Array.from({ length: 31 }, (_, index) => index + 1).map(
-                (day) => (
-                  <option key={day} value={day}>
-                    {day}
-                  </option>
-                )
+            />
+            <input
+              type="email"
+              id="email"
+              placeholder="email"
+              className="border p-3 rounded-lg"
+              defaultValue={currentUser.email}
+              onChange={handleChange}
+            />
+            <div className="flex flex-col gap-6">
+              {formData.password?.length >= 6 ? (
+                <label className="text-green-600 font-bold self-end text-sm mb-1">
+                  ✔ STRONG PASS
+                </label>
+              ) : formData.password?.length > 0 ? (
+                <label className="text-red-600 font-bold self-end text-sm mb-1">
+                  ❌ WEAK PASS
+                </label>
+              ) : (
+                ""
               )}
-            </select>
+              <input
+                type="password"
+                id="password"
+                placeholder="password"
+                className="border p-3 rounded-lg"
+                onChange={handleChange}
+              />
+              <input
+                type="confirmPassword"
+                id="confirmPassword"
+                placeholder="confirmPassword"
+                className="border p-3 rounded-lg"
+                onChange={handleChange}
+              />
+            </div>
+            <button
+              disabled={loading}
+              className="bg-ffb534 text-white rounded-lg p-3 uppercase hover:opacity-90 disabled:opacity-70"
+            >
+              {loading ? "Loading..." : "Update"}
+            </button>
+          </form>
+          <div className="flex justify-between mt-5">
+            <span
+              onClick={handleDeleteUser}
+              className="text-ffb534 cursor-pointer"
+            >
+              Delete Account
+            </span>
+            <span
+              onClick={handleSignOut}
+              className="text-ffb534 cursor-pointer"
+            >
+              Sign Out
+            </span>
           </div>
-        </div>
-        <button
-          disabled={loading}
-          className="bg-ffb534 text-white rounded-lg p-3 uppercase hover:opacity-90 disabled:opacity-70"
-        >
-          {loading ? "Loading..." : "Update"}
-        </button>
-      </form>
-      <div className="flex justify-between mt-5">
-        <span onClick={handleDeleteUser} className="text-ffb534 cursor-pointer">
-          Delete Account
-        </span>
-        <span onClick={handleSignOut} className="text-ffb534 cursor-pointer">
-          Sign Out
-        </span>
-      </div>
-      <div className="text-red-700 mt-5 p-0">
-        {error ? (
-          error
-        ) : (
-          <p className="text-green-700 ">
-            {updateSuccess ? "User is updated successfully!" : ""}
-          </p>
-        )}
-      </div>
+          <div className="text-red-700 mt-5 p-0">
+            {error ? (
+              error
+            ) : (
+              <p className="text-green-700 ">
+                {updateSuccess ? "User is updated successfully!" : ""}
+              </p>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }
