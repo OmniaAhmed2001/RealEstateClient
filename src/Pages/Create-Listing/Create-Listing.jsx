@@ -186,7 +186,7 @@ export default function CreateListing() {
     }
   };
   return (
-    <div className="p-3 lg:max-w-5xl md:max-w-5xl sm:w-full">
+    <div className="p-3 lg:max-w-5xl md:max-w-5xl sm:w-full min-h-screen">
       <h2 className="text-4xl	text-center font-semibold my-7">
         Add your Property with <span className="text-[#ffcb74]">Egy</span>
         <span className="text-[#ffb534]">Estate</span>

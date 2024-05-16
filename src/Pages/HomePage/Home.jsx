@@ -63,7 +63,7 @@ export default function Home() {
   }, []);
   return (
     <>
-      <div className="flex flex-col justify-center items-center p-4 md:flex-row">
+      <div className="flex flex-col justify-center items-center p-4 md:flex-row min-h-64">
         <div className="text-black text-center md:text-left md:w-1/2 md:pr-4 lg:pr-20 lg:pl-20">
           <h3
             className="flex items-center text-lg md:text-md lg:text-xl mb-4"

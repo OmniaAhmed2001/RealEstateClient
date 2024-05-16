@@ -6,7 +6,7 @@ import Charts from "./Components/Charts";
 
 export default function DashboardMain() {
   return (
-    <div className="mb-10">
+    <div className="mb-10 min-h-screen">
       <Dashboard />
       <Charts />
     </div>

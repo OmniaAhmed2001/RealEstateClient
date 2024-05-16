@@ -70,7 +70,7 @@ export default function AllLists() {
     navigate(`/update-listing/${listingId}`);
   };
   return (
-    <div>
+    <div className="min-h-screen">
       {userListings.length >= 1 ? (
         <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 gap-10 my-14 justify-items-center max-w-7xl mx-auto ">
           {userListings.map((listing) => {

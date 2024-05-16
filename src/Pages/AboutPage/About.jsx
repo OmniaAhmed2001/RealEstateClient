@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 export default function About() {
   return(
     <>
-      <div className="flex flex-col justify-center items-center py-10" style={{minHeight: "78vh"}}>
+      <div className="flex flex-col justify-center items-center py-10 min-h-80">
         <div className="rounded-xl p-2 bg-fdf5e8 flex flex-col justify-center items-center h-9 mb-4 w-32">
           <h2 className="text-center text-xl font-bold mb-4 mt-4 text-ffb534">
             About Us
@@ -21,7 +21,7 @@ export default function About() {
         </h3>
 
         <div
-          className="flex justify-center items-center flex-wrap mx-10"
+          className="flex justify-center items-center flex-wrap mx-11 mb-14 mt-20"
           style={{ gap: "100px" }}
         >
           {/* Card 1 */}

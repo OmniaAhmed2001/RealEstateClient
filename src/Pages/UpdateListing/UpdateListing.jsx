@@ -217,7 +217,7 @@ export default function Update_Listing() {
     fetchListing();
   }, []);
   return (
-    <div className="flex justify-center items-center w-full">
+    <div className="flex justify-center items-center w-full min-h-80">
       {loading ? (
         <p>loading</p>
       ) : (

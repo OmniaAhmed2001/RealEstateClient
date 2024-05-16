@@ -86,7 +86,7 @@ const Favorites = () => {
   };
 
   return (
-    <div style={{ minHeight: "100vh" }}>
+    <div className="min-h-screen">
       {!listings || listings?.length === 0 ? (
         <p>You haven&apos;t chosen your favorite estate yet.</p>
       ) : (
