@@ -17,7 +17,7 @@ export default function Listing() {
       <div
         className="flex items-center justify-around p-3 font-bold text-ffb534 text-lg lg:w-[35%] md:w-[45%] sm:w-[75%] mx-auto bg-[#FEFBF6] mt-5 shadow-lg"
         style={{
-          borderRadius: "25px",
+          borderRadius: "10px",
         }}
       >
         <div

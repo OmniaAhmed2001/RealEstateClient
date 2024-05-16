@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserFailure, updateUserStart, updateUserSuccess } from "../../redux/user/userSlice";
 import ListingItem from "../../Components/ListingItem";
+import { Link } from "react-router-dom";
 
 const Favorites = () => {
   const [listings, setListings] = useState([]);
@@ -86,25 +87,36 @@ const Favorites = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      {!listings || listings?.length === 0 ? (
-        <p>You haven&apos;t chosen your favorite estate yet.</p>
-      ) : (
-        <div>
-          <p>Favorite Items:</p>
-          <div className="flex flex-wrap justify-center items-center gap-6 min-w-12">
-            {listings.map((item) => (
-              <ListingItem
-                key={item._id}
-                listing={item}
-                updateFavs={removeFromFavorites}
-              />
-            ))}
+    <div className="flex justify-center items-center" style={{minHeight:"80vh"}}>
+      <div className="flex flex-col justify-center items-center">
+        {!listings || listings?.length === 0 ? (
+          <div className="text-center">
+            <img src="assets/fav.png" alt="No favorite properties" className="mx-auto mb-4 w-[5rem] " />
+            <p>You don't have any favorite properties yet.</p>
+            <p className="mb-4">Let's get started with finding your next move.</p>
+            <Link to="/listing" className="bg-ffb534 text-white py-2 px-4 rounded-lg hover:opacity-80">Explore Properties</Link>
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="flex flex-col justify-center items-center mt-2">
+            <div className="rounded-xl p-2 bg-fdf5e8 flex flex-col justify-center items-center h-9 mb-4 w-48">
+              <p className="text-center text-lg font-bold mb-4 mt-4 w-80 text-ffb534">Favorite Properties</p>
+            </div>
+            <div className="flex flex-wrap justify-center items-center gap-6 min-w-12 mb-8">
+              {listings.map((item) => (
+                <ListingItem
+                  key={item._id}
+                  listing={item}
+                  updateFavs={removeFromFavorites}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+     
     </div>
   );
+  
 };
 
 export default Favorites;
