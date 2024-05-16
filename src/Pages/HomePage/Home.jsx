@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaChessKing } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 const ArrowIcon = (
   <svg
@@ -74,17 +75,29 @@ export default function Home() {
             <span className="ml-2 opacity-70">Real Estate Agency</span>
           </h3>
 
-          <h3 className="font-bold text-3xl md:text-4xl lg:text-5xl mb-2 md:mb-7">
+          <motion.h3
+            initial={{
+              y: 50,
+              opacity: 0,
+            }}
+            animate={{
+              y: 0,
+              opacity: 1,
+            }}
+            transition={{
+              duration: 0.8,
+            }}
+            className="font-bold text-3xl md:text-4xl lg:text-5xl mb-2 md:mb-7"
+          >
             Find your next <span className="text-ffcb74">perfect</span> place
             with ease
-          </h3>
+          </motion.h3>
           <div className="text-black opacity-70 text-sm md:text-lg mb-">
             EgyEstate will help you find your home fast, easy, and comfortable.
             <br />
             Our expert support is always available.
           </div>
           <div>
-
             <Link to="/listing">
               <button
                 className="flex items-center text-base px-4 py-2 rounded-lg bg-ffb534 text-white font-bold hover:bg-ffcb74 mt-7"
@@ -97,13 +110,24 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <div className="mt-4 md:mt-0 md:w-1/2 md:pl-4 lg:pl-8">
+        <motion.div
+          initial={{
+            x: 70,
+          }}
+          animate={{
+            x: 0,
+          }}
+          transition={{
+            duration: 0.8,
+          }}
+          className="mt-4 md:mt-0 md:w-1/2 md:pl-4 lg:pl-8"
+        >
           <img
-            src="/assets\HomePage Pic.png"
+            src="/assets/HomePage_Pic-min2_50.webp"
             alt="House"
             className="h-auto w-full"
           />
-        </div>
+        </motion.div>
       </div>
       {/*Services Section */}
       <div className="flex flex-col justify-center items-center mt-16">
@@ -113,7 +137,11 @@ export default function Home() {
           </h2>
         </div>
         <h3 className="text-center text-3xl font-bold mb-8">Our Main Focus</h3>
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 1 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
           className="flex justify-center items-center flex-wrap mx-10"
           style={{ gap: "120px" }}
         >
@@ -183,7 +211,7 @@ export default function Home() {
               </button>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
       {/*Video Section */}
       <div className="mt-24 w-full">
@@ -202,7 +230,6 @@ export default function Home() {
           ></iframe>
         </div>
       </div>
-      
     </>
   );
 }
