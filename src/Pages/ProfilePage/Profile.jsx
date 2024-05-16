@@ -43,7 +43,7 @@ export default function Profile() {
   };
 
   const handleSubmit = async (e) => {
-    const updatedFormData = {...formData};
+    const updatedFormData = { ...formData };
     e.preventDefault();
     try {
       for (let key in formData) {
@@ -154,14 +154,9 @@ export default function Profile() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
- 
-    <div className="rounded-xl p-2 bg-fdf5e8 flex flex-col justify-center items-center h-9 mb-4 mt-4 w-32">
-     <h1 className="text-center text-xl font-bold mb-4 mt-4 w-32 text-ffb534">Profile</h1>
-    </div>
-    
-    <div className="p-3 mx-auto flex flex-col bg-fdf5e8 m-8 px-12 rounded-2xl sm:max-w-[50%] lg:max-[30%] w-[90%]">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <div className="p-6 mx-auto flex flex-col bg-fdf5e8 m-12 px-12 min-h-7 max-w-custom">
+      <h1 className="text-3xl font-semibold text-center my-7">Edit Profile</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type="file"
@@ -172,7 +167,7 @@ export default function Profile() {
         <img
           src={formData.avatar || currentUser.avatar}
           alt="profile"
-          className="rounded-full h-24 w-24 object-cover  cursor-pointer self-center"
+          className="rounded-full h-24 w-24 object-cover  cursor-pointer"
           onClick={() => fileRef.current.click()}
         />
         <p className="self-center">
@@ -186,6 +181,24 @@ export default function Profile() {
             ""
           )}
         </p>
+        <div className="flex gap-4 flex-grow">
+          <input
+            type="text"
+            id="firstName"
+            placeholder="First Name"
+            className="border p-3 rounded-lg flex-grow"
+            defaultValue={currentUser.firstName}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            id="lastName"
+            placeholder="Last Name"
+            className="border p-3 rounded-lg flex-grow"
+            defaultValue={currentUser.lastName}
+            onChange={handleChange}
+          />
+        </div>
         <input
           type="text"
           id="username"
@@ -222,6 +235,77 @@ export default function Profile() {
             onChange={handleChange}
           />
         </div>
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Gender Dropdown */}
+          <select
+            id="gender"
+            className="border p-3 rounded-lg flex-grow"
+            defaultValue={currentUser.gender}
+            onChange={handleChange}
+          >
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+          {/* Nationality Input */}
+          <input
+            type="text"
+            id="nationality"
+            placeholder="nationality"
+            className="border p-3 rounded-lg flex-grow"
+            defaultValue={currentUser.nationality}
+            onChange={handleChange}
+          />
+          {/* Birthday Dropdowns */}
+          <div className="flex gap-4 flex-grow">
+            <select
+              id="birthYear"
+              className="border p-3 rounded-lg flex-grow"
+              defaultValue={currentUser.birthYear}
+              onChange={handleChange}
+            >
+              {Array.from(
+                { length: 2024 - 1944 + 1 },
+                (_, index) => 2024 - index
+              ).map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+
+            <select
+              id="birthMonth"
+              className="border p-3 rounded-lg flex-grow"
+              defaultValue={currentUser.birthMonth}
+              onChange={handleChange}
+            >
+              {Array.from({ length: 12 }, (_, index) => index + 1).map(
+                (month) => (
+                  <option key={month} value={month}>
+                    {new Date(0, month - 1).toLocaleString("default", {
+                      month: "long",
+                    })}
+                  </option>
+                )
+              )}
+            </select>
+
+            <select
+              id="birthDay"
+              className="border p-3 rounded-lg flex-grow"
+              defaultValue={currentUser.birthDay}
+              onChange={handleChange}
+            >
+              {Array.from({ length: 31 }, (_, index) => index + 1).map(
+                (day) => (
+                  <option key={day} value={day}>
+                    {day}
+                  </option>
+                )
+              )}
+            </select>
+          </div>
+        </div>
         <button
           disabled={loading}
           className="bg-ffb534 text-white rounded-lg p-3 uppercase hover:opacity-90 disabled:opacity-70"
@@ -247,7 +331,5 @@ export default function Profile() {
         )}
       </div>
     </div>
-    
-   </div>
   );
 }
