@@ -71,14 +71,14 @@ export default function AllLists() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full">
       {userListings.length >= 1 ? (
-        <div className="flex flex-wrap justify-center gap-10 my-14 max-w-7xl mx-auto ">
+        <div className="flex flex-wrap justify-center gap-10 my-14 w-full">
           {userListings.map((listing) => {
             return (
               <div
                 key={listing._id}
-                className="text-center bg-[#FEFBF6] shadow-lg w-[65%] md:w-[45%] lg:w-[25%] rounded-xl overflow-hidden"
+                className="text-center bg-[#FEFBF6] shadow-lg w-7/12 sm:w-4/12 xl:w-3/12 rounded-xl overflow-hidden"
               >
                 <img
                   src={listing.imageUrls[0]}
