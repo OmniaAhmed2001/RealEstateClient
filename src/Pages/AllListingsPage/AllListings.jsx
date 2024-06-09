@@ -192,7 +192,7 @@ const AllListings = () => {
     setListings([...listings, ...data]);
   };
   return (
-    <div className="flex flex-col md:flex-row m-5">
+    <div className="flex flex-col md:flex-row m-5 min-h-screen">
       <div className="md:min-h-[500px] w-[300px] md:mr-5">
         <form
           onSubmit={handleSubmit}

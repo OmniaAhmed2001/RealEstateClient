@@ -50,6 +50,33 @@ export default function Home() {
   const { token } = useSelector((state) => state.user);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const [error, setError] = useState(null);
+  const[propertyCount, setPropertyCount]=useState("");
+
+  useEffect(() => {
+    const propcount = async () => {
+        try {
+        const res = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}/listing/get/countListings`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+        if (!res.ok) throw new Error("Property count is not fetched");
+        const listingsRes = await res.json();
+        setPropertyCount(listingsRes.count)
+      } catch (error) {
+        setError(error)
+        console.log(error)
+      }
+      };
+    propcount();
+  }, []);
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -63,7 +90,7 @@ export default function Home() {
   }, []);
   return (
     <>
-      <div className="flex flex-col justify-center items-center p-4 md:flex-row">
+      <div className="flex flex-col justify-center items-center p-4 md:flex-row min-h-64">
         <div className="text-black text-center md:text-left md:w-1/2 md:pr-4 lg:pr-20 lg:pl-20">
           <h3
             className="flex items-center text-lg md:text-md lg:text-xl mb-4"
@@ -158,7 +185,7 @@ export default function Home() {
             />
             <p className="text-center mt-2 font-bold text-lg">Recent Offers</p>
             <p className="text-center text-md text-black opacity-70">
-              Over 1 million+ homes for sale available on the website, we can
+              Over {propertyCount} homes for sale available on the website, we can
               match you with a house you will want to call home.
             </p>
             <Link to="/listing?searchTerm=&type=all&parking=false&furnished=false&offer=true&sort=created_at&order=desc">
@@ -180,7 +207,7 @@ export default function Home() {
             />
             <p className="text-center mt-2 font-bold text-lg">Rent a home</p>
             <p className="text-center text-md text-black opacity-70">
-              Over 1 million+ homes for sale available on the website, we can
+              Over {propertyCount} homes for sale available on the website, we can
               match you with a house you will want to call home.
             </p>
             <Link to="/listing?searchTerm=&type=rent&parking=false&furnished=false&offer=false&sort=created_at&order=desc">
@@ -202,7 +229,7 @@ export default function Home() {
             />
             <p className="text-center mt-2 font-bold text-lg">Sell a home</p>
             <p className="text-center text-md text-black opacity-70">
-              Over 1 million+ homes for sale available on the website, we can
+              Over {propertyCount} homes for sale available on the website, we can
               match you with a house you will want to call home.
             </p>
             <Link to="/user-listing">

@@ -40,7 +40,7 @@ export default function Header() {
   }, [location.search]);
   if (location.pathname === "/not-found") return;
   return (
-    <header className="bg-fdf5e8 shadow-md">
+    <header className="bg-fdf5e8 shadow-md sticky top-0 z-50">
       <div className="flex justify-between items-center max-w-7xl mx-auto p-3">
         <Link to={"/"}>
           <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
@@ -65,6 +65,7 @@ export default function Header() {
         </form>
         <div className="sm:flex hidden">
           <ul className="flex items-center gap-5 text-64748b">
+            
             <Link to={"/user-listing"}>
               <li>
                 <FontAwesomeIcon

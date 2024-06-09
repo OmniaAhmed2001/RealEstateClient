@@ -2,6 +2,6 @@
     background-color: #ffb534;
     color: #fff;
     padding: 8px;
-    border-radius: 15px;
+    border-radius: 8px;
     transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }

@@ -1,6 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import Home from "./Pages/HomePage/Home";
 import SignIn from "./Pages/SignIn/Sign-in";
 import SignOut from "./Pages/SignOut/Sign-out";
@@ -25,7 +31,6 @@ import Error from "./Components/Error";
 export default function App() {
   // Check if the current route matches the "Not Found" page
 
-
   return (
     <BrowserRouter>
       {<Header />}
@@ -42,7 +47,7 @@ export default function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/user-listing" element={<UserListing />}>
             <Route path="allLists" element={<AllLists />} />
-            <Route  element={<CreateListing />} />
+            <Route element={<CreateListing />} />
           </Route>
           <Route
             path="/update-listing/:id"
@@ -53,12 +58,12 @@ export default function App() {
         <Route path="/listing" element={<AllListings />} />
         <Route path="/listing/:listingId" element={<ListingDetails />} />
         <Route path="/about" element={<About />} />
-        
-        <Route path="/not-found" element={<Error />} />   
+
+        <Route path="/not-found" element={<Error />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Routes>
-      
       {<Footer />}
+
     </BrowserRouter>
   );
 }

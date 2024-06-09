@@ -10,7 +10,6 @@ function Dashboard() {
     totalListings: 0,
   });
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,27 +67,25 @@ function Dashboard() {
   return (
     <div className="flex justify-evenly items-center flex-col lg:flex-row">
       {currentUser.role === "admin" && (
-        <Card
-          icon="assets/dashboard.png"
-          description="Dashboard"
-          value="Admin Access Only"
-        />
+        <>
+          {" "}
+          <Card
+            icon="assets/users.png"
+            description="Total Users"
+            value={dashboardData.totalUsers}
+          />
+          <Card
+            icon="assets/realestate.png"
+            description="Most Expensive Real Estate"
+            value={`${dashboardData.mostExpensive.name}  $${dashboardData.mostExpensive.price}`}
+          />
+          <Card
+            icon="assets/128.png"
+            description="Total Real Estates"
+            value={dashboardData.totalListings}
+          />
+        </>
       )}
-      <Card
-        icon="assets/users.png"
-        description="Total Users"
-        value={dashboardData.totalUsers}
-      />
-      <Card
-        icon="assets/realestate.png"
-        description="Most Expensive Real Estate"
-        value={`${dashboardData.mostExpensive.name}  $${dashboardData.mostExpensive.price}`}
-      />
-      <Card
-        icon="assets/128.png"
-        description="Total Real Estates"
-        value={dashboardData.totalListings}
-      />
     </div>
   );
 }
