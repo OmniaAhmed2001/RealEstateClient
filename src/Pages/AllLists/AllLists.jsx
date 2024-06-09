@@ -54,11 +54,11 @@ export default function AllLists() {
         }
       );
 
-      const data = res.json();
-      if (data.success === "false") {
+      if (!res.ok) {
         console.log(data.message);
         return;
       }
+      const data = await res.json();
       setUserListings((prev) => {
         return prev.filter((listing) => listing._id !== listingId);
       });

@@ -200,7 +200,7 @@ export default function CreateListing() {
             }}
             className="bg-[#F1843E] w-10 mx-auto h-10 flex justify-center items-center font-bold text-white"
           >
-            1notep
+            1
           </p>
           <h1 className="mt-3 font-semibold">
             Add all information related to your property
