@@ -14,29 +14,44 @@ import "./UpdateListing.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
+const countryCity = [
+  "Alexandria",
+  "Aswan",
+  "Asyut",
+  "Beheira",
+  "Beni Suef",
+  "Cairo",
+  "Dakahlia",
+  "Damietta",
+  "Fayoum",
+  "Gharbia",
+  "Giza",
+  "Ismailia",
+  "Kafr El Sheikh",
+  "Luxor",
+  "Matruh",
+  "Minya",
+  "Monufia",
+  "Al Wadi al Jadid",
+  "North Sinai",
+  "Port Said",
+  "Qalyubia",
+  "Qena",
+  "Red Sea",
+  "Sharqia",
+  "Sohag",
+  "South Sinai",
+  "Suez",
+];
+
 export default function Update_Listing() {
   const { currentUser, token } = useSelector((state) => {
     return state.user;
   });
   const navigate = useNavigate();
   const [files, setFiles] = useState([]);
-  
-  const [formData, setFormData] = useState({
-    // imageUrls: [],
-    // address: {
-    //   street: "",
-    //   city: "",
-    //   country: "",
-    // },
-    // offer: false,
-    // furnished: false,
-    // parking: false,
-    // discountPrice: 0,
-    // bedrooms: 1,
-    // bathrooms: 1,
-    // regularPrice: 0,
-  
-  });
+
+  const [formData, setFormData] = useState({});
   const [uploading, setUploading] = useState(false);
   const [imageUploadError, setImageUploadError] = useState(false);
   const [error, setError] = useState(false);
@@ -104,58 +119,58 @@ export default function Update_Listing() {
       }),
     });
   };
-   const handleChange = (e) => {
-     console.log(e.target.id, e.target.value, formData);
-     if (e.target.id === "listingType") {
-       setFormData({ ...formData, type: e.target.value });
-     } else if (e.target.id === "property") {
-       setFormData({ ...formData, property: e.target.value });
-     } else if (e.target.id === "parking" || e.target.id === "furnished") {
-       setFormData({ ...formData, [e.target.id]: e.target.checked });
-     } else if (e.target.id === "offer") {
-       e.target.checked
-         ? setFormData({ ...formData, [e.target.id]: e.target.checked })
-         : setFormData({
-             ...formData,
-             [e.target.id]: e.target.checked,
-             discountPrice: 0,
-           });
-     } else if (
-       e.target.id === "city" ||
-       e.target.id === "country" ||
-       e.target.id === "street"
-     ) {
-       setFormData({
-         ...formData,
-         address: {
-           ...formData.address,
-           [e.target.id]: e.target.value, // Update inside address object
-         },
-       });
-     } else if (e.target.type === "text" || e.target.type === "textarea") {
-       setFormData({ ...formData, [e.target.id]: e.target.value });
-     } else if (e.target.type === "number") {
-       setFormData({ ...formData, [e.target.id]: +e.target.value });
-     }
-   };
+  const handleChange = (e) => {
+    console.log(e.target.id, e.target.value, formData);
+    if (e.target.id === "listingType") {
+      setFormData({ ...formData, type: e.target.value });
+    } else if (e.target.id === "property") {
+      setFormData({ ...formData, property: e.target.value });
+    } else if (e.target.id === "parking" || e.target.id === "furnished") {
+      setFormData({ ...formData, [e.target.id]: e.target.checked });
+    } else if (e.target.id === "offer") {
+      e.target.checked
+        ? setFormData({ ...formData, [e.target.id]: e.target.checked })
+        : setFormData({
+            ...formData,
+            [e.target.id]: e.target.checked,
+            discountPrice: 0,
+          });
+    } else if (
+      e.target.id === "city" ||
+      e.target.id === "country" ||
+      e.target.id === "street"
+    ) {
+      setFormData({
+        ...formData,
+        address: {
+          ...formData.address,
+          [e.target.id]: e.target.value, // Update inside address object
+        },
+      });
+    } else if (e.target.type === "text" || e.target.type === "textarea") {
+      setFormData({ ...formData, [e.target.id]: e.target.value });
+    } else if (e.target.type === "number") {
+      setFormData({ ...formData, [e.target.id]: +e.target.value });
+    }
+  };
   const handleSubmitForm = async (e) => {
     e.preventDefault();
     try {
-     if (formData.imageUrls.length < 1) {
-       return setError("You must upload at least one image");
-     }
-     if (+formData.regularPrice < +formData.discountPrice) {
-       return setError("Discount Price Should be Less than Regular Price");
-     }
-     if (!formData.property || !formData.type)
-       return setError("You must fill all fields");
-     if (
-       formData.regularPrice >= formData.discountPrice &&
-       formData.imageUrls.length >= 1
-     ) {
-       setError(false);
-       setLoading(true);
-     }
+      if (formData.imageUrls.length < 1) {
+        return setError("You must upload at least one image");
+      }
+      if (+formData.regularPrice < +formData.discountPrice) {
+        return setError("Discount Price Should be Less than Regular Price");
+      }
+      if (!formData.property || !formData.type)
+        return setError("You must fill all fields");
+      if (
+        formData.regularPrice >= formData.discountPrice &&
+        formData.imageUrls.length >= 1
+      ) {
+        setError(false);
+        setLoading(true);
+      }
 
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}/listing/update/${params.id}`,
@@ -188,7 +203,6 @@ export default function Update_Listing() {
   };
   useEffect(() => {
     const fetchListing = async () => {
-      // console.log("update", params);
       const listingId = params.id;
 
       const res = await fetch(
@@ -203,12 +217,9 @@ export default function Update_Listing() {
         }
       );
 
-      // console.log(res);
       const data = await res.json();
       console.log(data);
       if (data.success === false) {
-        // console.log(data.message);
-        // console.log(123156);
         return;
       }
       setFormData(data);
@@ -339,7 +350,25 @@ export default function Update_Listing() {
                     onChange={handleChange}
                     id="street"
                   ></input>
-                  <input
+                  {/* chang the city input to drop down list */}
+
+                  <select
+                    id="city"
+                    onChange={handleChange}
+                    value={formData.address.city}
+                    className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400 text-black"
+                  >
+                    <option disabled selected value="" className="opacity-10 ">
+                      city
+                    </option>
+                    {countryCity.map((city) => (
+                      <option className=" text-black" key={city} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                  </select>
+
+                  {/* <input
                     type="text"
                     className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400"
                     placeholder="city"
@@ -347,7 +376,8 @@ export default function Update_Listing() {
                     value={formData.address.city}
                     onChange={handleChange}
                     id="city"
-                  ></input>
+                  ></input> */}
+
                   <input
                     type="text"
                     className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400"

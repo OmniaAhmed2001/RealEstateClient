@@ -14,6 +14,36 @@ import "./Create-Listing.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
+const countryCity = [
+  "Alexandria",
+  "Aswan",
+  "Asyut",
+  "Beheira",
+  "Beni Suef",
+  "Cairo",
+  "Dakahlia",
+  "Damietta",
+  "Fayoum",
+  "Gharbia",
+  "Giza",
+  "Ismailia",
+  "Kafr El Sheikh",
+  "Luxor",
+  "Matruh",
+  "Minya",
+  "Monufia",
+  "Al Wadi al Jadid",
+  "North Sinai",
+  "Port Said",
+  "Qalyubia",
+  "Qena",
+  "Red Sea",
+  "Sharqia",
+  "Sohag",
+  "South Sinai",
+  "Suez",
+];
+
 export default function CreateListing() {
   const [uploading, setUploading] = useState(false);
   const [imageUploadError, setImageUploadError] = useState(false);
@@ -258,29 +288,29 @@ export default function CreateListing() {
                 <select
                   id="listingType"
                   onChange={handleChange}
-                  className="w-full p-3 border border-slate-200 hover:border-slate-400 rounded-lg"
+                  className="w-full p-3 border border-slate-200 hover:border-slate-400 rounded-lg text-gray-400 font-bold"
                 >
                   <option disabled selected value="" className="opacity-10 ">
                     Listing Type
                   </option>
-                  <option value="sale">Sale</option>
-                  <option value="rent">Rent</option>
+                  <option className=" text-black" value="sale">Sale</option>
+                  <option className=" text-black" value="rent">Rent</option>
                 </select>
               </div>
 
               <select
                 id="property"
                 onChange={handleChange}
-                className="w-full p-3 border border-slate-200 hover:border-slate-400 rounded-lg"
+                className="w-full p-3 border border-slate-200 hover:border-slate-400 rounded-lg text-gray-400 font-bold"
               >
                 <option disabled selected value="" className="opacity-10">
                   Property Type
                 </option>
-                <option value="studio">Studio</option>
-                <option value="cottage">Cottage</option>
-                <option value="villa">Villa</option>
-                <option value="penthouse">Penthouse</option>
-                <option value="appartment">Apartment</option>
+                <option className=" text-black" value="cottage">Cottage</option>
+                <option className=" text-black" value="villa">Villa</option>
+                <option className=" text-black" value="penthouse">Penthouse</option>
+                <option className=" text-black" value="studio">Studio</option>
+                <option className=" text-black" value="appartment">Apartment</option>
               </select>
             </div>
             {/* className="p-5 lg:my-4 md:my-4 sm:my-2 rounded-lg lg:w-full md:w-full sm:w-full" */}
@@ -294,15 +324,22 @@ export default function CreateListing() {
                 onChange={handleChange}
                 id="street"
               ></input>
-              <input
-                type="text"
-                className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400"
-                placeholder="city"
-                required
-                value={formData.address.city}
-                onChange={handleChange}
+
+              {/* city inpput changed to a drop down list */}
+              <select
                 id="city"
-              ></input>
+                onChange={handleChange}
+                className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400 text-gray-400 font-bold"
+              >
+                <option disabled selected value="" className="opacity-10 ">
+                  city
+                </option>
+                {countryCity.map((city) => (
+                  <option className=" text-black" key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
               <input
                 type="text"
                 className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400"

@@ -8,6 +8,10 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { axisClasses } from "@mui/x-charts/ChartsAxis";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useCallback } from "react";
 
 function TickParamsSelector({
   tickPlacement,
@@ -40,7 +44,7 @@ const dataset = [
   },
 ];
 
-const valueFormatter = (value) => `${value}mm`;
+const valueFormatter = (value) => `${value}`;
 
 const chartSetting = {
   yAxis: [
@@ -49,7 +53,7 @@ const chartSetting = {
     },
   ],
   series: [
-    { dataKey: "realState", label: "Number of real estates", valueFormatter },
+    { dataKey: "count", label: "Number of real estates", valueFormatter },
   ],
   height: 300,
   sx: {
@@ -60,8 +64,40 @@ const chartSetting = {
 };
 
 export default function TickPlacementBars() {
+  const { token } = useSelector((state) => state.user);
+  const [error, setError] = useState(false);
+  const [barChartData, setBarChartData] = useState([]);
   const [tickPlacement, setTickPlacement] = React.useState("middle");
   const [tickLabelPlacement, setTickLabelPlacement] = React.useState("middle");
+
+  const getBarChartData = useCallback(async()=>{
+     try {
+       const res = await fetch(
+         `${import.meta.env.VITE_SERVER_URL}/listing/get/barChartCount`,
+         {
+           headers: {
+             Authorization: `Bearer ${token}`,
+             "Content-Type": "application/json",
+           },
+           credentials: "include",
+         }
+       );
+       if (!res.ok) {
+         setError(true);
+         return;
+       }
+       const data = await res.json();
+       setBarChartData(data);
+       console.log(data);
+     } catch (err) {
+       setError(true);
+       console.error("Error fetching bar chart data:", error);
+     }
+  },[token, error])
+
+  useEffect(() => {
+    getBarChartData();
+  }, [getBarChartData]);
 
   return (
     <div className="lg:w-1/2 sm:w-full border rounded-2xl border-ffcb74 p-4 hidden md:block">
@@ -72,11 +108,11 @@ export default function TickPlacementBars() {
         setTickLabelPlacement={setTickLabelPlacement}
       />
       <BarChart
-        dataset={dataset}
+        dataset={barChartData}
         xAxis={[
           {
             scaleType: "band",
-            dataKey: "month",
+            dataKey: "_id",
             tickPlacement,
             tickLabelPlacement,
           },
