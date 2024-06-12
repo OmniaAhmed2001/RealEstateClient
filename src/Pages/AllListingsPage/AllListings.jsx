@@ -8,6 +8,7 @@ import {
   updateUserStart,
   updateUserSuccess,
 } from "../../redux/user/userSlice";
+import RiseLoader from "react-spinners/RiseLoader";
 
 const AllListings = () => {
   const initalQueryData = {
@@ -23,7 +24,7 @@ const AllListings = () => {
   const [sidebardata, setSidebardata] = useState(initalQueryData);
   const [isTypeOpen, setIsTypeOpen] = useState(true);
   const [isAmenitiesOpen, setIsAmenitiesOpen] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState([]);
   const [showMore, setShowMore] = useState(false);
   const favorites = useRef(currentUser?.favorites || []);
@@ -349,9 +350,18 @@ const AllListings = () => {
             <p className="text-xl text-slate-700">No listing found!</p>
           )}
           {loading && (
-            <p className="text-xl text-slate-700 text-center w-full">
-              Loading...
-            </p>
+            <div
+              className="flex justify-center items-center w-full"
+              style={{ minHeight: "80vh" }}
+            >
+              <RiseLoader
+                color="#FFB534"
+                loading="true"
+                size={17}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            </div>
           )}
 
           {!loading &&

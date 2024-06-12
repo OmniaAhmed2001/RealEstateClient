@@ -22,7 +22,8 @@ import {
   updateUserSuccess,
 } from "../../redux/user/userSlice";
 import { Icon } from "@mui/material";
-import LoadingSpinner from "../../Components/LoadingSpinner";
+
+import RiseLoader from "react-spinners/RiseLoader";
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -160,7 +161,13 @@ export default function Profile() {
   return (
     <div className="p-6 mx-auto flex flex-col bg-fdf5e8 m-12 px-12 min-h-5 max-w-4xl rounded-lg">
       {loading ? (
-        <LoadingSpinner />
+        <RiseLoader
+          color="#FFB534"
+          loading="true"
+          size={17}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
       ) : (
         <>
           <h1 className="text-3xl font-semibold text-center my-7">

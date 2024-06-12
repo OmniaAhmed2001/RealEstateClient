@@ -17,6 +17,7 @@ import {
 } from "react-icons/fa";
 import Contact from "./Contact";
 import Review from "./Review";
+import RiseLoader from "react-spinners/RiseLoader";
 
 const removeParamsFromUrl = () => {
   const urlWithoutParams = window.location.pathname;
@@ -31,7 +32,7 @@ const ListingDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [listing, setListing] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
@@ -145,7 +146,20 @@ const ListingDetails = () => {
 
   return (
     <main className="min-h-screen">
-      {loading && <p className="text-center my-7 text-2xl">Loading...</p>}
+      {loading && (
+        <div
+          className="flex justify-center items-center"
+          style={{ minHeight: "80vh" }}
+        >
+          <RiseLoader
+            color="#FFB534"
+            loading="true"
+            size={17}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      )}
       {error && (
         <p className="text-center my-7 text-2xl">Something went wrong</p>
       )}
@@ -191,7 +205,8 @@ const ListingDetails = () => {
             </p>
             <p className="flex items-center gap-2 text-slate-600  text-sm">
               <FaMapMarkerAlt className="text-green-700" />
-              {listing.address.street}, {listing.address.city}, {listing.address.country}
+              {listing.address.street}, {listing.address.city},{" "}
+              {listing.address.country}
             </p>
             <div className="flex gap-4">
               <p className="bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
@@ -206,10 +221,12 @@ const ListingDetails = () => {
               </p>
               {listing.offer && (
                 <p className="bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
-                  {Math.round(((listing.discountPrice)* 100 / listing.regularPrice))}% OFF
+                  {Math.round(
+                    (listing.discountPrice * 100) / listing.regularPrice
+                  )}
+                  % OFF
                 </p>
               )}
-
             </div>
             <p className="text-slate-800">
               <span className="font-semibold text-black">Description - </span>
