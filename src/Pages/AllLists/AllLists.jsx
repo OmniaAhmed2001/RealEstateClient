@@ -68,7 +68,10 @@ export default function AllLists() {
   };
 
   return (
-    <div className="min-h-screen w-full">
+    <div
+      className="w-full flex justify-center items-center"
+      style={{ minHeight: "80vh" }}
+    >
       {loading ? (
         <div
           className="flex justify-center items-center"
