@@ -127,7 +127,7 @@ export default function Home() {
           <div>
             <Link to="/listing">
               <button
-                className="flex items-center text-base px-4 py-2 rounded-lg bg-ffb534 text-white font-bold hover:bg-ffcb74 mt-7"
+                className="flex items-center text-base px-4 py-2 rounded-lg bg-ffb534 text-white font-bold mt-7 hover:bg-gradient-to-t from-ffcb74 via-ffc869 to-ffb534 transition-all duration-300 ease-in-out"
                 style={{
                   justifyContent: windowWidth < 768 ? "center" : "flex-start",
                 }}

@@ -314,64 +314,69 @@ export default function CreateListing() {
               ></input>
             </div>
 
-            <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-2 items-center lg:w-[90%] md:w-[90%] sm:max-w-full justify-between">
-              <div className="flex  my-1  gap-2">
+            <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-3 items-center lg:w-[90%] md:w-[90%] sm:max-w-full justify-between">
+              <div className="flex my-1 gap-2">
                 <input
                   onChange={handleChange}
                   checked={formData.furnished}
                   id="furnished"
                   type="checkbox"
                   className="w-4"
-                ></input>
+                />
                 <span>Furniture</span>
               </div>
-              <div className="flex   gap-2">
+              <div className="flex gap-2">
                 <input
                   onChange={handleChange}
                   checked={formData.parking}
                   id="parking"
                   type="checkbox"
                   className="w-4"
-                ></input>
+                />
                 <span>Parking</span>
               </div>
-              <div className="flex  gap-2">
+              <div className="flex gap-2">
                 <input
                   onChange={handleChange}
                   checked={formData.offer}
                   id="offer"
                   type="checkbox"
                   className="w-4"
-                ></input>
+                />
                 <span>Offer</span>
               </div>
-              <div className="flex  gap-2 items-center justify-center">
-                <input
-                  type="number"
-                  min="1"
-                  max="10"
-                  id="bedrooms"
-                  required
-                  className=" w-16 h-10 p-3 border border-gray-300 rounded-lg"
-                  onChange={handleChange}
-                  value={formData.bedrooms}
-                ></input>
-                <p>Beds</p>
-              </div>
-              <div className="flex  justify-center gap-2 items-center">
-                <input
-                  type="number"
-                  min="1"
-                  max="10"
-                  id="bathrooms"
-                  required
-                  className="w-16 p-3 border border-gray-300 rounded-lg h-10"
-                  onChange={handleChange}
-                  value={formData.bathrooms}
-                ></input>
-                <p>Baths</p>
+              <div className="flex gap-2 items-center justify-center lg:col-span-2 md:col-span-2">
+                <div className="flex gap-6">
+                  <div className="flex gap-2 items-center">
+                    <input
+                      type="number"
+                      min="1"
+                      max="10"
+                      id="bedrooms"
+                      required
+                      className="w-16 h-10 p-3 border border-gray-300 rounded-lg"
+                      onChange={handleChange}
+                      value={formData.bedrooms}
+                    />
+                    <p>Beds</p>
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <input
+                      type="number"
+                      min="1"
+                      max="10"
+                      id="bathrooms"
+                      required
+                      className="w-16 p-3 border border-gray-300 rounded-lg h-10"
+                      onChange={handleChange}
+                      value={formData.bathrooms}
+                    />
+                    <p>Baths</p>
+                  </div>
+                </div>
               </div>
             </div>
+
             <div className="flex flex-wrap items-center my-5 w-full justify-between">
               <div className="flex gap-4 items-center">
                 <input
