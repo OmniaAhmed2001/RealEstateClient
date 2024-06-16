@@ -4,11 +4,7 @@ import Card from "./Card";
 import { useSelector } from "react-redux";
 function Dashboard() {
   const { token, currentUser } = useSelector((state) => state.user);
-  const [dashboardData, setDashboardData] = useState({
-    totalUsers: 0,
-    mostExpensive: { price: 0, name: "" },
-    totalListings: 0,
-  });
+  const [dashboardData, setDashboardData] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,7 +73,7 @@ function Dashboard() {
           <Card
             icon="assets/realestate.png"
             description="Most Expensive Real Estate"
-            value={`${dashboardData.mostExpensive.name}  $${dashboardData.mostExpensive.price}`}
+            value={dashboardData && `${dashboardData.mostExpensive?.name}  $${dashboardData.mostExpensive?.price}`}
           />
           <Card
             icon="assets/128.png"

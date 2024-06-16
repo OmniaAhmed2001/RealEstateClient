@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { useSelector } from "react-redux";
 import { Navigation } from "swiper/modules";
+import { formatDistanceToNow } from "date-fns";
 import "swiper/css/bundle";
 import {
   FaBath,
@@ -16,11 +17,14 @@ import {
 } from "react-icons/fa";
 import Contact from "./Contact";
 import Review from "./Review";
+import RiseLoader from "react-spinners/RiseLoader";
 
 const removeParamsFromUrl = () => {
   const urlWithoutParams = window.location.pathname;
   window.history.replaceState({}, document.title, urlWithoutParams);
 };
+
+
 
 const ListingDetails = () => {
   SwiperCore.use([Navigation]);
@@ -28,7 +32,7 @@ const ListingDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [listing, setListing] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
@@ -52,7 +56,6 @@ const ListingDetails = () => {
           return;
         }
         setListing(data);
-
         setLoading(false);
         setError(false);
         if (data.userRef === currentUser?._id) {
@@ -143,7 +146,20 @@ const ListingDetails = () => {
 
   return (
     <main className="min-h-screen">
-      {loading && <p className="text-center my-7 text-2xl">Loading...</p>}
+      {loading && (
+        <div
+          className="flex justify-center items-center"
+          style={{ minHeight: "80vh" }}
+        >
+          <RiseLoader
+            color="#FFB534"
+            loading="true"
+            size={17}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      )}
       {error && (
         <p className="text-center my-7 text-2xl">Something went wrong</p>
       )}
@@ -187,9 +203,10 @@ const ListingDetails = () => {
                 : listing.regularPrice.toLocaleString("en-US")}
               {listing.type === "rent" && " / month"}
             </p>
-            <p className="flex items-center mt-6 gap-2 text-slate-600  text-sm">
+            <p className="flex items-center gap-2 text-slate-600  text-sm">
               <FaMapMarkerAlt className="text-green-700" />
-              {listing.address.street}, {listing.address.city}, {listing.address.country}
+              {listing.address.street}, {listing.address.city},{" "}
+              {listing.address.country}
             </p>
             <div className="flex gap-4">
               <p className="bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
@@ -204,10 +221,12 @@ const ListingDetails = () => {
               </p>
               {listing.offer && (
                 <p className="bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
-                  {Math.round(((listing.discountPrice)* 100 / listing.regularPrice))}% OFF
+                  {Math.round(
+                    (listing.discountPrice * 100) / listing.regularPrice
+                  )}
+                  % OFF
                 </p>
               )}
-
             </div>
             <p className="text-slate-800">
               <span className="font-semibold text-black">Description - </span>
@@ -256,42 +275,63 @@ const ListingDetails = () => {
               <Review reviews={listing.reviews} setListing={setListing} />
             )}
 
-           {listing.reviews.length != 0 &&
+            {listing.reviews.length != 0 && (
               <div>
                 <p className="text-3xl font-semibold mb-4">Reviews</p>
                 <div className="mb-4">
-                  {listing.reviews.map((review, i) => (
-                    <div key={i} className="flex items-center gap-2 mb-4">
-                      <img
-                        src={review.avatar}
-                        className="w-14 h-14 rounded-full mr-2"
-                        alt="Reviewer Avatar"
-                      />
-                      <div>
-                        <div className="flex items-center gap-1 mb-2">
-                          <p className="text-lg font-semibold">{review.name}</p>
-                          <div className="flex gap-1">
-                            {Array.from({ length: 5 }, (_, i) => i).map((star, index) => (
-                              <FaStar
-                                key={index}
-                                className={
-                                  index + 1 <= review.rating
-                                    ? `text-yellow-500`
-                                    : `text-gray-300`
-                                }
-                              />
-                            ))}
+                  {listing.reviews
+                    .sort(
+                      (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+                    )
+                    .map((review) => (
+                      <>
+                        <div
+                          key={review.id}
+                          className="flex items-start justify-between mb-4"
+                        >
+                          <div className="flex items-start justify-start gap-2">
+                            <img
+                              src={review.avatar}
+                              className="w-14 h-14 rounded-full mr-2"
+                              alt="Reviewer Avatar"
+                            />
+                            <div>
+                              <div className="flex items-center gap-1 mb-2">
+                                <p className="text-lg font-semibold">
+                                  {review.name}
+                                </p>
+                                <div className="flex gap-1">
+                                  {Array.from({ length: 5 }, (_, i) => i).map(
+                                    (star, index) => (
+                                      <FaStar
+                                        key={index}
+                                        className={
+                                          index + 1 <= review.rating
+                                            ? `text-yellow-500`
+                                            : `text-gray-300`
+                                        }
+                                      />
+                                    )
+                                  )}
+                                </div>
+                              </div>
+                              <p className="mt-2">{review.comment}</p>
+                            </div>
                           </div>
+                          <p className=" font-semibold italic text-gray-400">
+                            {formatDistanceToNow(new Date(review.updatedAt), {
+                              addSuffix: true,
+                            })}
+                          </p>
                         </div>
-                        <p className="mt-2">{review.comment}</p>
-                      </div>
-                    </div>
-                  ))}
+                        {listing.reviews.length > 1 && (
+                          <div className="border-t p-2 border-gray-300"></div>
+                        )}
+                      </>
+                    ))}
                 </div>
-                {listing.reviews.length > 1 && <div className="border-t border-gray-300"></div>}
-                
               </div>
-           }
+            )}
           </div>
         </div>
       )}

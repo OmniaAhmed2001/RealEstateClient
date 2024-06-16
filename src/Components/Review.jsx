@@ -4,32 +4,17 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
-import { FaRegCommentDots } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 
-// import { useState } from "react";
-// import { Rating } from "react-simple-star-rating";
-// Review.prototype({
-//     id.prototype:number;
-// })
-// const reducer = (state, action) => {
-//   console.log(state, action);
-//   return state - action.payload;
-// };
 export default function Review({ reviews, setListing }) {
   const [rating, setrating] = useState(0);
   const [tempRating, setTempRating] = useState(0);
   const [comment, setComment] = useState(null);
-  // const [reviewed, setReviewed] = useState(false);
-  // const [count, dispatch] = useReducer(reducer, 0);
   const [error, setError] = useState(false);
   const { listingId } = useParams();
   const { currentUser, token } = useSelector((state) => state.user);
 
-  // const [review, setReview] = useState({
-  //   finalComment: "",
-  //   finalrating: 0,
-  // });
+
   const handlerating = (i) => {
     setrating(() => i + 1);
   };
@@ -41,8 +26,7 @@ export default function Review({ reviews, setListing }) {
   };
   const handleAddReview = async () => {
     setError(false)
-    // dispatch({ payload: -1 });
-    console.log("entereing addreview");
+    // console.log("entereing addreview");
     try {
       if (!rating || !comment) {
         return setError("Complete Your Review Before Submit");
@@ -73,7 +57,7 @@ export default function Review({ reviews, setListing }) {
         setError(data.message);
         return
       }
-      console.log("reviewwwww", data);
+      // console.log("reviewwwww", data);
       setListing(data);
       setrating(0);
       setComment("");
@@ -154,3 +138,4 @@ export default function Review({ reviews, setListing }) {
   );
   
 }
+

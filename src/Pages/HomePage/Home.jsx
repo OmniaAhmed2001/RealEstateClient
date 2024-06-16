@@ -47,10 +47,8 @@ const MyIcon = (
 );
 
 export default function Home() {
-  const { token } = useSelector((state) => state.user);
-
+  // const { token } = useSelector((state) => state.user);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
   const [error, setError] = useState(null);
   const[propertyCount, setPropertyCount]=useState("");
 
