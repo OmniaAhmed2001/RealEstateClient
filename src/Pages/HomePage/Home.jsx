@@ -50,11 +50,11 @@ export default function Home() {
   // const { token } = useSelector((state) => state.user);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [error, setError] = useState(null);
-  const[propertyCount, setPropertyCount]=useState("");
+  const [propertyCount, setPropertyCount] = useState("");
 
   useEffect(() => {
     const propcount = async () => {
-        try {
+      try {
         const res = await fetch(
           `${import.meta.env.VITE_SERVER_URL}/listing/get/countListings`,
           {
@@ -66,12 +66,12 @@ export default function Home() {
         );
         if (!res.ok) throw new Error("Property count is not fetched");
         const listingsRes = await res.json();
-        setPropertyCount(listingsRes.count)
+        setPropertyCount(listingsRes.count);
       } catch (error) {
-        setError(error)
-        console.log(error)
+        setError(error);
+        console.log(error);
       }
-      };
+    };
     propcount();
   }, []);
 
@@ -162,16 +162,16 @@ export default function Home() {
           </h2>
         </div>
         <h3 className="text-center text-3xl font-bold mb-8">Our Main Focus</h3>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 1 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+        <div
           className="flex justify-center items-center flex-wrap mx-10"
           style={{ gap: "120px" }}
         >
           {/* Card 1 */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 1 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
             className="flex flex-col justify-center items-center p-3 bg-fdf5e8 bg-opacity-40 rounded-md shadow-md hover:shadow-lg-hover"
             style={{ width: "290px", height: "340px" }}
           >
@@ -183,17 +183,21 @@ export default function Home() {
             />
             <p className="text-center mt-2 font-bold text-lg">Recent Offers</p>
             <p className="text-center text-md text-black opacity-70">
-              Over {propertyCount} homes for sale available on the website, we can
-              match you with a house you will want to call home.
+              Over {propertyCount} homes for sale available on the website, we
+              can match you with a house you will want to call home.
             </p>
             <Link to="/listing?searchTerm=&type=all&parking=false&furnished=false&offer=true&sort=created_at&order=desc">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Know More {GoIcon}
               </button>
             </Link>
-          </div>
+          </motion.div>
           {/* Card 2 */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 1 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
             className="flex flex-col justify-center items-center p-3 bg-fdf5e8 bg-opacity-40 rounded-md shadow-md hover:shadow-lg-hover"
             style={{ width: "290px", height: "340px" }}
           >
@@ -205,17 +209,21 @@ export default function Home() {
             />
             <p className="text-center mt-2 font-bold text-lg">Rent a home</p>
             <p className="text-center text-md text-black opacity-70">
-              Over {propertyCount} homes for sale available on the website, we can
-              match you with a house you will want to call home.
+              Over {propertyCount} homes for sale available on the website, we
+              can match you with a house you will want to call home.
             </p>
             <Link to="/listing?searchTerm=&type=rent&parking=false&furnished=false&offer=false&sort=created_at&order=desc">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Find A Home {GoIcon}
               </button>
             </Link>
-          </div>
+          </motion.div>
           {/* Card 3 */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 1 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
             className="flex flex-col justify-center items-center p-3 bg-fdf5e8 bg-opacity-40 rounded-md shadow-md hover:shadow-lg-hover"
             style={{ width: "290px", height: "340px" }}
           >
@@ -227,16 +235,16 @@ export default function Home() {
             />
             <p className="text-center mt-2 font-bold text-lg">Sell a home</p>
             <p className="text-center text-md text-black opacity-70">
-              Over {propertyCount} homes for sale available on the website, we can
-              match you with a house you will want to call home.
+              Over {propertyCount} homes for sale available on the website, we
+              can match you with a house you will want to call home.
             </p>
             <Link to="/user-listing">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
                 Add Your Property {GoIcon}
               </button>
             </Link>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
       {/*Video Section */}
       <div className="mt-24 w-full">
