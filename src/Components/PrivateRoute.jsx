@@ -12,7 +12,7 @@ const PrivateRoute = () => {
     if (currentUser?.role === "user" && location.pathname === "/dashboard")
       navigate("/");
   }, [location.pathname]);
-
+  console.log("hi");
   return currentUser ? <Outlet /> : <Navigate to="/sign-in" />;
 };
 
