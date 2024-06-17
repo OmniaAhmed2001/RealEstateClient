@@ -3,7 +3,7 @@ import RiseLoader from "react-spinners/RiseLoader";
 
 export default function Card({ icon, description, value }) {
   return (
-    <div className="flex flex-wrap justify-center items-center bg-fefbf6 w-72 sm:w-80 h-80 my-28 relative rounded-2xl shadow-xl p-5">
+    <div className="flex flex-wrap justify-center items-center bg-fefbf6 w-72 sm:w-80 h-80 my-8 relative rounded-2xl shadow-xl p-5">
       <div className="bg-fefbf6 p-7 rounded-full absolute mb-6 bottom-56">
         <img
           className="h-auto"

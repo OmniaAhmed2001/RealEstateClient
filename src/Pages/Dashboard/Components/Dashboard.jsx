@@ -61,10 +61,10 @@ function Dashboard() {
   }, [currentUser, token]);
 
   return (
-    <div className="flex justify-evenly items-center flex-col lg:flex-row">
+    <div className="flex flex-wrap justify-center items-center my-14 gap-16">
       {currentUser.role === "admin" && (
         <>
-          {" "}
+          
           <Card
             icon="assets/users.png"
             description="Total Users"

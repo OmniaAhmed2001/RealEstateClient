@@ -5,7 +5,7 @@ import BasicPie from "./PieChart";
 
 export default function Charts() {
   return (
-    <div className="flex px-16 lg:flex-row sm:flex-col justify-center items-center gap-16">
+    <div className="flex xl:flex-row flex-col justify-center items-center gap-14 w-10/12">
       <TickPlacementBars />
       <BasicPie />
     </div>
