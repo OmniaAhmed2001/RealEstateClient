@@ -91,9 +91,9 @@ export default function TickPlacementBars() {
        console.log(data);
      } catch (err) {
        setError(true);
-       console.error("Error fetching bar chart data:", error);
+       console.error("Error fetching bar chart data:", err);
      }
-  },[token, error])
+  },[token])
 
   useEffect(() => {
     getBarChartData();

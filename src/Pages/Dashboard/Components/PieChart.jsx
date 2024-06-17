@@ -1,20 +1,52 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
+import { useCallback } from "react";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function BasicPie() {
+  const { token } = useSelector((state) => state.user);
+  const [error, setError] = useState(false);
+  const [pieChartData, setPieChartData] = useState([]);
+  
+
+  const getPieChartData = useCallback(async () => {
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/listing/get/pieChartCount`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+      if (!res.ok) {
+        setError(true);
+        return;
+      }
+      const data = await res.json();
+      setPieChartData(data);
+      console.log(data);
+    } catch (err) {
+      setError(true);
+      console.error("Error fetching Pie chart data:", err);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    getPieChartData();
+  }, [getPieChartData]);
+
   return (
     <div className="border rounded-2xl border-ffcb74 p-4">
       <PieChart
         series={[
           {
-            data: [
-              { id: 0, value: 10, label: "Studio", color: "#FDF5E8" },
-              { id: 1, value: 20, label: "Cottage", color: "#FFCB74" },
-              { id: 2, value: 20, label: "Villa", color: "#FFC45D" },
-              { id: 1, value: 15, label: "Penthouse", color: "#FFB534" },
-              { id: 2, value: 20, label: "Apartment", color: "#FF9A62" },
-            ],
+            data: pieChartData,
             innerRadius: 30,
             outerRadius: 100,
             paddingAngle: 5,
