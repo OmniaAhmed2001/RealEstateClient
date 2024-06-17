@@ -14,13 +14,14 @@ export default function SignIn() {
   const [formData, setFormData] = useState({});
   const { loading, error, token } = useSelector((state) => state.user);
   const navigate = useNavigate();
-
+  console.log("bye");
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   };
+  console.log("fff");
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
