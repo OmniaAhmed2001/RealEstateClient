@@ -59,6 +59,12 @@ export default function Profile() {
           setFormData(updatedFormData);
         }
       }
+      if (updatedFormData.password?.length < 6) {
+        throw new Error("Password is weak. Choose a stronger one.");
+      }
+      if (updatedFormData.password !== updatedFormData.confirmPassword) {
+        throw new Error("Passwords don't match.");
+      }
       dispatch(updateUserStart());
       //send request containing the form Data includes the new avatar uploaded if any
       const res = await fetch(
@@ -79,6 +85,7 @@ export default function Profile() {
       }
       dispatch(updateUserSuccess(data));
       setUpdateSuccess(true);
+      setFormData({});
     } catch (error) {
       dispatch(updateUserFailure(error.message));
     }
@@ -240,14 +247,14 @@ export default function Profile() {
               <input
                 type="password"
                 id="password"
-                placeholder="password"
+                placeholder="Password"
                 className="border p-3 rounded-lg"
                 onChange={handleChange}
               />
               <input
-                type="confirmPassword"
+                type="password"
                 id="confirmPassword"
-                placeholder="confirmPassword"
+                placeholder="Confirm Password"
                 className="border p-3 rounded-lg"
                 onChange={handleChange}
               />
