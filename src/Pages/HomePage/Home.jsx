@@ -10,9 +10,9 @@ const ArrowIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    width="22"
-    height="22"
-    className="h-4 w-4 ml-2"
+    width="25"
+    height="25"
+    className="h-5 w-5 ml-2"
     fill="white"
   >
     <path d="M0,12A12,12,0,1,0,12,0,12.013,12.013,0,0,0,0,12Zm17.414-1.414a2,2,0,0,1,0,2.828l-4.243,4.243-1.414-1.414L15,13H6V11h9L11.757,7.757l1.414-1.414Z" />
@@ -91,7 +91,7 @@ export default function Home() {
       <div className="flex flex-col justify-center items-center p-4 md:flex-row min-h-64">
         <div className="text-black text-center md:text-left md:w-1/2 md:pr-4 lg:pr-20 lg:pl-20">
           <h3
-            className="flex items-center text-lg md:text-md lg:text-xl mb-4"
+            className="flex items-center text-md sm:text-lg md:text-md lg:text-xl mb-3"
             style={{
               justifyContent: windowWidth < 768 ? "center" : "flex-start",
             }}
@@ -112,20 +112,20 @@ export default function Home() {
             transition={{
               duration: 0.8,
             }}
-            className="font-bold text-3xl md:text-4xl lg:text-5xl mb-2 md:mb-7"
+            className="font-bold text-2xl sm:text-3xl md:text-5xl mb-2 md:mb-5"
           >
             Find your next <span className="text-ffcb74">perfect</span> place
             with ease
           </motion.h3>
-          <div className="text-black opacity-70 text-sm md:text-lg mb-">
+          <div className="text-black opacity-70 text-sm md:text-lg">
             EgyEstate will help you find your home fast, easy, and comfortable.
             <br />
             Our expert support is always available.
           </div>
-          <div>
+          <div className="flex justify-center md:justify-start">
             <Link to="/listing">
               <button
-                className="flex items-center text-base px-4 py-2 rounded-lg bg-ffb534 text-white font-bold mt-7 hover:bg-gradient-to-t from-ffcb74 via-ffc869 to-ffb534 transition-all duration-300 ease-in-out"
+                className="flex items-center text-xl px-5 py-3 rounded-lg bg-ffb534 text-white font-bold mt-7 hover:bg-gradient-to-t from-ffcb74 via-ffc869 to-ffb534 transition-all duration-300 ease-in-out"
                 style={{
                   justifyContent: windowWidth < 768 ? "center" : "flex-start",
                 }}
@@ -183,7 +183,7 @@ export default function Home() {
             />
             <p className="text-center mt-2 font-bold text-lg">Recent Offers</p>
             <p className="text-center text-md text-black opacity-70">
-              Over {propertyCount} homes for sale available on the website, we
+              About {propertyCount} homes for sale available on the website, we
               can match you with a house you will want to call home.
             </p>
             <Link to="/listing?searchTerm=&type=all&parking=false&furnished=false&offer=true&sort=created_at&order=desc">
@@ -209,7 +209,7 @@ export default function Home() {
             />
             <p className="text-center mt-2 font-bold text-lg">Rent a home</p>
             <p className="text-center text-md text-black opacity-70">
-              Over {propertyCount} homes for sale available on the website, we
+              About {propertyCount} homes for sale available on the website, we
               can match you with a house you will want to call home.
             </p>
             <Link to="/listing?searchTerm=&type=rent&parking=false&furnished=false&offer=false&sort=created_at&order=desc">
@@ -235,7 +235,7 @@ export default function Home() {
             />
             <p className="text-center mt-2 font-bold text-lg">Sell a home</p>
             <p className="text-center text-md text-black opacity-70">
-              Over {propertyCount} homes for sale available on the website, we
+              About {propertyCount} homes for sale available on the website, we
               can match you with a house you will want to call home.
             </p>
             <Link to="/user-listing">
@@ -248,7 +248,7 @@ export default function Home() {
       </div>
       {/*Video Section */}
       <div className="mt-24 w-full">
-        <h3 className="text-center text-3xl font-bold mt-7 mb-10">
+        <h3 className="text-center md:text-3xl sm:text-2xl text-xl font-bold mt-7 mb-10">
           Unlock the door to your dream home
           <br />
           Welcome to <span className="text-ffcb74">luxury</span> living!
