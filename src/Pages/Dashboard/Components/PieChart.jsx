@@ -5,11 +5,13 @@ import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useMediaQuery } from "@mui/material";
 
 export default function BasicPie() {
   const { token } = useSelector((state) => state.user);
   const [error, setError] = useState(false);
   const [pieChartData, setPieChartData] = useState([]);
+  const isBigScreen = useMediaQuery("(min-width:640px)");
   
 
   const getPieChartData = useCallback(async () => {
@@ -51,14 +53,19 @@ export default function BasicPie() {
             outerRadius: 100,
             paddingAngle: 5,
             cornerRadius: 5,
-            startAngle: -90,
+            startAngle: -180,
             endAngle: 180,
             cx: 150,
             cy: 95,
           },
         ]}
-        width={400}
+        width={isBigScreen ? 400 : 300}
         height={200}
+        sx={{
+          [`& .MuiChartsLegend-series`]: {
+            display: `${isBigScreen ? "block" : "none"}`,
+          },
+        }}
       />
     </div>
   );

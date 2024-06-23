@@ -100,7 +100,7 @@ export default function TickPlacementBars() {
   }, [getBarChartData]);
 
   return (
-    <div className="lg:w-1/2 sm:w-full border rounded-2xl border-ffcb74 p-4 hidden md:block">
+    <div className="sm:w-full border rounded-2xl border-ffcb74 p-4">
       <TickParamsSelector
         tickPlacement={tickPlacement}
         tickLabelPlacement={tickLabelPlacement}
