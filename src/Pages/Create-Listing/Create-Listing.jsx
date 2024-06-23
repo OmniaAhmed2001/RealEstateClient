@@ -275,7 +275,7 @@ export default function CreateListing() {
             <div className="flex flex-wrap gap-5 flex-row justify-between">
               <input
                 type="text"
-                className="p-2 rounded-lg lg:w-[50%] md:w-[50%] sm:w-[90%]  border border-slate-200 hover:border-slate-400"
+                className="p-3 rounded-lg md:w-6/12 sm:w-full border border-slate-200 hover:border-slate-400"
                 placeholder="Name"
                 maxLength="62"
                 minLength="10"
@@ -284,11 +284,11 @@ export default function CreateListing() {
                 onChange={handleChange}
                 id="name"
               ></input>
-              <div className="lg:w-[42%] md:w-[35%] w-full lg:mt-0 md:mt-0 sm:mt-4">
+              
                 <select
                   id="listingType"
                   onChange={handleChange}
-                  className="w-full p-3 border border-slate-200 hover:border-slate-400 rounded-lg text-gray-400 font-bold"
+                  className="md:w-5/12 sm:w-full p-2 border border-slate-200 hover:border-slate-400 rounded-lg text-gray-400 font-bold"
                 >
                   <option disabled selected value="" className="opacity-10 ">
                     Listing Type
@@ -296,12 +296,12 @@ export default function CreateListing() {
                   <option className=" text-black" value="sale">Sale</option>
                   <option className=" text-black" value="rent">Rent</option>
                 </select>
-              </div>
+             
 
               <select
                 id="property"
                 onChange={handleChange}
-                className="w-full p-3 border border-slate-200 hover:border-slate-400 rounded-lg text-gray-400 font-bold"
+                className="w-full p-2 border border-slate-200 hover:border-slate-400 rounded-lg text-gray-400 font-bold"
               >
                 <option disabled selected value="" className="opacity-10">
                   Property Type
@@ -313,12 +313,11 @@ export default function CreateListing() {
                 <option className=" text-black" value="appartment">Apartment</option>
               </select>
             </div>
-            {/* className="p-5 lg:my-4 md:my-4 sm:my-2 rounded-lg lg:w-full md:w-full sm:w-full" */}
             <div className="flex justify-between w-full flex-wrap">
               <input
                 type="text"
-                className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400"
-                placeholder="street"
+                className="p-3 my-2 w-full md:w-3/12 rounded-lg border border-slate-200 hover:border-slate-400"
+                placeholder="Street"
                 required
                 value={formData.address.street}
                 onChange={handleChange}
@@ -329,10 +328,10 @@ export default function CreateListing() {
               <select
                 id="city"
                 onChange={handleChange}
-                className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400 text-gray-400 font-bold"
+                className="p-2 my-2 w-full md:w-3/12 rounded-lg border border-slate-200 hover:border-slate-400 text-gray-400 font-bold"
               >
                 <option disabled selected value="" className="opacity-10 ">
-                  city
+                  City
                 </option>
                 {countryCity.map((city) => (
                   <option className=" text-black" key={city} value={city}>
@@ -342,8 +341,8 @@ export default function CreateListing() {
               </select>
               <input
                 type="text"
-                className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400"
-                placeholder="country"
+                className="p-3 my-2 w-full md:w-3/12 rounded-lg border border-slate-200 hover:border-slate-400"
+                placeholder="Country"
                 required
                 value={formData.address.country}
                 onChange={handleChange}
@@ -382,7 +381,7 @@ export default function CreateListing() {
                 />
                 <span>Offer</span>
               </div>
-              <div className="flex gap-2 items-center justify-center lg:col-span-2 md:col-span-2">
+              <div className="flex gap-2 items-center justify-center">
                 <div className="flex gap-6">
                   <div className="flex gap-2 items-center">
                     <input

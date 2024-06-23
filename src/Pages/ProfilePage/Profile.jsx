@@ -166,7 +166,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="p-6 mx-auto flex flex-col bg-fdf5e8 m-12 px-12 min-h-5 max-w-4xl rounded-lg">
+    <div className="p-6 mx-auto flex flex-col bg-fdf5e8 m-12 px-12 min-h-5 md:max-w-4xl max-w-[90%] rounded-lg">
       {loading ? (
         <RiseLoader
           color="#FFB534"
@@ -180,7 +180,7 @@ export default function Profile() {
           <h1 className="text-3xl font-semibold text-center my-7">
             Edit Profile
           </h1>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-7 relative">
             <input
               onChange={(e) => setFile(e.target.files[0])}
               type="file"
@@ -232,18 +232,8 @@ export default function Profile() {
               defaultValue={currentUser.email}
               onChange={handleChange}
             />
-            <div className="flex flex-col gap-6">
-              {formData.password?.length >= 6 ? (
-                <label className="text-green-600 font-bold self-end text-sm mb-1">
-                  ✔ STRONG PASS
-                </label>
-              ) : formData.password?.length > 0 ? (
-                <label className="text-red-600 font-bold self-end text-sm mb-1">
-                  ❌ WEAK PASS
-                </label>
-              ) : (
-                ""
-              )}
+            
+              
               <input
                 type="password"
                 id="password"
@@ -251,6 +241,17 @@ export default function Profile() {
                 className="border p-3 rounded-lg"
                 onChange={handleChange}
               />
+              {formData.password?.length >= 6 ? (
+                <label className="text-green-600 font-semibold absolute bottom-[125px] p-0 self-end text-[15px] mb-1">
+                  ✔ STRONG PASS
+                </label>
+              ) : formData.password?.length > 0 ? (
+                <label className="text-red-600 font-semibold absolute bottom-[125px] p-0 self-end text-[15px] mb-1">
+                  ❌ WEAK PASS
+                </label>
+              ) : (
+                ""
+              )}
               <input
                 type="password"
                 id="confirmPassword"
@@ -258,7 +259,7 @@ export default function Profile() {
                 className="border p-3 rounded-lg"
                 onChange={handleChange}
               />
-            </div>
+            
             <button
               disabled={loading}
               className="bg-ffb534 text-white rounded-lg p-3 uppercase hover:opacity-90 disabled:opacity-70"
