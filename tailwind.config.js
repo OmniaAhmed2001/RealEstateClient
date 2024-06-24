@@ -10,6 +10,7 @@ export default {
         "64748b": "#64748B",
         ffffff: "#FFFFFF",
         "7c7872": "#7C7872",
+        e8a91a: "#e8a91a",
         ffc45d: "#FFC45D",
         fefbf6: "#FEFBF6",
         ff9a62: "#FF9A62",

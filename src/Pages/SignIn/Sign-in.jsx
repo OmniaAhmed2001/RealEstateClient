@@ -67,7 +67,6 @@ export default function SignIn() {
             type="email"
             placeholder="Enter your email"
             className="border px-4 py-2 rounded-lg w-full text-7c7872"
-            // style={{ color: "#7c7872", fontWeight: "lighter" }}
             id="email"
             required
             onChange={handleChange}
@@ -82,7 +81,7 @@ export default function SignIn() {
           />
           <button
             disabled={loading}
-            className="bg-ffc45d text-white py-2 px-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80 w-full"
+            className="bg-ffc45d text-white py-2 px-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80 w-full hover:font-semibold"
           >
             {loading ? "Loading..." : "Sign In"}
           </button>
