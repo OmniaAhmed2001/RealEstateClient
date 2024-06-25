@@ -60,24 +60,24 @@ const Footer = () => {
       <div className="flex flex-col bg-fdf5e8 w-full py-8 px-4 md:flex-row md:justify-between">
         <div className="flex flex-col items-start mb-4 md:mb-0 md:flex-shrink-0">
           <Link to={"/"} className="flex items-center">
-            <h1 className="font-bold text-4xl flex flex-wrap">
+            <h1 className="font-bold text-3xl flex flex-wrap">
               <span style={{ color: "#ffcb74" }}>Egy</span>
               <span style={{ color: "#ffb534" }}>Estate</span>
             </h1>
             <img
             src="/assets/logo.png"
             alt="House"
-            className="w-14 h-auto mt-4 ml-1"
+            className="w-14 h-auto mt-2 ml-1"
           />
           </Link>
         </div>
         <div className="flex flex-col justify-center md:flex-row md:items-center md:gap-4">
-          <Link to={"/user-listing"} className="text-yellow-500 hover:text-yellow-600 mb-2 md:mb-0">Add a Property</Link>
-          <Link to={"/favorites"} className="text-yellow-500 hover:text-yellow-600 mb-2 md:mb-0">Favorites</Link>
-          <Link to={"/about"} className="text-yellow-500 hover:text-yellow-600 mb-2 md:mb-0">About Us</Link>
+          <Link to={"/user-listing"} className="text-yellow-500 hover:text-yellow-600 mb-2 md:mb-0 text-lg">Add a Property</Link>
+          <Link to={"/favorites"} className="text-yellow-500 hover:text-yellow-600 mb-2 md:mb-0 text-lg">Favorites</Link>
+          <Link to={"/about"} className="text-yellow-500 hover:text-yellow-600 mb-2 md:mb-0 text-lg">About Us</Link>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-yellow-500">Follow Us</span>
+          <span className="text-yellow-500 text-lg">Follow Us</span>
           <a href="https://www.instagram.com/egyestate_co/" target="_blank" rel="noopener noreferrer" className="flex items-center">
             <FontAwesomeIcon
               icon={faInstagram}
@@ -89,7 +89,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex justify-center bg-ffcb74 text-slate-100 w-full py-2 px-4">
-        <p>EgyEstate - All rights reserved 2024 ©</p>
+        <p className="text-lg">EgyEstate - All rights reserved 2024 ©</p>
       </div>
     </div>
   );

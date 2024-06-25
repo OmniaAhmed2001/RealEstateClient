@@ -33,18 +33,18 @@ const GoIcon = (
   </svg>
 );
 
-const MyIcon = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="24"
-    height="24"
-    className="h6 w-6"
-    fill="#FFB534"
-  >
-    <path d="M22.849,7.68l-.869-.68h.021V2h-2v3.451L13.849,.637c-1.088-.852-2.609-.852-3.697,0L1.151,7.68c-.731,.572-1.151,1.434-1.151,2.363v13.957H8V15c0-1.105,.895-2,2-2h4c1.105,0,2,.895,2,2v9h8V10.043c0-.929-.42-1.791-1.151-2.363Z" />
-  </svg>
-);
+// const MyIcon = (
+//   <svg
+//     xmlns="http://www.w3.org/2000/svg"
+//     viewBox="0 0 24 24"
+//     width="24"
+//     height="24"
+//     className="h6 w-6"
+//     fill="#FFB534"
+//   >
+//     <path d="M22.849,7.68l-.869-.68h.021V2h-2v3.451L13.849,.637c-1.088-.852-2.609-.852-3.697,0L1.151,7.68c-.731,.572-1.151,1.434-1.151,2.363v13.957H8V15c0-1.105,.895-2,2-2h4c1.105,0,2,.895,2,2v9h8V10.043c0-.929-.42-1.791-1.151-2.363Z" />
+//   </svg>
+// );
 
 export default function Home() {
   // const { token } = useSelector((state) => state.user);
@@ -53,10 +53,10 @@ export default function Home() {
   const [propertyCount, setPropertyCount] = useState("");
 
   useEffect(() => {
-    const propcount = async () => {
+    const propOfferCount = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}/listing/get/countListings`,
+          `${import.meta.env.VITE_SERVER_URL}/listing/get/countOffer`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -66,13 +66,13 @@ export default function Home() {
         );
         if (!res.ok) throw new Error("Property count is not fetched");
         const listingsRes = await res.json();
-        setPropertyCount(listingsRes.count);
+        setPropertyCount(listingsRes.offersCount);
       } catch (error) {
         setError(error);
         console.log(error);
       }
     };
-    propcount();
+    propOfferCount();
   }, []);
 
   useEffect(() => {
@@ -96,7 +96,7 @@ export default function Home() {
               justifyContent: windowWidth < 768 ? "center" : "flex-start",
             }}
           >
-            {/* {MyIcon} */}
+            
             <img
             src="/assets/logo.png"
             alt="House"
@@ -186,10 +186,9 @@ export default function Home() {
               className="h-auto"
               style={{ width: "5rem" }}
             />
-            <p className="text-center mt-2 font-bold text-lg">Recent Offers</p>
+            <p className="text-center mt-2 mb-2 font-bold text-lg">Recent Offers</p>
             <p className="text-center text-md text-black opacity-70">
-              About {propertyCount} homes for sale available on the website, we
-              can match you with a house you will want to call home.
+             With {propertyCount} exclusive offers available, we can match you with a house you will love and call home.
             </p>
             <Link to="/listing?searchTerm=&type=all&parking=false&furnished=false&offer=true&sort=created_at&order=desc">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
@@ -212,10 +211,9 @@ export default function Home() {
               className="h-auto"
               style={{ width: "5rem" }}
             />
-            <p className="text-center mt-2 font-bold text-lg">Rent a home</p>
+            <p className="text-center mt-2 mb-2 font-bold text-lg">Rent a home</p>
             <p className="text-center text-md text-black opacity-70">
-              About {propertyCount} homes for sale available on the website, we
-              can match you with a house you will want to call home.
+            Discover your dream home in Egypt's vibrant landscapes with our curated selection of rental properties.
             </p>
             <Link to="/listing?searchTerm=&type=rent&parking=false&furnished=false&offer=false&sort=created_at&order=desc">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
@@ -238,10 +236,9 @@ export default function Home() {
               className="h-auto"
               style={{ width: "5rem" }}
             />
-            <p className="text-center mt-2 font-bold text-lg">Sell a home</p>
+            <p className="text-center mt-2 mb-2 font-bold text-lg">Sell a home</p>
             <p className="text-center text-md text-black opacity-70">
-              About {propertyCount} homes for sale available on the website, we
-              can match you with a house you will want to call home.
+             Explore a diverse range of properties for sale, from cozy apartments to luxurious villas and more.
             </p>
             <Link to="/user-listing">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
