@@ -110,7 +110,14 @@ export default function AllLists() {
                     </div>
                     <div className="flex gap-2 items-center self-start mb-2">
                       <i className="fa-solid fa-money-bill text-green-600"></i>
-                      <p className="text-left">{listing.regularPrice}$ {listing.type === "rent" && "/month"}</p>
+                      <p className="text-left">
+                        {listing.offer ? (
+                          <span>{listing.discountPrice}EGP</span>
+                        ) : (
+                          <span>{listing.regularPrice}EGP</span>
+                        )}
+                        {listing.type === "rent" && "/month"}
+                      </p>
                     </div>
                   </div>
                   <div className="flex justify-between mt-2">

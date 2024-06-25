@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FaBath, FaBed, FaHeart } from "react-icons/fa";
+import { MdOutlineMoneyOff } from "react-icons/md";
 import { AiFillHeart } from "react-icons/ai";
 import { CiHeart } from "react-icons/ci";
 import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 
 const ListingItem = ({ listing, updateFavs }) => {
   const { currentUser } = useSelector((state) => state.user);
@@ -58,20 +60,21 @@ const ListingItem = ({ listing, updateFavs }) => {
           <div className="flex items-center gap-1">
             <FaLocationDot className="h-5 w-5 text-ff9a62" />
             <p className="text-sm text-gray-600 truncate w-full">
-              {listing.address.street}, {listing.address.city}, {listing.address.country}
+              {listing.address.street}, {listing.address.city},{" "}
+              {listing.address.country}
             </p>
           </div>
           {/* <p className="text-sm text-gray-600 line-clamp-2">
             {listing.description}
           </p> */}
           <p className="text-black font-semibold text-xl">
-            $
+            
             {listing.offer
               ? listing.discountPrice.toLocaleString("en-US")
-              : listing.regularPrice.toLocaleString("en-US")}
+              : listing.regularPrice.toLocaleString("en-US")} {" EGP"}
             {listing.type === "rent" && " / month"}
           </p>
-          <div className="text-white flex gap-4">
+          <div className="text-white flex gap-4 w-full">
             <div className="flex gap-2 items-center rounded-full bg-ff9a62 px-2 py-1">
               <FaBed className="text-lg" />
               <div className="font-bold text-sm">
@@ -88,6 +91,12 @@ const ListingItem = ({ listing, updateFavs }) => {
                   : `${listing.bathrooms} bath `}
               </div>
             </div>
+            {listing.offer && (
+              <div className="flex ml-auto items-center justify-center rounded-full px-2 py-1 bg-green-600">
+                <MdOutlineMoneyOff className="text-lg " />
+                <p className="font-semibold text-sm">Offer</p>
+              </div>
+            )}
           </div>
         </div>
       </Link>
