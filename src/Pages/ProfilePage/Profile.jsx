@@ -261,12 +261,12 @@ export default function Profile() {
 
         <button
           disabled={loading}
-          className="bg-ffb534 text-white rounded-lg p-3 uppercase hover:opacity-90 disabled:opacity-70"
+          className="bg-ffb534 text-white rounded-lg p-3 uppercase hover:opacity-90 disabled:opacity-70 text-lg"
         >
           {loading ? "Loading..." : "Update"}
         </button>
       </form>
-      <div className="flex justify-between mt-5">
+      <div className="flex justify-between mt-5 text-lg">
         <span onClick={handleDeleteUser} className="text-ffb534 cursor-pointer">
           Delete Account
         </span>

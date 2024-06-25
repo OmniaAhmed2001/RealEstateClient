@@ -96,7 +96,12 @@ export default function Home() {
               justifyContent: windowWidth < 768 ? "center" : "flex-start",
             }}
           >
-            {MyIcon}
+            {/* {MyIcon} */}
+            <img
+            src="/assets/logo.png"
+            alt="House"
+            className="w-12 h-auto mt-1 ml-1"
+          />
             <span className="ml-2 opacity-70">Real Estate Agency</span>
           </h3>
 

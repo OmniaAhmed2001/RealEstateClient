@@ -59,11 +59,16 @@ const Footer = () => {
     <div className="flex flex-col justify-center items-center" style={{ width: "100%" }}>
       <div className="flex flex-col bg-fdf5e8 w-full py-8 px-4 md:flex-row md:justify-between">
         <div className="flex flex-col items-start mb-4 md:mb-0 md:flex-shrink-0">
-          <Link to={"/"}>
+          <Link to={"/"} className="flex items-center">
             <h1 className="font-bold text-4xl flex flex-wrap">
               <span style={{ color: "#ffcb74" }}>Egy</span>
               <span style={{ color: "#ffb534" }}>Estate</span>
             </h1>
+            <img
+            src="/assets/logo.png"
+            alt="House"
+            className="w-14 h-auto mt-4 ml-1"
+          />
           </Link>
         </div>
         <div className="flex flex-col justify-center md:flex-row md:items-center md:gap-4">

@@ -42,12 +42,18 @@ export default function Header() {
   return (
     <header className="bg-fdf5e8 shadow-md sticky top-0 z-50">
       <div className="flex justify-between items-center max-w-7xl mx-auto p-3">
-        <Link to={"/"}>
-          <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
+        <Link to={"/"} className="flex items-center">
+          <h1 className="font-bold text-sm sm:text-xl flex-wrap md:flex hidden">
             <span className="text-ffcb74">Egy</span>
             <span className="text-ffb534">Estate</span>
           </h1>
+          <img
+            src="/assets/logo.png"
+            alt="House"
+            className="w-12 h-auto mt-1 ml-1"
+          />
         </Link>
+        
         <form
           className="bg-ffffff p-2 px-4 rounded-lg flex items-center"
           onSubmit={handleOnSubmit}

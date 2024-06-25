@@ -360,7 +360,7 @@ export default function CreateListing() {
             </div>
 
             <div className="flex flex-wrap items-center w-full justify-between gap-2">
-              <div className="flex my-1 gap-2 mb-4 sm:mb-0">
+              <div className="flex gap-2 mb-4 sm:mb-0">
                 <input
                   onChange={handleChange}
                   checked={formData.furnished}
@@ -542,7 +542,7 @@ export default function CreateListing() {
           <div className="text-center">
             <button
               disabled={loading || uploading}
-              className="uppercase bg-ffb534 text-white py-3 px-2 rounded-2xl font-bold text-lg lg:w-[45%] sm:w-[60%]"
+              className="uppercase bg-ffb534 text-white py-3 px-2 rounded-2xl font-bold text-lg w-[100%] hover:shadow-md"
             >
               {loading ? (
                 <div className="flex justify-center items-center gap-3">
