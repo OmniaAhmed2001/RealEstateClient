@@ -238,7 +238,7 @@ export default function Home() {
             />
             <p className="text-center mt-2 mb-2 font-bold text-lg">Sell a home</p>
             <p className="text-center text-md text-black opacity-70">
-             Explore a diverse range of properties for sale, from cozy apartments to luxurious villas and more.
+             Looking to sell your property? Let us connect you with the right buyers for a smooth and successful sale.
             </p>
             <Link to="/user-listing">
               <button className="flex items-center justify-center text-sm sm:text-base px-3 mt-2 py-1 rounded-lg text-ffb534 font-bold hover:text-ffcb74 hover:translate-x-2 duration-75">
