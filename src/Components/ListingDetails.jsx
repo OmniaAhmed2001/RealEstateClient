@@ -165,7 +165,7 @@ const ListingDetails = () => {
         </div>
       )}
       {error && (
-        <Navigate to="/not-found"/>
+        <Navigate to="/not-found" />
         // <p className="text-center my-7 text-2xl">Something went wrong</p>
       )}
       {listing && !loading && !error && (
@@ -201,11 +201,21 @@ const ListingDetails = () => {
             </p>
           )}
           <div className="flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4">
-            <p className="text-2xl font-semibold">
-              {listing.name} - ${" "}
-              {listing.offer
-                ? listing.discountPrice.toLocaleString("en-US")
-                : listing.regularPrice.toLocaleString("en-US")}
+            <p className="text-2xl font-semibold ">
+              {listing.name} -{" "}
+              {listing.offer ? (
+                <>
+                  <span className="line-through text-red-600 italic text-xl">
+                    {listing.regularPrice.toLocaleString("en-US")}
+                  </span>{" "}
+                  <span className="text-2xl font-semibold text-green-700 ">
+                    {listing.discountPrice.toLocaleString("en-US")}{" "}
+                  </span>
+                </>
+              ) : (
+                listing.regularPrice.toLocaleString("en-US")
+              )}{" "}
+              EGP
               {listing.type === "rent" && " / month"}
             </p>
             <p className="flex items-center gap-2 text-slate-600  text-sm">
@@ -227,7 +237,8 @@ const ListingDetails = () => {
               {listing.offer && (
                 <p className="bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
                   {Math.round(
-                    (listing.discountPrice * 100) / listing.regularPrice
+                    ((listing.regularPrice - listing.discountPrice) * 100) /
+                      listing.regularPrice
                   )}
                   % OFF
                 </p>
