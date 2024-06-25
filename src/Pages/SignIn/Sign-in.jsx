@@ -12,16 +12,15 @@ import OAuth from "../../Components/OAuth";
 export default function SignIn() {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
-  const { loading, error, token } = useSelector((state) => state.user);
+  const { loading, token } = useSelector((state) => state.user);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  console.log("bye");
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   };
-  console.log("fff");
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -39,18 +38,18 @@ export default function SignIn() {
       );
       const data = await res.json();
 
-      if (data.success === false) {
+      if (!res.ok) {
         dispatch(signInFailure(data.message));
-        return;
+        throw new Error(data.message)
       }
       dispatch(signInSuccess(data));
       navigate("/");
-    } catch (error) {
-      dispatch(signInFailure(error.message));
+    } catch (err) {
+      setError(err.message);
     }
   };
   return (
-    <div className="lg:max-w-5xl sm:max-w-lg mt-28 mb-36 mx-auto bg-fdf5e8 flex flex-col lg:flex-row items-center rounded-2xl min-h-64">
+    <div className="lg:max-w-5xl sm:max-w-lg mt-28 mb-36 mx-auto bg-fdf5e8 flex flex-col lg:flex-row items-center rounded-2xl min-h-64 relative">
       <div className="lg:w-1/2">
         <img
           src="/assets/realestatepicture 2.png"
@@ -96,7 +95,11 @@ export default function SignIn() {
           </Link>
         </div>
       </div>
-      {error && <p className="text-red-500 mt-5">{error}</p>}
+      {error && (
+        <p className="text-red-600 font-semibold absolute right-[65px] lg:right-[50px] bottom-[85px] sm:bottom-[80px] lg:bottom-[58px] text-[12px] sm:text-[16px]">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
