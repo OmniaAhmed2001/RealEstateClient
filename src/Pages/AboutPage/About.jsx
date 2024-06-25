@@ -14,7 +14,7 @@ export default function About() {
             About Us
           </h2>
         </div>
-        <h3 className="text-center text-3xl font-bold mb-8">
+        <h3 className="text-center text-3xl font-bold mb-2">
           Welcome to
           <span>
             <span className="text-ffcb74"> Egy</span>

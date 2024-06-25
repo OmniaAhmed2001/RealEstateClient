@@ -386,7 +386,7 @@ export default function Update_Listing() {
                 </div>
 
                 <div className="flex flex-wrap items-center w-full justify-between gap-2">
-                  <div className="flex my-1 gap-2 mb-4 sm:mb-0">
+                  <div className="flex gap-2 mb-4 sm:mb-0">
                     <input
                       onChange={handleChange}
                       checked={formData.furnished}
