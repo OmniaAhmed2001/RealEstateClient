@@ -13,6 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./UpdateListing.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import RiseLoader from "react-spinners/RiseLoader";
 
 const countryCity = [
   "Alexandria",
@@ -230,9 +231,20 @@ export default function Update_Listing() {
   return (
     <div className="flex justify-center items-center w-full min-h-80">
       {loading ? (
-        <p>loading</p>
+        <div
+          className="flex justify-center items-center"
+          style={{ minHeight: "80vh" }}
+        >
+          <RiseLoader
+            color="#FFB534"
+            loading="true"
+            size={17}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
       ) : (
-        <div className="p-3 lg:max-w-5xl md:max-w-5xl sm:w-full">
+        <div className="lg:max-w-5xl md:max-w-5xl sm:w-full">
           <h2 className="text-4xl	text-center font-semibold my-7">
             Add your Property with <span className="text-[#ffcb74]">Egy</span>
             <span className="text-[#ffb534]">Estate</span>
@@ -288,13 +300,13 @@ export default function Update_Listing() {
             </h2>
             <form
               onSubmit={handleSubmitForm}
-              className=" mt-4 flex flex-col gap-6"
+              className="mt-4 flex flex-col gap-6"
             >
-              <div className="gap-4  flex flex-col flex-1">
-                <div className="flex flex-wrap gap-5 flex-row justify-between">
+              <div className="gap-4 flex flex-col flex-1">
+                <div className="flex flex-wrap gap-6 flex-row justify-between">
                   <input
                     type="text"
-                    className="p-2 rounded-lg lg:w-[50%] md:w-[50%] sm:w-[90%]  border border-slate-200 hover:border-slate-400"
+                    className="p-3 rounded-lg md:w-[50%] w-full border border-slate-200 hover:border-slate-400"
                     placeholder="Name"
                     maxLength="62"
                     minLength="10"
@@ -303,31 +315,25 @@ export default function Update_Listing() {
                     onChange={handleChange}
                     id="name"
                   ></input>
-                  <div className="lg:w-[42%] md:w-[35%] w-full lg:mt-0 md:mt-0 sm:mt-4">
-                    <select
-                      id="listingType"
-                      onChange={handleChange}
-                      value={formData.type}
-                      className="w-full p-3 border border-slate-200 hover:border-slate-400 rounded-lg"
-                    >
-                      <option
-                        disabled
-                        selected
-                        value=""
-                        className="opacity-10 "
-                      >
-                        Listing Type
-                      </option>
-                      <option value="sale">Sale</option>
-                      <option value="rent">Rent</option>
-                    </select>
-                  </div>
+
+                  <select
+                    id="listingType"
+                    onChange={handleChange}
+                    value={formData.type}
+                    className="md:w-[45%] w-full p-2 border border-slate-200 hover:border-slate-400 rounded-lg text-gray-400 font-bold"
+                  >
+                    <option disabled selected value="" className="opacity-10 ">
+                      Listing Type
+                    </option>
+                    <option value="sale">Sale</option>
+                    <option value="rent">Rent</option>
+                  </select>
 
                   <select
                     id="property"
                     onChange={handleChange}
                     value={formData.property}
-                    className="w-full p-3 border border-slate-200 hover:border-slate-400 rounded-lg"
+                    className="w-full p-2 border border-slate-200 hover:border-slate-400 rounded-lg text-gray-400 font-bold"
                   >
                     <option disabled selected value="" className="opacity-10">
                       Property Type
@@ -339,11 +345,11 @@ export default function Update_Listing() {
                     <option value="appartment">Apartment</option>
                   </select>
                 </div>
-                {/* className="p-5 lg:my-4 md:my-4 sm:my-2 rounded-lg lg:w-full md:w-full sm:w-full" */}
+
                 <div className="flex justify-between w-full flex-wrap">
                   <input
                     type="text"
-                    className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400"
+                    className="p-3 my-2 w-full md:w-[50%] rounded-lg border border-slate-200 hover:border-slate-400"
                     placeholder="street"
                     required
                     value={formData.address.street}
@@ -356,7 +362,7 @@ export default function Update_Listing() {
                     id="city"
                     onChange={handleChange}
                     value={formData.address.city}
-                    className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400 text-black"
+                    className="p-2 my-2 w-full md:w-[20%] rounded-lg border border-slate-200 hover:border-slate-400 text-gray-400 font-bold"
                   >
                     <option disabled selected value="" className="opacity-10 ">
                       city
@@ -368,19 +374,9 @@ export default function Update_Listing() {
                     ))}
                   </select>
 
-                  {/* <input
-                    type="text"
-                    className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400"
-                    placeholder="city"
-                    required
-                    value={formData.address.city}
-                    onChange={handleChange}
-                    id="city"
-                  ></input> */}
-
                   <input
                     type="text"
-                    className="py-2 px-3 my-2 rounded-lg border border-slate-200 hover:border-slate-400"
+                    className="p-3 my-2 w-full md:w-[20%] rounded-lg border border-slate-200 hover:border-slate-400"
                     placeholder="country"
                     required
                     value={formData.address.country}
@@ -389,8 +385,8 @@ export default function Update_Listing() {
                   ></input>
                 </div>
 
-                <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-2 items-center lg:w-[90%] md:w-[90%] sm:max-w-full justify-between">
-                  <div className="flex  my-1  gap-2">
+                <div className="flex flex-wrap items-center w-full justify-between gap-2">
+                  <div className="flex my-1 gap-2 mb-4 sm:mb-0">
                     <input
                       onChange={handleChange}
                       checked={formData.furnished}
@@ -400,7 +396,7 @@ export default function Update_Listing() {
                     ></input>
                     <span>Furniture</span>
                   </div>
-                  <div className="flex   gap-2">
+                  <div className="flex gap-2 mb-4 sm:mb-0">
                     <input
                       onChange={handleChange}
                       checked={formData.parking}
@@ -410,7 +406,7 @@ export default function Update_Listing() {
                     ></input>
                     <span>Parking</span>
                   </div>
-                  <div className="flex  gap-2">
+                  <div className="flex gap-2 mb-4 sm:mb-0">
                     <input
                       onChange={handleChange}
                       checked={formData.offer}
@@ -420,7 +416,7 @@ export default function Update_Listing() {
                     ></input>
                     <span>Offer</span>
                   </div>
-                  <div className="flex  gap-2 items-center">
+                  <div className="flex gap-2 items-center">
                     <input
                       type="number"
                       min="1"
@@ -433,7 +429,7 @@ export default function Update_Listing() {
                     ></input>
                     <p>Beds</p>
                   </div>
-                  <div className="flex  justify-center gap-2 items-center">
+                  <div className="flex gap-2 items-center">
                     <input
                       type="number"
                       min="1"
@@ -447,8 +443,8 @@ export default function Update_Listing() {
                     <p>Baths</p>
                   </div>
                 </div>
-                <div className="flex flex-wrap items-center my-5 w-full justify-between">
-                  <div className="flex gap-4 items-center">
+                <div className="flex flex-wrap sm:flex-nowrap items-center my-5 w-full justify-between">
+                  <div className="flex flex-col-reverse items-start gap-2 md:flex-row md:gap-4 md:items-center mb-4 md:mb-0">
                     <input
                       type="number"
                       min="50"
@@ -466,7 +462,7 @@ export default function Update_Listing() {
                     </div>
                   </div>
 
-                  <div className="flex gap-4 items-center">
+                  <div className="flex flex-col-reverse items-start gap-2 md:flex-row md:gap-4 md:items-center mb-4 md:mb-0">
                     <input
                       type="number"
                       min="0"

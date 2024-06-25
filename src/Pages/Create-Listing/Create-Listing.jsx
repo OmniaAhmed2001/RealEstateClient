@@ -60,16 +60,16 @@ export default function CreateListing() {
     offer: false,
     furnished: false,
     parking: false,
-    discountPrice:0,
-    bedrooms:1,
-    bathrooms:1,
-    regularPrice:0
+    discountPrice: 0,
+    bedrooms: 1,
+    bathrooms: 1,
+    regularPrice: 0,
   });
   const { currentUser, token } = useSelector((state) => {
     return state.user;
   });
   const navigate = useNavigate();
-  
+
   const handleImageSubmit = () => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
@@ -132,7 +132,7 @@ export default function CreateListing() {
     });
   };
   const handleChange = (e) => {
-    console.log(e.target.id, e.target.value,formData);
+    console.log(e.target.id, e.target.value, formData);
     if (e.target.id === "listingType") {
       setFormData({ ...formData, type: e.target.value });
     } else if (e.target.id === "property") {
@@ -159,16 +159,11 @@ export default function CreateListing() {
           [e.target.id]: e.target.value, // Update inside address object
         },
       });
-    } else if (
-      e.target.type === "text" ||
-      e.target.type === "textarea"
-    ) {
+    } else if (e.target.type === "text" || e.target.type === "textarea") {
       setFormData({ ...formData, [e.target.id]: e.target.value });
-    } else if (
-      e.target.type === "number" 
-    ) {
+    } else if (e.target.type === "number") {
       setFormData({ ...formData, [e.target.id]: +e.target.value });
-    } 
+    }
   };
   const handleSubmitForm = async (e) => {
     e.preventDefault();
@@ -216,7 +211,7 @@ export default function CreateListing() {
     }
   };
   return (
-    <div className="p-3 lg:max-w-5xl md:max-w-5xl sm:w-full min-h-screen">
+    <div className="lg:max-w-5xl md:max-w-5xl sm:w-full min-h-screen">
       <h2 className="text-4xl	text-center font-semibold my-7">
         Add your Property with <span className="text-[#ffcb74]">Egy</span>
         <span className="text-[#ffb534]">Estate</span>
@@ -271,11 +266,11 @@ export default function CreateListing() {
           Fill The Form
         </h2>
         <form onSubmit={handleSubmitForm} className=" mt-4 flex flex-col gap-6">
-          <div className="gap-4  flex flex-col flex-1">
-            <div className="flex flex-wrap gap-5 flex-row justify-between">
+          <div className="gap-4 flex flex-col flex-1">
+            <div className="flex flex-wrap gap-6 flex-row justify-between">
               <input
                 type="text"
-                className="p-3 rounded-lg md:w-6/12 sm:w-full border border-slate-200 hover:border-slate-400"
+                className="p-3 rounded-lg md:w-[50%] w-full border border-slate-200 hover:border-slate-400"
                 placeholder="Name"
                 maxLength="62"
                 minLength="10"
@@ -284,19 +279,22 @@ export default function CreateListing() {
                 onChange={handleChange}
                 id="name"
               ></input>
-              
-                <select
-                  id="listingType"
-                  onChange={handleChange}
-                  className="md:w-5/12 sm:w-full p-2 border border-slate-200 hover:border-slate-400 rounded-lg text-gray-400 font-bold"
-                >
-                  <option disabled selected value="" className="opacity-10 ">
-                    Listing Type
-                  </option>
-                  <option className=" text-black" value="sale">Sale</option>
-                  <option className=" text-black" value="rent">Rent</option>
-                </select>
-             
+
+              <select
+                id="listingType"
+                onChange={handleChange}
+                className="md:w-[45%] w-full p-2 border border-slate-200 hover:border-slate-400 rounded-lg text-gray-400 font-bold"
+              >
+                <option disabled selected value="" className="opacity-10 ">
+                  Listing Type
+                </option>
+                <option className=" text-black" value="sale">
+                  Sale
+                </option>
+                <option className=" text-black" value="rent">
+                  Rent
+                </option>
+              </select>
 
               <select
                 id="property"
@@ -306,17 +304,28 @@ export default function CreateListing() {
                 <option disabled selected value="" className="opacity-10">
                   Property Type
                 </option>
-                <option className=" text-black" value="cottage">Cottage</option>
-                <option className=" text-black" value="villa">Villa</option>
-                <option className=" text-black" value="penthouse">Penthouse</option>
-                <option className=" text-black" value="studio">Studio</option>
-                <option className=" text-black" value="appartment">Apartment</option>
+                <option className=" text-black" value="cottage">
+                  Cottage
+                </option>
+                <option className=" text-black" value="villa">
+                  Villa
+                </option>
+                <option className=" text-black" value="penthouse">
+                  Penthouse
+                </option>
+                <option className=" text-black" value="studio">
+                  Studio
+                </option>
+                <option className=" text-black" value="appartment">
+                  Apartment
+                </option>
               </select>
             </div>
-            <div className="flex justify-between w-full flex-wrap">
+            
+            <div className="flex justify-between  w-full flex-wrap">
               <input
                 type="text"
-                className="p-3 my-2 w-full md:w-3/12 rounded-lg border border-slate-200 hover:border-slate-400"
+                className="p-3 my-2 w-full md:w-[50%] rounded-lg border border-slate-200 hover:border-slate-400"
                 placeholder="Street"
                 required
                 value={formData.address.street}
@@ -328,7 +337,7 @@ export default function CreateListing() {
               <select
                 id="city"
                 onChange={handleChange}
-                className="p-2 my-2 w-full md:w-3/12 rounded-lg border border-slate-200 hover:border-slate-400 text-gray-400 font-bold"
+                className="p-2 my-2 w-full md:w-[20%] rounded-lg border border-slate-200 hover:border-slate-400 text-gray-400 font-bold"
               >
                 <option disabled selected value="" className="opacity-10 ">
                   City
@@ -341,7 +350,7 @@ export default function CreateListing() {
               </select>
               <input
                 type="text"
-                className="p-3 my-2 w-full md:w-3/12 rounded-lg border border-slate-200 hover:border-slate-400"
+                className="p-3 my-2 w-full md:w-[20%] rounded-lg border border-slate-200 hover:border-slate-400"
                 placeholder="Country"
                 required
                 value={formData.address.country}
@@ -350,8 +359,8 @@ export default function CreateListing() {
               ></input>
             </div>
 
-            <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-3 items-center lg:w-[90%] md:w-[90%] sm:max-w-full justify-between">
-              <div className="flex my-1 gap-2">
+            <div className="flex flex-wrap items-center w-full justify-between gap-2">
+              <div className="flex my-1 gap-2 mb-4 sm:mb-0">
                 <input
                   onChange={handleChange}
                   checked={formData.furnished}
@@ -361,7 +370,7 @@ export default function CreateListing() {
                 />
                 <span>Furniture</span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 mb-4 sm:mb-0">
                 <input
                   onChange={handleChange}
                   checked={formData.parking}
@@ -371,7 +380,7 @@ export default function CreateListing() {
                 />
                 <span>Parking</span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 mb-4 sm:mb-0">
                 <input
                   onChange={handleChange}
                   checked={formData.offer}
@@ -381,40 +390,37 @@ export default function CreateListing() {
                 />
                 <span>Offer</span>
               </div>
-              <div className="flex gap-2 items-center justify-center">
-                <div className="flex gap-6">
-                  <div className="flex gap-2 items-center">
-                    <input
-                      type="number"
-                      min="1"
-                      max="10"
-                      id="bedrooms"
-                      required
-                      className="w-16 h-10 p-3 border border-gray-300 rounded-lg"
-                      onChange={handleChange}
-                      value={formData.bedrooms}
-                    />
-                    <p>Beds</p>
-                  </div>
-                  <div className="flex gap-2 items-center">
-                    <input
-                      type="number"
-                      min="1"
-                      max="10"
-                      id="bathrooms"
-                      required
-                      className="w-16 p-3 border border-gray-300 rounded-lg h-10"
-                      onChange={handleChange}
-                      value={formData.bathrooms}
-                    />
-                    <p>Baths</p>
-                  </div>
-                </div>
+
+              <div className="flex gap-2 items-center">
+                <input
+                  type="number"
+                  min="1"
+                  max="10"
+                  id="bedrooms"
+                  required
+                  className="w-16 h-10 p-3 border border-gray-300 rounded-lg"
+                  onChange={handleChange}
+                  value={formData.bedrooms}
+                />
+                <p>Beds</p>
+              </div>
+              <div className="flex gap-2 items-center">
+                <input
+                  type="number"
+                  min="1"
+                  max="10"
+                  id="bathrooms"
+                  required
+                  className="w-16 p-3 border border-gray-300 rounded-lg h-10"
+                  onChange={handleChange}
+                  value={formData.bathrooms}
+                />
+                <p>Baths</p>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center my-5 w-full justify-between">
-              <div className="flex gap-4 items-center">
+            <div className="flex flex-wrap sm:flex-nowrap items-center my-5 w-full justify-between">
+              <div className="flex flex-col-reverse items-start gap-2 md:flex-row md:gap-4 md:items-center mb-4 md:mb-0">
                 <input
                   type="number"
                   min="50"
@@ -432,7 +438,7 @@ export default function CreateListing() {
                 </div>
               </div>
 
-              <div className="flex gap-4 items-center">
+              <div className="flex flex-col-reverse items-start gap-2 md:flex-row md:gap-4 md:items-center mb-4 md:mb-0">
                 <input
                   type="number"
                   min="0"

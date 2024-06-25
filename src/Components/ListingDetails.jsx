@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { useSelector } from "react-redux";
@@ -18,13 +23,12 @@ import {
 import Contact from "./Contact";
 import Review from "./Review";
 import RiseLoader from "react-spinners/RiseLoader";
+import Error from "./Error";
 
 const removeParamsFromUrl = () => {
   const urlWithoutParams = window.location.pathname;
   window.history.replaceState({}, document.title, urlWithoutParams);
 };
-
-
 
 const ListingDetails = () => {
   SwiperCore.use([Navigation]);
@@ -161,7 +165,8 @@ const ListingDetails = () => {
         </div>
       )}
       {error && (
-        <p className="text-center my-7 text-2xl">Something went wrong</p>
+        <Navigate to="/not-found"/>
+        // <p className="text-center my-7 text-2xl">Something went wrong</p>
       )}
       {listing && !loading && !error && (
         <div>

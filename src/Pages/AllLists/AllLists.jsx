@@ -91,7 +91,7 @@ export default function AllLists() {
             return (
               <div
                 key={listing._id}
-                className="text-center bg-[#FEFBF6] shadow-lg w-7/12 sm:w-4/12 xl:w-3/12 rounded-xl overflow-hidden"
+                className="text-center bg-[#FEFBF6] shadow-lg w-8/12 sm:w-5/12 lg:w-3/12 rounded-xl overflow-hidden"
               >
                 <img
                   src={listing.imageUrls[0]}
@@ -110,7 +110,7 @@ export default function AllLists() {
                     </div>
                     <div className="flex gap-2 items-center self-start mb-2">
                       <i className="fa-solid fa-money-bill text-green-600"></i>
-                      <p className="text-left">{listing.regularPrice}$</p>
+                      <p className="text-left">{listing.regularPrice}$ {listing.type === "rent" && "/month"}</p>
                     </div>
                   </div>
                   <div className="flex justify-between mt-2">

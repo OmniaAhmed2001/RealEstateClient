@@ -6,7 +6,7 @@ const ErrorPage = () => {
    <div className="bg-[#FDD100] flex flex-col items-center justify-center h-screen">
         <div className="h-4/5">
         <img
-            src="public/assets/error.jpg"
+            src="/assets/error.jpg"
             alt="Error"
             className="max-w-full max-h-full"
         />
